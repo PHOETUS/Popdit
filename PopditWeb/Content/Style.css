@@ -1,0 +1,107 @@
+html { height: 100%; }
+body
+{
+    height: 100%;
+    background-color: #ffffff;
+    /* background-image: url("bubble.jpg"); 
+    background-size: cover; */
+    color: #000000;
+    font-family: Verdana, sans-serif;
+    /* font-variant-caps:small-caps; */
+    letter-spacing: 2px;
+    margin: 0px;
+}
+span.logo
+{
+    font-size: xx-large;
+}
+div { box-sizing: border-box; }
+div.main
+{
+    height: 100%;
+    width: 100%;
+    display: table;
+}
+div.menubar
+{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 40px;
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+div.menuitem
+{
+    height: 100%;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+div.content
+{
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    padding-top: 50px;
+}
+div.select
+{
+    background-color:#FFFFFF;
+    height: 24px;
+    width: 100%;
+    padding-top: 2px;
+}   
+table { border-collapse: collapse;}
+td { padding: 0px; }
+table.content
+{
+    margin: auto;
+    width: 320px;
+    text-align: center;
+}
+table.content td { padding: 2px; }
+tr.form td { letter-spacing:normal; }
+tr.form td:first-child { text-align: right; }
+tr.item
+{
+    border: solid thin #AAAAAA;
+    background-color: #ffffff;
+}
+tr.header td { padding: 4px; }
+tr.detail { display: none; }
+td.left { text-align: left; }
+td.pagetitle { font-size: 1.2em; }
+select
+{
+    width: 100%;
+    font-size: inherit;
+    font-family: inherit;
+    box-sizing: border-box;
+    border: none;
+    width: 100%;
+}
+input
+{
+    width: 100%;
+    font-size: inherit;
+    font-family: inherit;
+    box-sizing: border-box;
+    margin: 0px;
+    padding-left: 2px;
+}
+input.button
+{
+    -webkit-appearance: button;
+    background-color: #AAAAAA;
+    color: #000011;
+}
+.button.bold { font-family: "Copperplate Gothic Bold"; }
+input.checkbox { width: 13px; }
+
+a 
+{ 
+    text-decoration: none; 
+    color: blue;
+}

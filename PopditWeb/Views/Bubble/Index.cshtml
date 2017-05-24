@@ -1,0 +1,67 @@
+﻿@model List<PopditWeb.Models.BubbleData>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    function OpenDiv(id)
+    {
+        // Show all the headers.
+        var toHide = document.getElementsByClassName('header');
+        for (var i = 0; i < toHide.length; i++) { toHide[i].style.display = "table-row"; }
+        // Hide this header
+        document.getElementById("header" + id).style.display = "none";
+        // Hide all the details.
+        var toHide = document.getElementsByClassName('detail');
+        for (var i = 0; i < toHide.length; i++) { toHide[i].style.display = "none"; }
+        // Show this detail.
+        document.getElementById("detail" + id).style.display = "table-row";
+    }
+</script>
+
+<div class="content">
+    <table id="content" class="content">
+        <tr>
+            <td><span class=logo>@PageData["SiteName"]</span></td>
+        </tr>
+        <tr>
+            <td>@PageData["Tagline"]</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="pagetitle">Bubbles</td>
+        </tr>
+        <tr class="item header">
+            <td width="*">&middot; Search &middot;</td>
+        </tr>
+        <tr class="item header">
+            <td width="*">&middot; Create a new bubble &middot;</td>
+        </tr>
+        @for (var i = 0; i < Model.Count(); i++)
+        {
+            <tr class="item header" id="@("header" + Model[i].Id)">
+                <td><span onclick="OpenDiv(@Model[i].Id)">@Model[i].Name</span></td>
+            </tr>
+            <tr class="item detail" id="@("detail" + Model[i].Id)">
+                <td>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.HiddenFor(m => m[i].Id)
+                    <table class="content">
+                        <tr><td colspan="2">@Model[i].Name</td></tr>
+                        <tr class="form"><td>Name</td><td>@Html.TextBoxFor(m => m[i].Name)</td></tr>
+                        <tr class="form"><td>Bubbler</td><td>@Html.TextBoxFor(m => m[i].ProfileId)</td></tr>
+                        <tr class="form"><td>Latitude</td><td>@Html.TextBoxFor(m => m[i].Latitude)</td></tr>
+                        <tr class="form"><td>Longitude</td><td>@Html.TextBoxFor(m => m[i].Longitude)</td></tr>
+                        <tr class="form"><td>Active</td><td class="left">@Html.CheckBoxFor(m => m[i].Active, new { @class = "checkbox" })</td></tr>
+                        <tr><td></td><td><input type="submit" value="Update bubble" /></td></tr>
+                    </table>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>

@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="content">
+    <table id="content" class="content">
+        <tr>
+            <td><span class=logo>@PageData["SiteName"]</span></td>
+        </tr>
+        <tr>
+            <td>@PageData["Tagline"]</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="pagetitle">More</td>
+        </tr>
+        <tr>
+            <td>History</td>
+        </tr>
+        <tr>
+            <td>Metrics</td>
+        </tr>
+        <tr>
+            <td>@Html.ActionLink("Contact", "Contact", "More")</td>
+        </tr>
+        <tr>
+            <td>@Html.ActionLink("About", "About", "More")</td>
+        </tr>
+    </table>
+</div>

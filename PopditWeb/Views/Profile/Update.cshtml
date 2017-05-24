@@ -1,0 +1,51 @@
+﻿
+@model PopditWeb.Models.ProfileData
+<!-- Newtonsoft.Json.Linq.JObject -->
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="content">
+    @using (Html.BeginForm())
+    {
+        <table id="content" class="content">
+            <tr>
+                <td colspan="2"><span class=logo>@PageData["SiteName"]</span></td>
+            </tr>
+            <tr>
+                <td colspan="2">@PageData["Tagline"]</td>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="pagetitle" colspan="2">Profile</td>
+            </tr>
+            <tr class="form">
+                <td>Phone</td>
+                <td>@Html.TextBoxFor(m => m.Phone)</td>
+            </tr>
+            <tr class="form">
+                <td>Password</td>
+                <td>@Html.TextBoxFor(m => m.Password)</td>
+            </tr>
+            <tr class="form">
+                <td>Nickname</td>
+                <td>@Html.TextBoxFor(m => m.Nickname)</td>
+            </tr>
+            <tr class="form">
+                <td>Email</td>
+                <td>@Html.TextBoxFor(m => m.Email)</td>
+            </tr>
+            <tr class="form">
+                <td>Callback</td>
+                <td>@Html.TextBoxFor(m => m.Callback)</td>
+            </tr>
+            <tr>
+                <td>@Html.HiddenFor(m => m.Id)</td>
+                <td><input type="submit" value="Update profile" /></td>
+            </tr>
+        </table>
+    }
+    </div>
