@@ -71,7 +71,7 @@ namespace PopditCore.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        // POST: Trip/Edit/5
+        // POST: Bubble/Update/5
         [HttpPost]
         public ActionResult Update(int id)
         {
