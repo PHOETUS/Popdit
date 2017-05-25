@@ -1,86 +1,120 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Newtonsoft.Json.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Description;
 using PopditCore.Models;
-using System.Diagnostics;
 
 namespace PopditCore.Controllers
 {
-    public class ProfileController : Controller
+    public class ProfileController : ApiController
     {
-        public ProfileController() : base() { }
+        private PopditDBEntities db = new PopditDBEntities();
 
-        // POST: Profile/Create
-        [HttpPost]
-        public ActionResult Create()
+        /*
+        // GET: api/Profile
+        public IQueryable<Profile> GetProfiles()
         {
+            return db.Profiles;
+        }
+        */
+
+        // GET: api/Profile/5
+        [ResponseType(typeof(Profile))]
+        public IHttpActionResult GetProfile(int id)
+        {
+            Profile profile = db.Profiles.Find(id);
+            if (profile == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(profile);
+        }
+
+        // PUT: api/Profile/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutProfile(int id, Profile profile)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != profile.Id)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(profile).State = EntityState.Modified;
+
             try
             {
-                //TBD
-
-                return RedirectToAction("Index");
+                db.SaveChanges();
             }
-            catch
+            catch (DbUpdateConcurrencyException)
             {
-                return View();
+                if (!ProfileExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
+
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // GET: Profile/Read/5
-        public ActionResult Read(int id)
+        // POST: api/Profile
+        [ResponseType(typeof(Profile))]
+        public IHttpActionResult PostProfile(Profile profile)
         {
-            Profile r = mContext.Profiles.Single(e => (e.Id == id));
-            // Password is deliberately omitted below.
-            return Json(new {
-                r.Id,
-                r.Nickname,
-                r.Email,
-                r.Phone,
-                r.CallbackAddress,
-                DOB = r.DOB.GetValueOrDefault().ToString("d"),
-                Male = r.Male,
-                r.RadiusId,
-                r.Radius.Description
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        // POST: Profile/Update
-        [HttpPost]
-        public ActionResult Update()
-        {
-            // Parse JSON from request.
-            Request.InputStream.Position = 0;
-            string json = new System.IO.StreamReader(Request.InputStream).ReadToEnd();
-            JObject j = JObject.Parse(json);
-
-            // Get Profile.
-            int id = Int32.Parse(j["Id"].ToString());
-            Profile pro = mContext.Profiles.Single(p => p.Id == id);
-
-            // Update Profile.
-            pro.Phone = (string)j["Phone"] ?? ""; // Unsettable
-            pro.Password = (string)j["Password"] ?? pro.Password;
-            pro.Nickname = (string)j["Nickname"] ?? pro.Nickname;
-            pro.Email = (string)j["Email"] ?? pro.Email;
-            pro.CallbackAddress = (string)j["Callback"] ?? ""; // Unsettable
-
-            // Save changes.
-            mContext.SaveChanges();
-
-            // Return status.
-            return Json(new
+            if (!ModelState.IsValid)
             {
-                STATUS = 0
-            }, JsonRequestBehavior.AllowGet);
+                return BadRequest(ModelState);
+            }
+
+            db.Profiles.Add(profile);
+            db.SaveChanges();
+
+            return CreatedAtRoute("DefaultApi", new { id = profile.Id }, profile);
         }
 
-        // GET: Profile/Delete/5
-        public ActionResult Delete(int id)
+        // DELETE: api/Profile/5
+        [ResponseType(typeof(Profile))]
+        public IHttpActionResult DeleteProfile(int id)
         {
-            return View();
+            Profile profile = db.Profiles.Find(id);
+            if (profile == null)
+            {
+                return NotFound();
+            }
+
+            db.Profiles.Remove(profile);
+            db.SaveChanges();
+
+            return Ok(profile);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private bool ProfileExists(int id)
+        {
+            return db.Profiles.Count(e => e.Id == id) > 0;
         }
     }
 }

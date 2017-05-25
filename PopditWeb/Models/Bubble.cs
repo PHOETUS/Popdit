@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PopditCore.Models
+namespace PopditWeb.Models
 {
     using System;
     using System.Collections.Generic;

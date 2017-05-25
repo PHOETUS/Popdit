@@ -7,53 +7,50 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PopditCore.Models
+namespace PopditWeb.Models
 {
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     [DataContract]
-    public partial class Bubble
+    public partial class Profile
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Bubble()
+        public Profile()
         {
+            this.Bubbles = new HashSet<Bubble>();
             this.Events = new HashSet<Event>();
+            this.Filters = new HashSet<Filter>();
         }
     
         [DataMember]
         public int Id { get; set; }
         [DataMember]
-        public int ProfileId { get; set; }
+        public string Nickname { get; set; }
         [DataMember]
-        public string Name { get; set; }
+        public string Email { get; set; }
         [DataMember]
-        public int CategoryId { get; set; }
+        public string Password { get; set; }
         [DataMember]
-        public decimal Latitude { get; set; }
-        public Nullable<decimal> MinLatitude { get; set; }
-        public Nullable<decimal> MaxLatitude { get; set; }
+        public string Phone { get; set; }
         [DataMember]
-        public decimal Longitude { get; set; }
-        public Nullable<decimal> MaxLongitude { get; set; }
-        public Nullable<decimal> MinLongitude { get; set; }
+        public string CallbackAddress { get; set; }
         [DataMember]
-        public Nullable<int> AddressId { get; set; }
+        public Nullable<int> RadiusId { get; set; }
         [DataMember]
-        public string AlertMsg { get; set; }
+        public Nullable<System.DateTime> DOB { get; set; }
         [DataMember]
-        public int RadiusId { get; set; }
-        [DataMember]
-        public int ScheduleId { get; set; }
-        [DataMember]
-        public bool Active { get; set; }
+        public Nullable<bool> Male { get; set; }
+        public System.DateTime LastSignIn { get; set; }
+        public System.DateTime Created { get; set; }
     
-        public virtual Address Address { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bubble> Bubbles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Event> Events { get; set; }
-        public virtual Category Category { get; set; }
-        public virtual Profile Profile { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Filter> Filters { get; set; }
         public virtual Radius Radius { get; set; }
     }
 }

@@ -1,33 +1,135 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Description;
 using PopditCore.Models;
 
 namespace PopditCore.Controllers
 {
-    public class CountryController : Controller
+    public class CountryController : ApiController
     {
-        // GET: Country 
-        public ActionResult Index()
+        private PopditDBEntities db = new PopditDBEntities();
+
+        // GET: api/Country
+        public IQueryable<Country> GetCountries()
         {
-            return Json(mContext.Countries.Select(r => new
-            {
-                r.Id,
-                r.Name
-            }), JsonRequestBehavior.AllowGet);
+            return db.Countries;
         }
 
-        // GET: Country/Read/5
-        public ActionResult Read(int id)
+        // GET: api/Country/5
+        [ResponseType(typeof(Country))]
+        public IHttpActionResult GetCountry(int id)
         {
-            Models.Country r = mContext.Countries.Single(e => (e.Id == id));
-            return Json(new
+            Country country = db.Countries.Find(id);
+            if (country == null)
             {
-                r.Id,
-                r.Name
-            }, JsonRequestBehavior.AllowGet);
+                return NotFound();
+            }
+
+            return Ok(country);
+        }
+
+        /*
+        // PUT: api/Country/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutCountry(int id, Country country)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != country.Id)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(country).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CountryExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        // POST: api/Country
+        [ResponseType(typeof(Country))]
+        public IHttpActionResult PostCountry(Country country)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            db.Countries.Add(country);
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                if (CountryExists(country.Id))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return CreatedAtRoute("DefaultApi", new { id = country.Id }, country);
+        }
+
+        // DELETE: api/Country/5
+        [ResponseType(typeof(Country))]
+        public IHttpActionResult DeleteCountry(int id)
+        {
+            Country country = db.Countries.Find(id);
+            if (country == null)
+            {
+                return NotFound();
+            }
+
+            db.Countries.Remove(country);
+            db.SaveChanges();
+
+            return Ok(country);
+        }
+        */
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private bool CountryExists(int id)
+        {
+            return db.Countries.Count(e => e.Id == id) > 0;
         }
     }
 }

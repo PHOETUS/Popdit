@@ -10,24 +10,20 @@ using Newtonsoft.Json;
 using System.Text;
 using System.IO;
 using System.Diagnostics;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Net.Http.Headers;
+using System.Runtime.Serialization.Json;
 
 namespace PopditWeb.Controllers
 {
     public class FilterController : Controller
     {
-        // GET: Filter
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            InitializeList("Filter", null);
-            List<Models.FilterData> fdList = new List<Models.FilterData>();
-            foreach (JObject j in mObjectList)
-            {
-                Models.FilterData fd = new Models.FilterData();
-                fd.Id = Int32.Parse((string)j["Id"]);
-                fd.Name = (string)j["Name"];
-                fdList.Add(fd);
-            }
-            return View(fdList);
+            Stream json = await GetApiData("api/Filter");
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<Models.Filter>));
+            return View((List<Models.Filter>)serializer.ReadObject(json));
         }
 
         // GET: Filter/Read/5
@@ -101,5 +97,30 @@ namespace PopditWeb.Controllers
                 return View();
             }
         }
+
+        /*
+        // GET: Filter
+        public Task<ActionResult> Index()
+        {
+            List<Filter> listFilter = await GetFilters();
+            return View(listFilter);            
+        }
+        */
+
+        /*
+        public ActionResult Index()
+        {
+            InitializeList("Filter", null);
+            List<Models.FilterData> fdList = new List<Models.FilterData>();
+            foreach (JObject j in mObjectList)
+            {
+                Models.FilterData fd = new Models.FilterData();
+                fd.Id = Int32.Parse((string)j["Id"]);
+                fd.Name = (string)j["Name"];
+                fdList.Add(fd);
+            }
+            return View(fdList);
+        }
+        */
     }
 }

@@ -11,7 +11,9 @@ namespace PopditCore.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract]
     public partial class Radius
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,9 +24,13 @@ namespace PopditCore.Models
             this.Profiles = new HashSet<Profile>();
         }
     
+        [DataMember]
         public int Id { get; set; }
+        [DataMember]
         public string Description { get; set; }
+        [DataMember]
         public int Meters { get; set; }
+        [DataMember]
         public decimal Degrees { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

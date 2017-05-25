@@ -10,16 +10,24 @@
 namespace PopditCore.Models
 {
     using System;
-    using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract]
     public partial class Filter
     {
+        [DataMember]
         public int Id { get; set; }
+        [DataMember]
         public string Name { get; set; }
+        [DataMember]
         public int ProfileId { get; set; }
+        [DataMember]
         public Nullable<int> CategoryId { get; set; }
+        [DataMember]
         public Nullable<int> ScheduleId { get; set; }
+        [DataMember]
         public int RadiusId { get; set; }
+        [DataMember]
         public bool Active { get; set; }
     
         public virtual Category Category { get; set; }

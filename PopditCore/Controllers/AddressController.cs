@@ -1,69 +1,115 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Description;
 using PopditCore.Models;
 
 namespace PopditCore.Controllers
 {
-    public class AddressController : Controller
+    public class AddressController : ApiController
     {
-        public AddressController() : base() { }
+        private PopditDBEntities db = new PopditDBEntities();
 
-        // POST: Address/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        // GET: api/Address
+        // public IQueryable<Address> GetAddresses() { return db.Addresses; }
+
+        // GET: api/Address/5
+        [ResponseType(typeof(Address))]
+        public IHttpActionResult GetAddress(int id)
         {
+            Address address = db.Addresses.Find(id);
+            if (address == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(address);
+        }
+
+        // PUT: api/Address/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutAddress(int id, Address address)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != address.Id)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(address).State = EntityState.Modified;
+
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                db.SaveChanges();
             }
-            catch
+            catch (DbUpdateConcurrencyException)
             {
-                return View();
+                if (!AddressExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
+
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // GET: Address/Read/5
-        public ActionResult Read(int id)
+        // POST: api/Address
+        [ResponseType(typeof(Address))]
+        public IHttpActionResult PostAddress(Address address)
         {
-            Address r = mContext.Addresses.Single(e => (e.Id == id));
-            return Json(new {
-                r.Id,
-                r.Street1,
-                r.Street2,
-                r.City,
-                r.StateId,
-                State = r.State.Name,
-                r.Zip,
-                r.CountryId,
-                Country = r.Country.Name
-            }, JsonRequestBehavior.AllowGet);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            db.Addresses.Add(address);
+            db.SaveChanges();
+
+            return CreatedAtRoute("DefaultApi", new { id = address.Id }, address);
         }
 
-        // POST: Address/Update
-        [HttpPost]
-        public ActionResult Update()
+        // DELETE: api/Address/5
+        [ResponseType(typeof(Address))]
+        public IHttpActionResult DeleteAddress(int id)
         {
-            try
+            Address address = db.Addresses.Find(id);
+            if (address == null)
             {
-                // TODO: Add update logic here
+                return NotFound();
+            }
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            db.Addresses.Remove(address);
+            db.SaveChanges();
+
+            return Ok(address);
         }
 
-        // GET: Address/Delete/5
-        public ActionResult Delete(int id)
+        protected override void Dispose(bool disposing)
         {
-            return View();
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private bool AddressExists(int id)
+        {
+            return db.Addresses.Count(e => e.Id == id) > 0;
         }
     }
 }

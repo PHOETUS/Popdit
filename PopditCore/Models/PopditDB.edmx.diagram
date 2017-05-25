@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="30a239e7f5d341dfb422d66e19e9f777" Name="Diagram1">
+      <Diagram DiagramId="55c3bd01f68c477893c1a3240c2949e6" Name="Diagram1">
         <EntityTypeShape EntityType="PopditDBModel.Address" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="PopditDBModel.Bubble" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PopditDBModel.Category" Width="1.5" PointX="3" PointY="11.625" IsExpanded="true" />

@@ -7,17 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PopditCore.Models
+namespace PopditWeb.Models
 {
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     [DataContract]
-    public partial class Country
+    public partial class State
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Country()
+        public State()
         {
             this.Addresses = new HashSet<Address>();
         }
@@ -27,13 +27,7 @@ namespace PopditCore.Models
         [DataMember]
         public string Name { get; set; }
         [DataMember]
-        public string ISO { get; set; }
-        [DataMember]
-        public string ISO3 { get; set; }
-        [DataMember]
-        public Nullable<short> Numcode { get; set; }
-        [DataMember]
-        public short Phonecode { get; set; }
+        public string Code { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Address> Addresses { get; set; }

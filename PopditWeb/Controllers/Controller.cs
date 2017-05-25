@@ -8,12 +8,40 @@ using System.Net;
 using System.Text;
 using System.IO;
 using System.Diagnostics;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Net.Http.Headers;
+using System.Runtime.Serialization.Json;
 
 namespace PopditWeb.Controllers
 {
     public class Controller : System.Web.Mvc.Controller
     {
         protected List<JToken> mObjectList;
+
+        protected List<Object> mList;
+
+        protected async Task<Stream> GetApiData(string servicePath)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("http://localhost:81/");
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(servicePath));
+
+                    HttpResponseMessage response = await client.GetAsync("api/Filter").ConfigureAwait(false);
+                    Stream json = response.Content.ReadAsStreamAsync().Result;
+                    return json;
+                }
+            }
+            catch (Exception e)
+            {
+                // TBD - Handle error
+                return null;
+            }
+        }
 
         protected void InitializeList(string serviceAddress, string json)
         {

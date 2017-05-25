@@ -7,29 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PopditCore.Models
+namespace PopditWeb.Models
 {
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     [DataContract]
-    public partial class State
+    public partial class Event
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public State()
-        {
-            this.Addresses = new HashSet<Address>();
-        }
-    
         [DataMember]
         public int Id { get; set; }
+        [DataMember]        
+        public int ProfileId { get; set; }
         [DataMember]
-        public string Name { get; set; }
+        public int TripId { get; set; }
         [DataMember]
-        public string Code { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Address> Addresses { get; set; }
+        public System.DateTime Timestamp { get; set; }
+
+        public virtual Bubble Bubble { get; set; }
+        public virtual Profile Profile { get; set; }
     }
 }

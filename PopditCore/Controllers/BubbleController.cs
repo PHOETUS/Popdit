@@ -1,96 +1,118 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Description;
 using PopditCore.Models;
 
 namespace PopditCore.Controllers
 {
-    public class BubbleController : Controller
+    public class BubbleController : ApiController
     {
-        // POST: Bubble/Create
-        [HttpPost]
-        public ActionResult Create()
+        private PopditDBEntities db = new PopditDBEntities();
+
+        // GET: api/Bubble
+        public IQueryable<Bubble> GetBubbles()
         {
+            return db.Bubbles;
+        }
+
+        // GET: api/Bubble/5
+        [ResponseType(typeof(Bubble))]
+        public IHttpActionResult GetBubble(int id)
+        {
+            Bubble bubble = db.Bubbles.Find(id);
+            if (bubble == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(bubble);
+        }
+
+        // PUT: api/Bubble/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutBubble(int id, Bubble bubble)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != bubble.Id)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(bubble).State = EntityState.Modified;
+
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Read");
+                db.SaveChanges();
             }
-            catch
+            catch (DbUpdateConcurrencyException)
             {
-                return View();
+                if (!BubbleExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
+
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // GET: Bubble
-        public ActionResult Index()
+        // POST: api/Bubble
+        [ResponseType(typeof(Bubble))]
+        public IHttpActionResult PostBubble(Bubble bubble)
         {
-            return Json(mContext.Bubbles.Select(r => new
+            if (!ModelState.IsValid)
             {
-                r.Id,
-                r.Name,
-                r.ProfileId,
-                r.Profile.Nickname,
-                r.CategoryId,
-                Category = r.Category.Description,
-                r.ScheduleId,
-                r.RadiusId,
-                Radius = r.Radius.Description,
-                r.Active
-            }).OrderBy(r => r.Name), JsonRequestBehavior.AllowGet);
-        }
-
-        // GET: Bubble/Read/5
-        public ActionResult Read(int id)
-        {
-            Bubble r = mContext.Bubbles.Single(e => (e.Id == id));
-
-            return Json(new
-            {
-                r.Id,
-                r.Name,
-                r.CategoryId,
-                r.Category.Description,
-                r.AddressId,
-                r.Street1,
-                r.Street2,
-                r.CitySateZip,
-                r.Country,
-                r.Latitude,
-                r.Longitude,
-                r.RadiusId,
-                Radius = r.Radius.Description,
-                r.AlertMsg,
-                r.ProfileId,
-                r.Profile.Nickname,
-                r.ScheduleId,
-                r.Active
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        // POST: Bubble/Update/5
-        [HttpPost]
-        public ActionResult Update(int id)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Read");
+                return BadRequest(ModelState);
             }
-            catch
-            {
-                return View();
-            }
+
+            db.Bubbles.Add(bubble);
+            db.SaveChanges();
+
+            return CreatedAtRoute("DefaultApi", new { id = bubble.Id }, bubble);
         }
 
-        // GET: Trip/Delete/5
-        public ActionResult Delete(int id)
+        // DELETE: api/Bubble/5
+        [ResponseType(typeof(Bubble))]
+        public IHttpActionResult DeleteBubble(int id)
         {
-            return View();
+            Bubble bubble = db.Bubbles.Find(id);
+            if (bubble == null)
+            {
+                return NotFound();
+            }
+
+            db.Bubbles.Remove(bubble);
+            db.SaveChanges();
+
+            return Ok(bubble);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private bool BubbleExists(int id)
+        {
+            return db.Bubbles.Count(e => e.Id == id) > 0;
         }
     }
 }
