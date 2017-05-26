@@ -21,7 +21,7 @@ namespace PopditWeb.Controllers
 
         protected List<Object> mList;
 
-        protected async Task<Stream> GetApiData(string servicePath)
+        protected async Task<Stream> WebApiGet(string servicePath)
         {
             try
             {
@@ -29,11 +29,32 @@ namespace PopditWeb.Controllers
                 {
                     client.BaseAddress = new Uri("http://localhost:81/");
                     client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(servicePath));
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    HttpResponseMessage response = await client.GetAsync("api/Filter").ConfigureAwait(false);
-                    Stream json = response.Content.ReadAsStreamAsync().Result;
-                    return json;
+                    HttpResponseMessage response = await client.GetAsync(servicePath).ConfigureAwait(false);
+                    return response.Content.ReadAsStreamAsync().Result;
+                }
+            }
+            catch (Exception e)
+            {
+                // TBD - Handle error
+                return null;
+            }
+        }
+
+        protected async Task<Stream> WebApiPut(string servicePath, Object content)
+        {            
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("http://localhost:81/");
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                   // StringContent json = new StringContent(content, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = await client.PutAsJsonAsync(servicePath, content).ConfigureAwait(false);
+                    return response.Content.ReadAsStreamAsync().Result;
                 }
             }
             catch (Exception e)

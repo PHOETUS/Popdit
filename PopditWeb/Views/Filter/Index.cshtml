@@ -47,15 +47,15 @@
             </tr>
             <tr class="item detail" id="@("detail" + Model[i].Id)">
                 <td>
-                    @using (Html.BeginForm())
+                    @using (Html.BeginForm("Update/" + Model[i].Id.ToString(), "Filter", FormMethod.Post))
                     {
-                        @Html.HiddenFor(m => m[i].Id)
+                        @Html.Hidden("Id", Model[i].Id)
                         <table class="content">
                             <tr><td colspan="2">@Model[i].Name</td></tr>
-                            <tr class="form"><td>Name</td><td>@Html.TextBoxFor(m => m[i].Name)</td></tr>
-                            <tr class="form"><td>Category</td><td>@Html.TextBoxFor(m => m[i].Category)</td></tr>
-                            <tr class="form"><td>Radius</td><td>@Html.TextBoxFor(m => m[i].Radius)</td></tr>
-                            <tr class="form"><td>Active</td><td class="left">@Html.CheckBoxFor(m => m[i].Active, new { @class = "checkbox" })</td></tr>
+                            <tr class="form"><td>Name</td><td>@Html.EditorFor(m => m[i].Name, null, "Name")</td></tr>
+                            <tr class="form"><td>Category</td><td>@Html.EditorFor(m => m[i].Category.Description, null, "Category")</td></tr>
+                            <tr class="form"><td>Radius</td><td>@Html.EditorFor(m => m[i].Radius.Description, null, "Radius")</td></tr>
+                            <tr class="form"><td>Active</td><td class="left">@Html.EditorFor(m => m[i].Active, null, "Active")</td></tr>
                             <tr><td></td><td><input type="submit" value="Update filter" /></td></tr>
                         </table>
                     }

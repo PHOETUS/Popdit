@@ -21,7 +21,7 @@ namespace PopditWeb.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            Stream json = await GetApiData("api/Filter");
+            Stream json = await WebApiGet("api/Filter");
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<Models.Filter>));
             return View((List<Models.Filter>)serializer.ReadObject(json));
         }
@@ -62,12 +62,20 @@ namespace PopditWeb.Controllers
 
         // POST: Filter/Update/5
         [HttpPost]
-        public ActionResult Update(int id, FormCollection collection)
+        public async Task<ActionResult> Update(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
+                Models.Filter f = new Models.Filter();
+                f.Id = id;
+                f.Name = collection["Name"];
+                f.ProfileId = 1;
+                f.CategoryId = 11;
+                f.ScheduleId = null;
+                f.RadiusId = 4;
+                f.Active = true;
 
+                Stream json = await WebApiPut("api/Filter/" + id.ToString(), f);
                 return RedirectToAction("Index");
             }
             catch
@@ -104,23 +112,7 @@ namespace PopditWeb.Controllers
         {
             List<Filter> listFilter = await GetFilters();
             return View(listFilter);            
-        }
-        */
-
-        /*
-        public ActionResult Index()
-        {
-            InitializeList("Filter", null);
-            List<Models.FilterData> fdList = new List<Models.FilterData>();
-            foreach (JObject j in mObjectList)
-            {
-                Models.FilterData fd = new Models.FilterData();
-                fd.Id = Int32.Parse((string)j["Id"]);
-                fd.Name = (string)j["Name"];
-                fdList.Add(fd);
-            }
-            return View(fdList);
-        }
+        }       
         */
     }
 }

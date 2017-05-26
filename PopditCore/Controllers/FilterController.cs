@@ -21,56 +21,34 @@ namespace PopditCore.Controllers
         private PopditDBEntities db = new PopditDBEntities();
 
         // GET: api/Filter
-        public System.Web.Http.Results.JsonResult<List<Models.Filter>> GetFilters() // IQueryable<Filter>
-        //public System.ServiceModel.Channels. GetFilters()
+        public System.Web.Http.Results.JsonResult<List<Models.Filter>> GetFilters()
         {
             return Json(db.Filters.ToList());
-            //return JsonConvert.SerializeObject(db.Filters.ToList());
         }
 
         // GET: api/Filter/5
-        [ResponseType(typeof(Filter))]
-        public IHttpActionResult GetFilter(int id)
+        [ResponseType(typeof(Models.Filter))]
+        public System.Web.Http.Results.JsonResult<Models.Filter> GetFilter(int id)
         {
-            Filter filter = db.Filters.Find(id);
-            if (filter == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(filter);
+            Models.Filter filter = db.Filters.Find(id);
+            return Json(filter);
         }
 
         // PUT: api/Filter/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutFilter(int id, Filter filter)
+        public IHttpActionResult PutFilter(int id, Filter newFilter)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
-            if (id != filter.Id)
-            {
-                return BadRequest();
-            }
+            if (id != newFilter.Id) { return BadRequest(); }
 
-            db.Entry(filter).State = EntityState.Modified;
+            db.Entry(newFilter).State = EntityState.Modified;
 
-            try
-            {
-                db.SaveChanges();
-            }
+            try { db.SaveChanges(); }
             catch (DbUpdateConcurrencyException)
             {
-                if (!FilterExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                if (!FilterExists(id)) { return NotFound(); }
+                else { throw; }
             }
 
             return StatusCode(HttpStatusCode.NoContent);
