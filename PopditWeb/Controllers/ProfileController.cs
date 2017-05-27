@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Web.Mvc;
-using System.Net;
+using System.IO;
+using System.Threading.Tasks;
 using System.Runtime.Serialization.Json;
 
 namespace PopditWeb.Controllers
 {
     public class ProfileController : Controller
     {
+        /*
         // GET: Profile/Update/5
         public ActionResult Update(int id)
         {
@@ -25,6 +23,15 @@ namespace PopditWeb.Controllers
             pd.Callback = (string)profile["CallbackAddress"];
 
             return View(pd);
+        }*/
+
+        // GET: Profile/Index
+        public async Task<ActionResult> Index()
+        {
+            Stream json = await WebApiGet("api/Profile");
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<Models.Profile>));
+            List<Models.Profile> profileList = (List<Models.Profile>)serializer.ReadObject(json);
+            return View(profileList[0]); // Return the first - and presumably only - profile, so that the page can use a Profile, instead of a List, as a model.
         }
 
         // POST: Profile/Update/5

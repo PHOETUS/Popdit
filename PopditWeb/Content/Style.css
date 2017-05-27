@@ -30,7 +30,7 @@ div.menubar
     height: 40px;
     width: 100%;
     display: table;
-    table-layout: fixed;
+    /* table-layout: fixed; */
 }
 div.menuitem
 {
@@ -58,7 +58,7 @@ td { padding: 0px; }
 table.content
 {
     margin: auto;
-    width: 320px;
+    width: 360px;
     text-align: center;
 }
 table.content td { padding: 2px; }

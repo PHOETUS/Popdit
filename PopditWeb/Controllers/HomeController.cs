@@ -32,5 +32,15 @@ namespace PopditWeb.Controllers
 
             return RedirectToAction("Index", "Filter");
         }
+
+        public ActionResult SignOut()
+        {
+            string cookieName = "Popdit"; // TBD - Do not hard-code.
+
+            HttpCookie cookie = HttpContext.Request.Cookies[cookieName];
+            if (cookie != null) cookie.Expires = DateTime.Now.AddHours(-1);
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Popdit</title>
-    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/css?nocache=" + DateTime.Now.Second.ToString()) <!-- TBD remove seconds for production -->
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -12,7 +12,7 @@
         <div class=menubar>
             <div class=menuitem>@Html.ActionLink("Filters", "Index", "Filter")</div>
             <div class=menuitem>@Html.ActionLink("Bubbles", "Index", "Bubble")</div>
-            <div class=menuitem>@Html.ActionLink("Profile", "Update", "Profile")</div>
+            <div class=menuitem>@Html.ActionLink("Profile", "Index", "Profile")</div>
             <div class=menuitem>@Html.ActionLink("More", "Index", "More")</div>
         </div>
     @RenderBody()

@@ -16,16 +16,14 @@ namespace PopditCore.Controllers
     {
         private PopditDBEntities db = new PopditDBEntities();
 
-        /*
-        // GET: api/Profile
-        public IQueryable<Profile> GetProfiles()
+        // GET: api/Filter
+        public System.Web.Http.Results.JsonResult<List<Models.Profile>> GetProfiles()
         {
-            return db.Profiles;
+            return Json(db.Profiles.Where(m => m.Id == AuthenticatedUserId).ToList());
         }
-        */
 
         // GET: api/Profile/5
-        [ResponseType(typeof(Profile))]
+        [ResponseType(typeof(Profile))] // TBD - Is this line necessary and correct?
         public System.Web.Http.Results.JsonResult<Profile> GetProfile(int id)
         {
             Profile profile = db.Profiles.Find(id);

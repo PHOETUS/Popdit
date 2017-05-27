@@ -1,5 +1,4 @@
-﻿
-@model PopditWeb.Models.ProfileData
+﻿@model PopditWeb.Models.Profile
 <!-- Newtonsoft.Json.Linq.JObject -->
 @{
     ViewBag.Title = "Edit";
@@ -40,7 +39,7 @@
             </tr>
             <tr class="form">
                 <td>Callback</td>
-                <td>@Html.TextBoxFor(m => m.Callback)</td>
+                <td>@Html.TextBoxFor(m => m.CallbackAddress)</td>
             </tr>
             <tr>
                 <td>@Html.HiddenFor(m => m.Id)</td>

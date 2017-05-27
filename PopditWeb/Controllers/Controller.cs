@@ -21,22 +21,6 @@ namespace PopditWeb.Controllers
 
         protected List<Object> mList;
 
-        /*
-        protected bool Authenticated()
-        {
-            string cookieName = "Popdit";
-            HttpCookie cookie = HttpContext.Request.Cookies[cookieName];
-            if (cookie != null)
-            {
-                string phone = cookie.Values["Phone"];
-                string pwd = cookie.Values["Password"];
-                if (true) return true; // Authenticate against WebApi.
-                else return false; // Failed authentication.
-            }
-            else return false;  // No cookie found.
-        }
-        */
-
         protected async Task<Stream> WebApiGet(string servicePath)
         {
             try

@@ -213,11 +213,15 @@
     <Content Include="Views\More\Index.cshtml" />
     <Content Include="Views\Filter\Index.cshtml" />
     <Content Include="Views\Bubble\Index.cshtml" />
-    <Content Include="Views\Profile\Update.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\More\Contact.cshtml" />
     <Content Include="Views\More\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutSignedOut.cshtml" />
+    <Content Include="Views\More\Developers.cshtml" />
+    <Content Include="Views\More\History.cshtml" />
+    <Content Include="Views\More\Metrics.cshtml" />
+    <Content Include="Views\Profile\Create.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

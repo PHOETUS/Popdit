@@ -39,6 +39,7 @@ namespace PopditWeb.Models
         [DataMember]
         public Nullable<int> RadiusId { get; set; }
         [DataMember]
+        public string DobJson { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
         [DataMember]
         public Nullable<bool> Male { get; set; }
