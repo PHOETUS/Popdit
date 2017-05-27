@@ -158,6 +158,7 @@
     <Compile Include="Controllers\BubbleController.cs" />
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Controllers\FilterController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoreController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Global.asax.cs">
@@ -175,6 +176,7 @@
     <Compile Include="Models\ProfileData.cs" />
     <Compile Include="Models\Radius.cs" />
     <Compile Include="Models\State.cs" />
+    <Compile Include="Models\Token.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -214,7 +216,8 @@
     <Content Include="Views\Profile\Update.cshtml" />
     <Content Include="Views\More\Contact.cshtml" />
     <Content Include="Views\More\About.cshtml" />
-    <Content Include="Views\Bubble\Update.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutSignedOut.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

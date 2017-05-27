@@ -44,7 +44,7 @@ div.content
     height: 100%;
     display: table-cell;
     vertical-align: middle;
-    padding-top: 50px;
+    padding-top: 50px 0px 50px 0px;
 }
 div.select
 {

@@ -16,10 +16,17 @@ namespace PopditCore.Controllers
     {
         private PopditDBEntities db = new PopditDBEntities();
 
+        /*
         // GET: api/Bubble
         public IQueryable<Bubble> GetBubbles()
         {
             return db.Bubbles;
+        }*/
+
+        // GET: api/Filter
+        public System.Web.Http.Results.JsonResult<List<Models.Bubble>> GetBubbles()
+        {
+            return Json(db.Bubbles.Where(m => m.ProfileId == AuthenticatedUserId).ToList());
         }
 
         // GET: api/Bubble/5

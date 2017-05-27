@@ -26,15 +26,10 @@ namespace PopditCore.Controllers
 
         // GET: api/Profile/5
         [ResponseType(typeof(Profile))]
-        public IHttpActionResult GetProfile(int id)
+        public System.Web.Http.Results.JsonResult<Profile> GetProfile(int id)
         {
             Profile profile = db.Profiles.Find(id);
-            if (profile == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(profile);
+            return Json(profile);
         }
 
         // PUT: api/Profile/5

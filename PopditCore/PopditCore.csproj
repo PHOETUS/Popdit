@@ -107,6 +107,7 @@
     <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\BubbleController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\FilterController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -171,6 +172,7 @@
     <Content Include="Models\PopditDB.edmx.diagram">
       <DependentUpon>PopditDB.edmx</DependentUpon>
     </Content>
+    <Compile Include="Models\Token.cs" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

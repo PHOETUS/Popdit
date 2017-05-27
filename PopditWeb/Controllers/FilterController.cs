@@ -19,6 +19,7 @@ namespace PopditWeb.Controllers
 {
     public class FilterController : Controller
     {
+        // GET: Filter/Index
         public async Task<ActionResult> Index()
         {
             Stream json = await WebApiGet("api/Filter");
@@ -52,12 +53,6 @@ namespace PopditWeb.Controllers
             {
                 return View();
             }
-        }
-
-        // GET: Filter/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
         }
 
         // POST: Filter/Update/5
@@ -105,14 +100,5 @@ namespace PopditWeb.Controllers
                 return View();
             }
         }
-
-        /*
-        // GET: Filter
-        public Task<ActionResult> Index()
-        {
-            List<Filter> listFilter = await GetFilters();
-            return View(listFilter);            
-        }       
-        */
     }
 }

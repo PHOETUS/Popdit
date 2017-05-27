@@ -21,6 +21,22 @@ namespace PopditWeb.Controllers
 
         protected List<Object> mList;
 
+        /*
+        protected bool Authenticated()
+        {
+            string cookieName = "Popdit";
+            HttpCookie cookie = HttpContext.Request.Cookies[cookieName];
+            if (cookie != null)
+            {
+                string phone = cookie.Values["Phone"];
+                string pwd = cookie.Values["Password"];
+                if (true) return true; // Authenticate against WebApi.
+                else return false; // Failed authentication.
+            }
+            else return false;  // No cookie found.
+        }
+        */
+
         protected async Task<Stream> WebApiGet(string servicePath)
         {
             try
@@ -30,6 +46,7 @@ namespace PopditWeb.Controllers
                     client.BaseAddress = new Uri("http://localhost:81/");
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add("Authorization", HttpContext.Request.Cookies["Popdit"].Values["Phone"]);  // TBD - this is just a hack for testing
 
                     HttpResponseMessage response = await client.GetAsync(servicePath).ConfigureAwait(false);
                     return response.Content.ReadAsStreamAsync().Result;
@@ -51,8 +68,8 @@ namespace PopditWeb.Controllers
                     client.BaseAddress = new Uri("http://localhost:81/");
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add("Authorization", HttpContext.Request.Cookies["Popdit"].Values["Phone"]);  // TBD - this is just a hack for testing
 
-                   // StringContent json = new StringContent(content, Encoding.UTF8, "application/json");
                     HttpResponseMessage response = await client.PutAsJsonAsync(servicePath, content).ConfigureAwait(false);
                     return response.Content.ReadAsStreamAsync().Result;
                 }

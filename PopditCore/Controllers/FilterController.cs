@@ -23,7 +23,7 @@ namespace PopditCore.Controllers
         // GET: api/Filter
         public System.Web.Http.Results.JsonResult<List<Models.Filter>> GetFilters()
         {
-            return Json(db.Filters.ToList());
+            return Json(db.Filters.Where(m => m.ProfileId == AuthenticatedUserId).ToList());
         }
 
         // GET: api/Filter/5
@@ -31,7 +31,7 @@ namespace PopditCore.Controllers
         public System.Web.Http.Results.JsonResult<Models.Filter> GetFilter(int id)
         {
             Models.Filter filter = db.Filters.Find(id);
-            return Json(filter);
+            return Json(filter);            
         }
 
         // PUT: api/Filter/5

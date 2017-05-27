@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutSignedOut.cshtml";
+}
+
+<div class="content">
+    @using (Html.BeginForm("SignIn", "Home", FormMethod.Post))
+    {
+        <table id="content" class="content">
+            <tr>
+                <td colspan="2"><span class=logo>@PageData["SiteName"]</span></td>
+            </tr>
+            <tr>
+                <td colspan="2">@PageData["Tagline"]</td>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="pagetitle" colspan="2">Sign In</td>
+            </tr>
+            <tr class="form">
+                <td>Phone</td>
+                <td>@Html.TextBox("Phone")</td>
+            </tr>
+            <tr class="form">
+                <td>Password</td>
+                <td>@Html.Password("Password")</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><input type="submit" value="Sign in" /></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>@Html.ActionLink("Create a new account", "Create", "Profile")</td>
+            </tr>
+        </table>
+    }
+</div>

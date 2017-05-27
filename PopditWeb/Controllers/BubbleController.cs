@@ -10,24 +10,21 @@ using Newtonsoft.Json;
 using System.Text;
 using System.IO;
 using System.Diagnostics;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Net.Http.Headers;
+using System.Runtime.Serialization.Json;
 
 namespace PopditWeb.Controllers
 {
     public class BubbleController : Controller
     {
-        // GET: Bubble
-        public ActionResult Index()
+        // GET: Bubble/Index
+        public async Task<ActionResult> Index()
         {
-            InitializeList("Bubble", null);
-            List<Models.BubbleData> bdList = new List<Models.BubbleData>();
-            foreach (JObject j in mObjectList)
-            {
-                Models.BubbleData bd = new Models.BubbleData();
-                bd.Id = Int32.Parse((string)j["Id"]);
-                bd.Name = (string)j["Name"];
-                bdList.Add(bd);
-            }
-            return View(bdList);
+            Stream json = await WebApiGet("api/Bubble");
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<Models.Bubble>));
+            return View((List<Models.Bubble>)serializer.ReadObject(json));
         }
 
         // GET: Bubble/Read/5
@@ -58,6 +55,7 @@ namespace PopditWeb.Controllers
             }
         }
 
+        /*
         // GET: Bubble/Update/5
         public ActionResult Update(int id)
         {
@@ -73,7 +71,7 @@ namespace PopditWeb.Controllers
             bd.AlertMsg = (string)bubble["AlertMsg"];
             bd.RadiusId = Int32.Parse(bubble["RadiusId"].ToString());
             return View(bd);
-        }
+        }*/
 
         // POST: Bubble/Update/5
         [HttpPost]
