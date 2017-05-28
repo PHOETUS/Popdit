@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="55c3bd01f68c477893c1a3240c2949e6" Name="Diagram1">
+      <Diagram DiagramId="0547549f761d4c9b86d0b94faa47503a" Name="Diagram1">
         <EntityTypeShape EntityType="PopditDBModel.Address" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="PopditDBModel.Bubble" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PopditDBModel.Category" Width="1.5" PointX="3" PointY="11.625" IsExpanded="true" />
@@ -18,7 +18,7 @@
         <AssociationConnector Association="PopditDBModel.FK_Addresses_Country" ManuallyRouted="false" />
         <AssociationConnector Association="PopditDBModel.FK_Addresses_State" ManuallyRouted="false" />
         <AssociationConnector Association="PopditDBModel.FK_Trips_Addresses" ManuallyRouted="false" />
-        <AssociationConnector Association="PopditDBModel.FK_Events_Trips" ManuallyRouted="false" />
+        <AssociationConnector Association="PopditDBModel.FK_Events_Bubbles" ManuallyRouted="false" />
         <AssociationConnector Association="PopditDBModel.FK_Trips_Categories" ManuallyRouted="false" />
         <AssociationConnector Association="PopditDBModel.FK_Trips_Profiles" ManuallyRouted="false" />
         <AssociationConnector Association="PopditDBModel.FK_Trips_Radii" ManuallyRouted="false" />

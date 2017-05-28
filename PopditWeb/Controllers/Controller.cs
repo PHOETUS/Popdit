@@ -62,6 +62,7 @@ namespace PopditWeb.Controllers
             }
         }
 
+        /*
         protected void InitializeList(string serviceAddress, string json)
         {
             try
@@ -102,5 +103,6 @@ namespace PopditWeb.Controllers
                 Debug.WriteLine("Error: " + e.Message);
             }
         }
+        */
     }
 }

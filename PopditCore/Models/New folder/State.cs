@@ -14,23 +14,22 @@ namespace PopditCore.Models
     using System.Runtime.Serialization;
 
     [DataContract]
-    public partial class Event
+    public partial class State
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public State()
+        {
+            this.Addresses = new HashSet<Address>();
+        }
+    
         [DataMember]
         public int Id { get; set; }
-        [DataMember]        
-        public int ProfileId { get; set; }
         [DataMember]
-        public int BubbleId { get; set; }
+        public string Name { get; set; }
         [DataMember]
-        public string TimestampJson
-        {
-            get { return String.Format("{0:yyyy-MM-dd HH:mm:ss}", Timestamp); }
-            set { Timestamp = DateTime.Parse(value); }
-        }
-        public System.DateTime Timestamp { get; set; }
-
-        public virtual Bubble Bubble { get; set; }
-        public virtual Profile Profile { get; set; }
+        public string Code { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Address> Addresses { get; set; }
     }
 }

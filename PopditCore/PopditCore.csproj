@@ -92,8 +92,8 @@
     <Content Include="Global.asax" />
     <Content Include="Models\PopditDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>PopditDB.Context.cs</LastGenOutput>
       <DependentUpon>PopditDB.edmx</DependentUpon>
+      <LastGenOutput>PopditDB.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\PopditDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -165,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Compile Include="Models\Token.cs" />
     <EntityDeploy Include="Models\PopditDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>PopditDB.Designer.cs</LastGenOutput>
@@ -172,7 +173,6 @@
     <Content Include="Models\PopditDB.edmx.diagram">
       <DependentUpon>PopditDB.edmx</DependentUpon>
     </Content>
-    <Compile Include="Models\Token.cs" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -222,6 +222,7 @@
     <Content Include="Views\More\History.cshtml" />
     <Content Include="Views\More\Metrics.cshtml" />
     <Content Include="Views\Profile\Create.cshtml" />
+    <Content Include="Views\More\Account.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

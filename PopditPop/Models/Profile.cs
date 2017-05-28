@@ -41,8 +41,8 @@ namespace PopditPop.Models
         [DataMember]
         public string DobJson
         {
-            get { return String.Format("{0:MM/dd/yyyy}", DOB); }
-            set { }
+            get { return String.Format("{0:yyyy-MM-dd HH:mm:ss}", DOB); }
+            set { DOB = DateTime.Parse(value); }
         }
         public Nullable<System.DateTime> DOB { get; set; }
         [DataMember]

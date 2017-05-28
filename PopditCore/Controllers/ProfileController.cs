@@ -14,7 +14,7 @@ namespace PopditCore.Controllers
     {
         private PopditDBEntities db = new PopditDBEntities();
 
-        // GET: api/Filter
+        // GET: api/Profile
         public System.Web.Http.Results.JsonResult<List<Models.Profile>> GetProfiles()
         {
             return Json(db.Profiles.Where(m => m.Id == AuthenticatedUserId).ToList());
@@ -30,19 +30,31 @@ namespace PopditCore.Controllers
 
         // PUT: api/Profile/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutProfile(int id, Profile profile)
+        public IHttpActionResult PutProfile(int id, Profile newProfile)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != profile.Id)
+            if (id != newProfile.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(profile).State = EntityState.Modified;
+            // Change only the changed fields in the profile.
+            // Only the fields below are changeable via the API.
+            Profile oldProfile = db.Profiles.Find(id);
+            oldProfile.Nickname = newProfile.Nickname ?? oldProfile.Nickname;
+            oldProfile.Email = newProfile.Email ?? oldProfile.Email;
+            oldProfile.Password = newProfile.Password ?? oldProfile.Password;
+            oldProfile.Phone = newProfile.Phone ?? oldProfile.Phone;
+            oldProfile.CallbackAddress = newProfile.CallbackAddress ?? oldProfile.CallbackAddress;
+            oldProfile.RadiusId = newProfile.RadiusId ?? oldProfile.RadiusId;
+            oldProfile.DOB = newProfile.DOB ?? oldProfile.DOB;
+            oldProfile.Male = newProfile.Male ?? oldProfile.Male;
+
+            db.Entry(oldProfile).State = EntityState.Modified;
 
             try
             {

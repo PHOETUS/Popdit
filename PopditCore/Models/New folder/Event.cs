@@ -21,7 +21,7 @@ namespace PopditCore.Models
         [DataMember]        
         public int ProfileId { get; set; }
         [DataMember]
-        public int BubbleId { get; set; }
+        public string BubbleId { get; set; }
         [DataMember]
         public string TimestampJson
         {

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PopditWeb.Models
+namespace PopditCore.Models
 {
     using System;
     using System.Collections.Generic;
@@ -42,7 +42,7 @@ namespace PopditWeb.Models
         public string DobJson
         {
             get { return String.Format("{0:yyyy-MM-dd HH:mm:ss}", DOB); }
-            set { DOB = DateTime.Parse(value); }
+            set { if (!string.IsNullOrWhiteSpace(value)) DOB = DateTime.Parse(value); }
         }
         public Nullable<System.DateTime> DOB { get; set; }
         [DataMember]

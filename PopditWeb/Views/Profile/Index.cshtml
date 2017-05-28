@@ -6,7 +6,7 @@
 }
 
     <div class="content">
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Update/" + Model.Id.ToString(), "Profile", FormMethod.Post))
     {
         <table id="content" class="content">
             <tr>

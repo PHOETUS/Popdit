@@ -8,23 +8,18 @@ namespace PopditWeb.Controllers
 {
     public class MoreController : Controller
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
+        public ActionResult Index() { return View(); }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+        public ActionResult History() { return View(); }
 
-            return View();
-        }
+        public ActionResult Metrics() { return View(); }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+        public ActionResult Account() { return View(); }
 
-            return View();
-        }
+        public ActionResult Developers() { return View(); }
+
+        public ActionResult Contact() { return View(); }
+
+        public ActionResult About() { return View(); }
     }
 }

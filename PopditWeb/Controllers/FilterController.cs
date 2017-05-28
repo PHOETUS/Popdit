@@ -50,6 +50,7 @@ namespace PopditWeb.Controllers
         {
             try
             {
+                // TBD - this is a hack for testing.
                 Models.Filter f = new Models.Filter();
                 f.Id = id;
                 f.Name = collection["Name"];

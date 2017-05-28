@@ -31,41 +31,6 @@ namespace PopditPop.Controllers
             return Ok(@event);
         }
 
-        // PUT: api/Event/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutEvent(int id, Event @event)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != @event.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(@event).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EventExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
         // POST: api/Event
         [ResponseType(typeof(Event))]
         public IHttpActionResult PostEvent(Event @event)
@@ -79,22 +44,6 @@ namespace PopditPop.Controllers
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = @event.Id }, @event);
-        }
-
-        // DELETE: api/Event/5
-        [ResponseType(typeof(Event))]
-        public IHttpActionResult DeleteEvent(int id)
-        {
-            Event @event = db.Events.Find(id);
-            if (@event == null)
-            {
-                return NotFound();
-            }
-
-            db.Events.Remove(@event);
-            db.SaveChanges();
-
-            return Ok(@event);
         }
 
         protected override void Dispose(bool disposing)

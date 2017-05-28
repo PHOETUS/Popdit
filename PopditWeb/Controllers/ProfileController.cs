@@ -36,18 +36,11 @@ namespace PopditWeb.Controllers
 
         // POST: Profile/Update/5
         [HttpPost]
-        public ActionResult Update(Models.ProfileData pd)
+        public async Task<ActionResult> Update(Models.Profile pd)
         {
-            try
-            {
-                string json = JsonConvert.SerializeObject(pd);
-                InitializeList("Profile/Update", json);
-                return RedirectToAction("Update");
-            }
-            catch
-            {
-                return View();
-            }
+
+            Stream json = await WebApiPut("api/Profile/" + pd.Id.ToString(), pd);
+            return RedirectToAction("Index");
         }
     }
 }

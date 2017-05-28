@@ -41,8 +41,8 @@ namespace PopditCore.Models
         [DataMember]
         public string DobJson
         {
-            get { return String.Format("{0:MM/dd/yyyy}", DOB); }
-            set { }
+            get { return String.Format("{0:yyyy-MM-dd}", DOB); }
+            set { if (!string.IsNullOrWhiteSpace(value)) DOB = DateTime.Parse(value); else DOB = null; }
         }
         public Nullable<System.DateTime> DOB { get; set; }
         [DataMember]
