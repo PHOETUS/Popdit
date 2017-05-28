@@ -63,7 +63,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProfileId" Type="int" Nullable="false" />
-          <Property Name="TripId" Type="int" Nullable="false" />
+          <Property Name="BubbleId" Type="int" Nullable="false" />
           <Property Name="Timestamp" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Filters">
@@ -157,6 +157,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Events_Bubbles">
+          <End Role="Bubbles" Type="Self.Bubbles" Multiplicity="1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bubbles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="BubbleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Events_Profiles">
           <End Role="Profiles" Type="Self.Profiles" Multiplicity="1" />
           <End Role="Events" Type="Self.Events" Multiplicity="*" />
@@ -166,18 +178,6 @@
             </Principal>
             <Dependent Role="Events">
               <PropertyRef Name="ProfileId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Events_Trips">
-          <End Role="Bubbles" Type="Self.Bubbles" Multiplicity="1" />
-          <End Role="Events" Type="Self.Events" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Bubbles">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Events">
-              <PropertyRef Name="TripId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -300,12 +300,12 @@
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Categories1" EntitySet="Categories" />
           </AssociationSet>
-          <AssociationSet Name="FK_Events_Profiles" Association="Self.FK_Events_Profiles">
-            <End Role="Profiles" EntitySet="Profiles" />
+          <AssociationSet Name="FK_Events_Bubbles" Association="Self.FK_Events_Bubbles">
+            <End Role="Bubbles" EntitySet="Bubbles" />
             <End Role="Events" EntitySet="Events" />
           </AssociationSet>
-          <AssociationSet Name="FK_Events_Trips" Association="Self.FK_Events_Trips">
-            <End Role="Bubbles" EntitySet="Bubbles" />
+          <AssociationSet Name="FK_Events_Profiles" Association="Self.FK_Events_Profiles">
+            <End Role="Profiles" EntitySet="Profiles" />
             <End Role="Events" EntitySet="Events" />
           </AssociationSet>
           <AssociationSet Name="FK_Filters_Categories" Association="Self.FK_Filters_Categories">
@@ -381,7 +381,7 @@
           <Property Name="ScheduleId" Type="Int32" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Address" Relationship="Self.FK_Trips_Addresses" FromRole="Bubbles" ToRole="Addresses" />
-          <NavigationProperty Name="Events" Relationship="Self.FK_Events_Trips" FromRole="Bubbles" ToRole="Events" />
+          <NavigationProperty Name="Events" Relationship="Self.FK_Events_Bubbles" FromRole="Bubbles" ToRole="Events" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Trips_Categories" FromRole="Bubbles" ToRole="Categories" />
           <NavigationProperty Name="Profile" Relationship="Self.FK_Trips_Profiles" FromRole="Bubbles" ToRole="Profiles" />
           <NavigationProperty Name="Radius" Relationship="Self.FK_Trips_Radii" FromRole="Bubbles" ToRole="Radii" />
@@ -417,9 +417,9 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProfileId" Type="Int32" Nullable="false" />
-          <Property Name="TripId" Type="Int32" Nullable="false" />
+          <Property Name="BubbleId" Type="Int32" Nullable="false" />
           <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Bubble" Relationship="Self.FK_Events_Trips" FromRole="Events" ToRole="Bubbles" />
+          <NavigationProperty Name="Bubble" Relationship="Self.FK_Events_Bubbles" FromRole="Events" ToRole="Bubbles" />
           <NavigationProperty Name="Profile" Relationship="Self.FK_Events_Profiles" FromRole="Events" ToRole="Profiles" />
         </EntityType>
         <EntityType Name="Filter">
@@ -524,7 +524,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Events_Trips">
+        <Association Name="FK_Events_Bubbles">
           <End Role="Bubbles" Type="Self.Bubble" Multiplicity="1" />
           <End Role="Events" Type="Self.Event" Multiplicity="*" />
           <ReferentialConstraint>
@@ -532,7 +532,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Events">
-              <PropertyRef Name="TripId" />
+              <PropertyRef Name="BubbleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -667,7 +667,7 @@
             <End Role="Addresses" EntitySet="Addresses" />
             <End Role="Bubbles" EntitySet="Bubbles" />
           </AssociationSet>
-          <AssociationSet Name="FK_Events_Trips" Association="Self.FK_Events_Trips">
+          <AssociationSet Name="FK_Events_Bubbles" Association="Self.FK_Events_Bubbles">
             <End Role="Bubbles" EntitySet="Bubbles" />
             <End Role="Events" EntitySet="Events" />
           </AssociationSet>
@@ -775,7 +775,7 @@
               <MappingFragment StoreEntitySet="Events">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
-                <ScalarProperty Name="TripId" ColumnName="TripId" />
+                <ScalarProperty Name="BubbleId" ColumnName="BubbleId" />
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               </MappingFragment>
             </EntityTypeMapping>

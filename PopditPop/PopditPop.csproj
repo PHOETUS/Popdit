@@ -91,8 +91,8 @@
     <Content Include="Global.asax" />
     <Content Include="Models\PopditDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>PopditDB.Context.cs</LastGenOutput>
       <DependentUpon>PopditDB.edmx</DependentUpon>
+      <LastGenOutput>PopditDB.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\PopditDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
