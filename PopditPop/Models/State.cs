@@ -11,7 +11,9 @@ namespace PopditPop.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract]
     public partial class State
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,8 +22,11 @@ namespace PopditPop.Models
             this.Addresses = new HashSet<Address>();
         }
     
+        [DataMember]
         public int Id { get; set; }
+        [DataMember]
         public string Name { get; set; }
+        [DataMember]
         public string Code { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

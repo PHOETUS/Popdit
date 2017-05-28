@@ -11,7 +11,9 @@ namespace PopditPop.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract]
     public partial class Bubble
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,20 +22,31 @@ namespace PopditPop.Models
             this.Events = new HashSet<Event>();
         }
     
+        [DataMember]
         public int Id { get; set; }
+        [DataMember]
         public int ProfileId { get; set; }
+        [DataMember]
         public string Name { get; set; }
+        [DataMember]
         public int CategoryId { get; set; }
+        [DataMember]
         public decimal Latitude { get; set; }
         public Nullable<decimal> MinLatitude { get; set; }
         public Nullable<decimal> MaxLatitude { get; set; }
+        [DataMember]
         public decimal Longitude { get; set; }
         public Nullable<decimal> MaxLongitude { get; set; }
         public Nullable<decimal> MinLongitude { get; set; }
+        [DataMember]
         public Nullable<int> AddressId { get; set; }
+        [DataMember]
         public string AlertMsg { get; set; }
+        [DataMember]
         public int RadiusId { get; set; }
+        [DataMember]
         public int ScheduleId { get; set; }
+        [DataMember]
         public bool Active { get; set; }
     
         public virtual Address Address { get; set; }
