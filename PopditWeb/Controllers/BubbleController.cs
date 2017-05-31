@@ -44,24 +44,6 @@ namespace PopditWeb.Controllers
             }
         }
 
-        /*
-        // GET: Bubble/Update/5
-        public ActionResult Update(int id)
-        {
-            InitializeList("Bubble/Details/" + id.ToString(), null);
-            JObject bubble = (JObject)mObjectList[0];
-            Models.BubbleData bd = new Models.BubbleData();
-            bd.Id = Int32.Parse(bubble["Id"].ToString()); 
-            bd.ProfileId = Int32.Parse(bubble["ProfileId"].ToString()); 
-            bd.Name = (string)bubble["Name"];
-            bd.Latitude = Decimal.Parse((string)bubble["Latitude"]);
-            bd.Longitude = Decimal.Parse((string)bubble["Loingitude"]);
-            bd.AddressId = Int32.Parse((string)bubble["AddressId"]);
-            bd.AlertMsg = (string)bubble["AlertMsg"];
-            bd.RadiusId = Int32.Parse(bubble["RadiusId"].ToString());
-            return View(bd);
-        }*/
-
         // POST: Bubble/Update/5
         [HttpPost]
         public ActionResult Update(int id, FormCollection collection)

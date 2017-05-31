@@ -38,10 +38,14 @@
                 <td>@Html.TextBoxFor(m => m.Email)</td>
             </tr>
             <tr class="form">
-                <td>Callback</td>
-                <td>@Html.TextBoxFor(m => m.CallbackAddress)</td>
+                <td>Date of birth</td>
+                <td>@Html.TextBoxFor(m => m.DobJson)</td>
             </tr>
-            <tr>
+            <tr class="form">
+                <td>Gender</td>
+                <td>@Html.EditorFor(m => m.Male)</td>
+            </tr>
+            <tr class="form">
                 <td>@Html.HiddenFor(m => m.Id)</td>
                 <td><input type="submit" value="Update profile" /></td>
             </tr>

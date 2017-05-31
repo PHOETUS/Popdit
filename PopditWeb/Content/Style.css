@@ -80,7 +80,7 @@ select
     font-size: inherit;
     font-family: inherit;
     box-sizing: border-box;
-    border: none;
+    height: 25px;
     width: 100%;
 }
 input

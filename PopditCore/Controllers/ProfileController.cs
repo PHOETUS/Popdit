@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -83,6 +84,10 @@ namespace PopditCore.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            DateTime now = DateTime.Now;
+            profile.LastSignIn = now;
+            profile.Created = now;
 
             db.Profiles.Add(profile);
             db.SaveChanges();
