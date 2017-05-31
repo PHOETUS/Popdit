@@ -99,7 +99,7 @@ input.button
     color: #000011;
 }
 .button.bold { font-family: "Copperplate Gothic Bold"; }
-input.checkbox { width: 13px; }
+input[type=checkbox] { width: 13px; }
 
 a 
 { 

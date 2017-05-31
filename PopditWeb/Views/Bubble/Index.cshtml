@@ -34,11 +34,42 @@
         <tr>
             <td class="pagetitle">Bubbles</td>
         </tr>
-        <tr class="item header">
-            <td width="*">&middot; Search &middot;</td>
+        <tr class="item header" id="headerSearch">
+            <td><span onclick="OpenDiv('Search')">&middot; Search &middot;</span></td>
         </tr>
-        <tr class="item header">
-            <td width="*">&middot; Create a new bubble &middot;</td>
+        <tr class="item detail" id="detailSearch">
+            <td>
+                @using (Html.BeginForm("Index", "Bubble", FormMethod.Post))
+                {
+                    <table class="content">
+                        <tr><td colspan="2">&middot; Search &middot;</td></tr>
+                        <tr class="form"><td>Name</td><td>@Html.TextBox("Name")</td></tr>
+                        <tr class="form"><td>Category</td><td>Drop down list here</td></tr>
+                        <tr class="form"><td>Radius</td><td>Drop down list here</td></tr>
+                        <tr class="form"><td>Active</td><td class="left">Dropdown list here</td></tr>
+                        <tr><td></td><td><input type="submit" value="Search" /></td></tr>
+                        <tr><td></td><td><input type="submit" value="Reset" /></td></tr>
+                    </table>
+                }
+            </td>
+        </tr>
+        <tr class="item header" id="headerCreate">
+            <td><span onclick="OpenDiv('Create')">&middot; Create a new bubble &middot;</span></td>
+        </tr>
+        <tr class="item detail" id="detailCreate">
+            <td>
+                @using (Html.BeginForm("Create", "Bubble", FormMethod.Post))
+                {
+                    <table class="content">
+                        <tr><td colspan="2">&middot; Create a new filter &middot;</td></tr>
+                        <tr class="form"><td>Name</td><td>@Html.TextBox("Name")</td></tr>
+                        <tr class="form"><td>Category</td><td>Drop down list here</td></tr>
+                        <tr class="form"><td>Radius</td><td>Drop down list here</td></tr>
+                        <tr class="form"><td>Active</td><td class="left">@Html.CheckBox("Active", false)</td></tr>
+                        <tr><td></td><td><input type="submit" value="Create new bubble" /></td></tr>
+                    </table>
+                }
+            </td>
         </tr>
         @for (var i = 0; i < Model.Count(); i++)
         {
@@ -53,7 +84,7 @@
                     <table class="content">
                         <tr><td colspan="2">@Model[i].Name</td></tr>
                         <tr class="form"><td>Name</td><td>@Html.TextBoxFor(m => m[i].Name)</td></tr>
-                        <tr class="form"><td>Bubbler</td><td>@Html.TextBoxFor(m => m[i].ProfileId)</td></tr>
+                        <tr class="form"><td>Category</td><td>Drop down list here</td></tr>
                         <tr class="form"><td>Latitude</td><td>@Html.TextBoxFor(m => m[i].Latitude)</td></tr>
                         <tr class="form"><td>Longitude</td><td>@Html.TextBoxFor(m => m[i].Longitude)</td></tr>
                         <tr class="form"><td>Active</td><td class="left">@Html.CheckBoxFor(m => m[i].Active, new { @class = "checkbox" })</td></tr>

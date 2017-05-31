@@ -34,11 +34,42 @@
         <tr>
             <td class="pagetitle">Filters</td>
         </tr>
-        <tr class="item">
-            <td width="*">&middot; Search &middot;</td>
+        <tr class="item header" id="headerSearch">
+            <td><span onclick="OpenDiv('Search')">&middot; Search &middot;</span></td>
         </tr>
-        <tr class="item">
-            <td width="*">&middot; Create a new filter &middot;</td>
+        <tr class="item detail" id="detailSearch">
+            <td>
+                @using (Html.BeginForm("Index", "Filter", FormMethod.Post))
+                {
+                    <table class="content">
+                        <tr><td colspan="2">&middot; Search &middot;</td></tr>
+                        <tr class="form"><td>Name</td><td>@Html.TextBox("Name")</td></tr>
+                        <tr class="form"><td>Category</td><td>Drop down list here</td></tr>
+                        <tr class="form"><td>Radius</td><td>Drop down list here</td></tr>
+                        <tr class="form"><td>Active</td><td class="left">Dropdown list here</td></tr>
+                        <tr><td></td><td><input type="submit" value="Search" /></td></tr>
+                        <tr><td></td><td><input type="submit" value="Reset" /></td></tr>
+                    </table>
+                }
+            </td>
+        </tr>
+        <tr class="item header" id="headerCreate">
+            <td><span onclick="OpenDiv('Create')">&middot; Create a new filter &middot;</span></td>
+        </tr>
+        <tr class="item detail" id="detailCreate">
+            <td>
+                @using (Html.BeginForm("Create", "Filter", FormMethod.Post))
+                {
+                    <table class="content">
+                        <tr><td colspan="2">&middot; Create a new filter &middot;</td></tr>
+                        <tr class="form"><td>Name</td><td>@Html.TextBox("Name")</td></tr>
+                        <tr class="form"><td>Category</td><td>Drop down list here</td></tr>
+                        <tr class="form"><td>Radius</td><td>Drop down list here</td></tr>
+                        <tr class="form"><td>Active</td><td class="left">@Html.CheckBox("Active", false)</td></tr>
+                        <tr><td></td><td><input type="submit" value="Create new filter" /></td></tr>
+                    </table>
+                }
+            </td>
         </tr>
         @for (var i = 0; i < Model.Count(); i++)
         {
@@ -55,7 +86,7 @@
                             <tr class="form"><td>Name</td><td>@Html.EditorFor(m => m[i].Name, null, "Name")</td></tr>
                             <tr class="form"><td>Category</td><td>@Html.EditorFor(m => m[i].Category.Description, null, "Category")</td></tr>
                             <tr class="form"><td>Radius</td><td>@Html.EditorFor(m => m[i].Radius.Description, null, "Radius")</td></tr>
-                            <tr class="form"><td>Active</td><td class="left">@Html.EditorFor(m => m[i].Active, null, "Active")</td></tr>
+                            <tr class="form"><td>Active</td><td class="left">@Html.EditorFor(m => m[i].Active, null, "Active", new { @class = "checkbox" })</td></tr>
                             <tr><td></td><td><input type="submit" value="Update filter" /></td></tr>
                         </table>
                     }
