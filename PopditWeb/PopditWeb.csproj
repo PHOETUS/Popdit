@@ -166,20 +166,19 @@
     </Compile>
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Bubble.cs" />
-    <Compile Include="Models\BubbleData.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Filter.cs" />
     <Compile Include="Models\FilterData.cs" />
     <Compile Include="Models\Profile.cs" />
-    <Compile Include="Models\ProfileData.cs" />
     <Compile Include="Models\Radius.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Models\Token.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Logo.gif" />
     <Content Include="Content\Style.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -197,6 +196,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\popdit.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Web.config" />

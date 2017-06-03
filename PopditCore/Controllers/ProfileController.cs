@@ -45,6 +45,7 @@ namespace PopditCore.Controllers
 
             // Change only the changed fields in the profile.
             // Only the fields below are changeable via the API.
+            // Non-nullable fields must be supplied.
             Profile oldProfile = db.Profiles.Find(id);
             oldProfile.Nickname = newProfile.Nickname ?? oldProfile.Nickname;
             oldProfile.Email = newProfile.Email ?? oldProfile.Email;

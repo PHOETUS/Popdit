@@ -3,18 +3,12 @@ body
 {
     height: 100%;
     background-color: #ffffff;
-    /* background-image: url("bubble.jpg"); 
-    background-size: cover; */
     color: #000000;
     font-family: Verdana, sans-serif;
-    /* font-variant-caps:small-caps; */
     letter-spacing: 2px;
     margin: 0px;
 }
-span.logo
-{
-    font-size: xx-large;
-}
+span.logo { font-size: xx-large; }
 div { box-sizing: border-box; }
 div.main
 {
@@ -30,7 +24,6 @@ div.menubar
     height: 40px;
     width: 100%;
     display: table;
-    /* table-layout: fixed; */
 }
 div.menuitem
 {
@@ -98,11 +91,19 @@ input.button
     background-color: #AAAAAA;
     color: #000011;
 }
-.button.bold { font-family: "Copperplate Gothic Bold"; }
 input[type=checkbox] { width: 13px; }
+textarea
+{
+    width: 100%;
+    font-size: inherit;
+    font-family: inherit;
+    box-sizing: border-box;
+    margin: 0px;
+    padding-left: 2px;
+}
 
 a 
 { 
     text-decoration: none; 
-    color: blue;
+    color: mediumseagreen;
 }

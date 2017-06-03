@@ -16,32 +16,17 @@ namespace PopditWeb.Controllers
             return View((List<Models.Filter>)serializer.ReadObject(json));
         }
 
-        // GET: Filter/Read/5
-        public ActionResult Read(int id)
-        {
-            return View();
-        }
-
-        // GET: Filter/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
         // POST: Filter/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public async Task<ActionResult> Create(FormCollection collection)
         {
-            try
-            {
-                // TODO: Add insert logic here
+            // Create new filter from FormCollection
+            Models.Filter f = new Models.Filter();
+            f.Name = collection["Name"].ToString();
+            f.RadiusId = 1; // TBD - remove this hack and replace with value from dropdown.
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            Stream json = await WebApiPost("api/Filter", f);
+            return RedirectToAction("Index", "Filter");
         }
 
         // POST: Filter/Update/5

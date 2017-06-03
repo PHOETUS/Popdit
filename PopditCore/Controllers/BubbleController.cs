@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using PopditCore.Models;
@@ -16,62 +14,50 @@ namespace PopditCore.Controllers
     {
         private PopditDBEntities db = new PopditDBEntities();
 
-        /*
         // GET: api/Bubble
-        public IQueryable<Bubble> GetBubbles()
-        {
-            return db.Bubbles;
-        }*/
-
-        // GET: api/Filter
         public System.Web.Http.Results.JsonResult<List<Models.Bubble>> GetBubbles()
         {
-            return Json(db.Bubbles.Where(m => m.ProfileId == AuthenticatedUserId).ToList());
+            return Json(db.Bubbles.Where(m => m.ProfileId == AuthenticatedUserId).OrderBy(m => m.Name).ToList());
         }
 
         // GET: api/Bubble/5
         [ResponseType(typeof(Bubble))]
-        public IHttpActionResult GetBubble(int id)
+        public System.Web.Http.Results.JsonResult<Models.Bubble> GetBubble(int id)
         {
             Bubble bubble = db.Bubbles.Find(id);
-            if (bubble == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(bubble);
+            return Json(bubble);
         }
 
         // PUT: api/Bubble/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutBubble(int id, Bubble bubble)
+        public IHttpActionResult PutBubble(int id, Bubble newBubble)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
-            if (id != bubble.Id)
-            {
-                return BadRequest();
-            }
+            if (id != newBubble.Id) { return BadRequest(); }
 
-            db.Entry(bubble).State = EntityState.Modified;
+            // Change only the changed fields in the profile.
+            // Only the fields below are changeable via the API.
+            // Non-nullable fields must be supplied.
+            Bubble oldBubble = db.Bubbles.Find(id);
+            oldBubble.Name = newBubble.Name ?? oldBubble.Name;
+            oldBubble.Latitude = newBubble.Latitude; // ?? oldBubble.Latitude;
+            oldBubble.Longitude = newBubble.Longitude; // ?? oldBubble.Longitude;
+            oldBubble.AlertMsg = newBubble.AlertMsg ?? oldBubble.AlertMsg;
+            oldBubble.AddressId = newBubble.AddressId ?? oldBubble.AddressId;
+            oldBubble.ProfileId = newBubble.ProfileId; // ?? oldBubble.ProfileId;
+            oldBubble.CategoryId = newBubble.CategoryId; // ?? oldBubble.CategoryId;
+            oldBubble.ScheduleId = newBubble.ScheduleId; // ?? oldBubble.ScheduleId;
+            oldBubble.RadiusId = newBubble.RadiusId; // ?? oldBubble.RadiusId;
+            oldBubble.Active = newBubble.Active; // ?? oldBubble.Active;
 
-            try
-            {
-                db.SaveChanges();
-            }
+            db.Entry(oldBubble).State = EntityState.Modified;
+
+            try { db.SaveChanges(); }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BubbleExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                if (!BubbleExists(id)) { return NotFound(); }
+                else { throw; }
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -81,11 +67,9 @@ namespace PopditCore.Controllers
         [ResponseType(typeof(Bubble))]
         public IHttpActionResult PostBubble(Bubble bubble)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
+            bubble.ProfileId = AuthenticatedUserId;
             db.Bubbles.Add(bubble);
             db.SaveChanges();
 
@@ -110,10 +94,7 @@ namespace PopditCore.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
+            if (disposing) { db.Dispose(); }
             base.Dispose(disposing);
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using System.IO;
 using System.Threading.Tasks;
@@ -16,54 +17,50 @@ namespace PopditWeb.Controllers
             return View((List<Models.Bubble>)serializer.ReadObject(json));
         }
 
-        // GET: Bubble/Read/5
-        public ActionResult Read(int id)
-        {
-            return View();
-        }
-
-        // GET: Bubble/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
         // POST: Bubble/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public async Task<ActionResult> Create(FormCollection collection)
         {
-            try
-            {
-                // TODO: Add insert logic here
+            // Create new bubble from FormCollection
+            Models.Bubble b = new Models.Bubble();
+            b.Name = collection["Name"].ToString();
+            b.CategoryId = 11; // TBD - hack
+            b.Latitude = decimal.Parse(collection["Latitude"].ToString());
+            b.Longitude = decimal.Parse(collection["Longitude"].ToString());
+            b.AlertMsg = collection["AlertMsg"].ToString();
+            b.RadiusId = 1; // TBD - remove this hack and replace with value from dropdown.
+            b.Active = collection["Active"].Contains("true");
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            Stream json = await WebApiPost("api/bubble", b);
+            return RedirectToAction("Index", "Bubble");
         }
 
         // POST: Bubble/Update/5
         [HttpPost]
-        public ActionResult Update(int id, FormCollection collection)
+        public async Task<ActionResult> Update(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
+                // TBD - this is a hack for testing.
+                Models.Bubble b = new Models.Bubble();
+                b.Id = id;
+                b.ProfileId = Int32.Parse(collection["ProfileId"]);
+                b.Name = collection["Name"].ToString();
+                b.CategoryId = 11; // TBD - hack
+                b.Latitude = decimal.Parse(collection["Latitude"].ToString());
+                b.Longitude = decimal.Parse(collection["Longitude"].ToString());
+                b.AlertMsg = collection["AlertMsg"].ToString();
+                b.ScheduleId = 99; // TBD - hack
+                b.RadiusId = 1; // TBD - remove this hack and replace with value from dropdown.
+                b.Active = collection["Active"].Contains("true");
 
+                Stream json = await WebApiPut("api/Bubble/" + id.ToString(), b);
                 return RedirectToAction("Index");
             }
             catch
             {
                 return View();
             }
-        }
-
-        // GET: Bubble/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
         }
 
         // POST: Bubble/Delete/5

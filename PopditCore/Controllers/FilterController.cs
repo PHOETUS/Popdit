@@ -17,7 +17,7 @@ namespace PopditCore.Controllers
         // GET: api/Filter
         public System.Web.Http.Results.JsonResult<List<Models.Filter>> GetFilters()
         {
-            return Json(db.Filters.Where(m => m.ProfileId == AuthenticatedUserId).ToList());
+            return Json(db.Filters.Where(m => m.ProfileId == AuthenticatedUserId).OrderBy(m => m.Name).ToList());
         }
 
         // GET: api/Filter/5
@@ -36,7 +36,17 @@ namespace PopditCore.Controllers
 
             if (id != newFilter.Id) { return BadRequest(); }
 
-            db.Entry(newFilter).State = EntityState.Modified;
+            // Change only the changed fields in the filter.
+            // Only the fields below are changeable via the API.
+            Filter oldFilter = db.Filters.Find(id);
+            oldFilter.Name = newFilter.Name ?? oldFilter.Name;
+            oldFilter.ProfileId = newFilter.ProfileId; // ?? oldFilter.ProfileId;
+            oldFilter.CategoryId = newFilter.CategoryId ?? oldFilter.CategoryId;
+            oldFilter.ScheduleId = newFilter.ScheduleId ?? oldFilter.ScheduleId;
+            oldFilter.RadiusId = newFilter.RadiusId; // ?? oldFilter.RadiusId;
+            oldFilter.Active = newFilter.Active; // ?? oldFilter.Active;
+
+            db.Entry(oldFilter).State = EntityState.Modified;
 
             try { db.SaveChanges(); }
             catch (DbUpdateConcurrencyException)
@@ -52,11 +62,9 @@ namespace PopditCore.Controllers
         [ResponseType(typeof(Filter))]
         public IHttpActionResult PostFilter(Filter filter)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
+            filter.ProfileId = AuthenticatedUserId;
             db.Filters.Add(filter);
             db.SaveChanges();
 

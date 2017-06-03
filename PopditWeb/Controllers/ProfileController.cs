@@ -18,9 +18,6 @@ namespace PopditWeb.Controllers
             return View(profileList[0]); // Return the first - and presumably only - profile, so that the page can use a Profile, instead of a List, as a model.
         }
 
-        // GET: Profile/Create
-        public ActionResult Create() { return View(); }
-
         // POST: Profile/Create
         [HttpPost]
         public async Task<ActionResult> Create(Models.Profile pd)
