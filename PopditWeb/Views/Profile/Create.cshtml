@@ -30,37 +30,44 @@
             <tr class="form">
                 <td>Password</td>
                 <td>
-                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Password)
                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                 </td>
             </tr>
             <tr class="form">
                 <td>Nickname</td>
                 <td>
-                    @Html.EditorFor(model => model.Nickname, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Nickname)
                     @Html.ValidationMessageFor(model => model.Nickname, "", new { @class = "text-danger" })
                 </td>
             </tr>
             <tr class="form">
                 <td>Email</td>
                 <td>
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Email)
                     @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                 </td>
             </tr>
             <tr class="form">
                 <td>Date of birth</td>
                 <td>
-                    @Html.EditorFor(model => model.DobJson, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.DobJson)
                     @Html.ValidationMessageFor(model => model.DobJson, "", new { @class = "text-danger" })
                 </td>
             </tr>
             <tr class="form">
                 <td>Gender</td>
                 <td>
-                    @Html.EditorFor(model => model.Male, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownListFor(model => model.Male,
+                  new List<SelectListItem>{
+                       new SelectListItem { Value = "null" , Text = "Not set"  },
+                       new SelectListItem { Value = "0" , Text = "Female"  },
+                       new SelectListItem { Value = "1" , Text = "Male" }
+                    },
+                 new { @class = "myselect" })
                     @Html.ValidationMessageFor(model => model.Male, "", new { @class = "text-danger" })
                 </td>
+
             </tr>
             <tr>
                 <td>@Html.HiddenFor(m => m.Id)</td>

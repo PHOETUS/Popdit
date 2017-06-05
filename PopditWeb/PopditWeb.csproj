@@ -214,8 +214,7 @@
     <Content Include="Views\Filter\Index.cshtml" />
     <Content Include="Views\Bubble\Index.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
-    <Content Include="Views\More\Contact.cshtml" />
-    <Content Include="Views\More\About.cshtml" />
+    <Content Include="Views\More\Company.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutSignedOut.cshtml" />
     <Content Include="Views\More\Developers.cshtml" />
@@ -223,6 +222,7 @@
     <Content Include="Views\More\Metrics.cshtml" />
     <Content Include="Views\Profile\Create.cshtml" />
     <Content Include="Views\More\Account.cshtml" />
+    <Content Include="Views\More\WhatIs.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

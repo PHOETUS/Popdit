@@ -18,8 +18,8 @@ namespace PopditWeb.Controllers
 
         public ActionResult Developers() { return View(); }
 
-        public ActionResult Contact() { return View(); }
+        public ActionResult Company() { return View(); }
 
-        public ActionResult About() { return View(); }
+        public ActionResult WhatIs() { return View(); }
     }
 }
