@@ -65,7 +65,7 @@ tr.item
 tr.header td { padding: 4px; }
 tr.detail { display: none; }
 td.left { text-align: left; }
-td.pagetitle { font-size: 1.2em; }
+td.pagetitle { font-size: 1.2em; border-bottom: solid #AAAAAA thin; }
 td.text { text-align: justify; }
 select
 {

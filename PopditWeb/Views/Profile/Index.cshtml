@@ -43,7 +43,12 @@
             </tr>
             <tr class="form">
                 <td>Gender</td>
-                <td>@Html.EditorFor(m => m.Male)</td>
+                <td>@Html.DropDownListFor(model => model.Male,
+                  new List<SelectListItem>{
+                       new SelectListItem { Value = "null" , Text = "Not set" },
+                       new SelectListItem { Value = "0" , Text = "Female" },
+                       new SelectListItem { Value = "1" , Text = "Male" }
+                    })</td>
             </tr>
             <tr class="form">
                 <td>@Html.HiddenFor(m => m.Id)</td>

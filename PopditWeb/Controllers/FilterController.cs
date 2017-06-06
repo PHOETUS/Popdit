@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using System.IO;
 using System.Threading.Tasks;
@@ -11,6 +12,17 @@ namespace PopditWeb.Controllers
         // GET: Filter/Index
         public async Task<ActionResult> Index()
         {
+            // Categories
+            Stream jsonCategories = await WebApiGet("api/Category");
+            DataContractJsonSerializer serializerCategory = new DataContractJsonSerializer(typeof(List<Models.Category>));
+            ViewData["Categories"] = (List<Models.Category>)serializerCategory.ReadObject(jsonCategories);
+
+            // Radii
+            Stream jsonRadii = await WebApiGet("api/Radius");
+            DataContractJsonSerializer serializerRadius = new DataContractJsonSerializer(typeof(List<Models.Radius>));
+            ViewData["Radii"] = (List<Models.Radius>)serializerRadius.ReadObject(jsonRadii);
+
+            // Filters
             Stream json = await WebApiGet("api/Filter");
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<Models.Filter>));
             return View((List<Models.Filter>)serializer.ReadObject(json));
@@ -33,25 +45,26 @@ namespace PopditWeb.Controllers
         [HttpPost]
         public async Task<ActionResult> Update(int id, FormCollection collection)
         {
-            try
-            {
-                // TBD - this is a hack for testing.
-                Models.Filter f = new Models.Filter();
-                f.Id = id;
-                f.Name = collection["Name"];
-                f.ProfileId = 1;
-                f.CategoryId = 11;
-                f.ScheduleId = null;
-                f.RadiusId = 4;
-                f.Active = true;
+            // Get CategoryID key.
+            int i = 0;
+            while (i < collection.Keys.Count && !collection.Keys[i].Contains("CategoryId")) i++;
 
-                Stream json = await WebApiPut("api/Filter/" + id.ToString(), f);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            // Get RadiusId key.
+            int j = 0;
+            while (j < collection.Keys.Count && !collection.Keys[j].Contains("RadiusId")) j++;
+
+            // TBD - this is a hack for testing.
+            Models.Filter f = new Models.Filter();
+            f.Id = id;
+            f.Name = collection["Name"];
+            f.ProfileId = 1;
+            f.CategoryId = Int32.Parse(collection[i]);
+            f.ScheduleId = null;
+            f.RadiusId = Int32.Parse(collection[j]);
+            f.Active = true;
+
+            Stream json = await WebApiPut("api/Filter/" + id.ToString(), f);
+            return RedirectToAction("Index");
         }
 
         // GET: Filter/Delete/5

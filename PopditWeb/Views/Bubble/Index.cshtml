@@ -19,7 +19,7 @@
             <td class="pagetitle">Bubbles</td>
         </tr>
         <tr class="item header" id="headerSearch">
-            <td><span onclick="ToggleDiv('Search')">&middot; Search &middot;</span></td>
+            <td onclick="ToggleDiv('Search')">&middot; Search &middot;</td>
         </tr>
         <tr class="item detail" id="detailSearch">
             <td>
@@ -28,8 +28,18 @@
                     <table class="content">
                         <tr><td colspan="2">&middot; Search &middot;</td></tr>
                         <tr class="form"><td>Name</td><td>@Html.TextBox("Name")</td></tr>
-                        <tr class="form"><td>Category</td><td>Drop down list here</td></tr>
-                        <tr class="form"><td>Active</td><td class="left">Dropdown list here</td></tr>
+                        <tr class="form"><td>Category</td><td>@Html.DropDownList("CategoryId", new SelectList((List<PopditWeb.Models.Category>)ViewData["Categories"], "Id", "Description"), "- Select Category -")</td></tr>
+                        <tr class="form">
+                            <td>Active</td>
+                            <td class="left">
+                                @Html.DropDownList("Active",
+                  new List<SelectListItem>{
+                       new SelectListItem { Value = "null" , Text = "- Not set -" },
+                       new SelectListItem { Value = "false" , Text = "Not active" },
+                       new SelectListItem { Value = "true" , Text = "Active" }
+                    })
+                            </td>
+                        </tr>
                         <tr><td></td><td><input type="submit" value="Search" /></td></tr>
                         <tr><td></td><td><input type="submit" value="Reset" /></td></tr>
                     </table>
@@ -37,7 +47,7 @@
             </td>
         </tr>
         <tr class="item header" id="headerCreate">
-            <td><span onclick="ToggleDiv('Create')">&middot; Create a new bubble &middot;</span></td>
+            <td onclick="ToggleDiv('Create')">&middot; Create a new bubble &middot;</td>
         </tr>
         <tr class="item detail" id="detailCreate">
             <td>
@@ -45,11 +55,11 @@
                 {
                     <table class="content">
                         <tr><td colspan="2">&middot; Create a new filter &middot;</td></tr>
-                        <tr class="form"><td>Name</td><td>@Html.TextBox("Name")</td></tr>                     
-                        <tr class="form"><td>Category</td><td>Drop down list here</td></tr>
+                        <tr class="form"><td>Name</td><td>@Html.TextBox("Name")</td></tr>
+                        <tr class="form"><td>Category</td><td>@Html.DropDownList("CategoryId", new SelectList((List<PopditWeb.Models.Category>)ViewData["Categories"], "Id", "Description"))</td></tr>
                         <tr class="form"><td>Latitude</td><td>@Html.TextBox("Latitude")</td></tr>
                         <tr class="form"><td>Longitude</td><td>@Html.TextBox("Longitude")</td></tr>
-                        <tr class="form"><td>Radius</td><td>Drop down list here</td></tr>
+                        <tr class="form"><td>Radius</td><td>@Html.DropDownList("RadiusId", new SelectList((List<PopditWeb.Models.Radius>)ViewData["Radii"], "Id", "Description"))</td></tr>
                         <tr class="form"><td>Alert message</td><td>@Html.TextBox("AlertMsg")</td></tr>
                         <tr class="form"><td>Active</td><td class="left">@Html.CheckBox("Active", false)</td></tr>
                         <tr><td></td><td><input type="submit" value="Create new bubble" /></td></tr>
@@ -60,25 +70,25 @@
         @for (var i = 0; i < Model.Count(); i++)
         {
             <tr class="item header" id="@("header" + Model[i].Id)">
-                <td><span onclick="ToggleDiv(@Model[i].Id)">@Model[i].Name</span></td>
+                <td  onclick="ToggleDiv(@Model[i].Id)">@Model[i].Name</td>
             </tr>
             <tr class="item detail" id="@("detail" + Model[i].Id)">
                 <td>
-                   @using (Html.BeginForm("Update/" + Model[i].Id.ToString(), "Bubble", FormMethod.Post))
-                   {
-                    @Html.Hidden("Id", Model[i].Id, new { @name = "Id" })
-                    @Html.Hidden("ProfileId", Model[i].ProfileId, new { @name = "ProfileId" })
-                    <table class="content">
-                        <tr><td colspan="2">@Model[i].Name</td></tr>
-                        <tr class="form"><td>Name</td><td>@Html.EditorFor(m => m[i].Name, null, "Name")</td></tr>
-                        <tr class="form"><td>Category</td><td>Drop down list here</td></tr>
-                        <tr class="form"><td>Latitude</td><td>@Html.EditorFor(m => m[i].Latitude, null, "Latitude")</td></tr>
-                        <tr class="form"><td>Longitude</td><td>@Html.EditorFor(m => m[i].Longitude, null, "Longitude")</td></tr>
-                        <tr class="form"><td>Radius</td><td>Drop down list here</td></tr>
-                        <tr class="form"><td>Alert message</td><td>@Html.EditorFor(m => m[i].AlertMsg, null, "AlertMsg")</td></tr>
-                        <tr class="form"><td>Active</td><td class="left">@Html.EditorFor(m => m[i].Active, null, "Active")</td></tr>
-                        <tr><td></td><td><input type="submit" value="Update bubble" /></td></tr>
-                    </table>
+                    @using (Html.BeginForm("Update/" + Model[i].Id.ToString(), "Bubble", FormMethod.Post))
+                    {
+                        @Html.Hidden("Id", Model[i].Id, new { @name = "Id" })
+                        @Html.Hidden("ProfileId", Model[i].ProfileId, new { @name = "ProfileId" })
+                        <table class="content">
+                            <tr><td colspan="2">@Model[i].Name</td></tr>
+                            <tr class="form"><td>Name</td><td>@Html.EditorFor(m => m[i].Name, null, "Name")</td></tr>
+                            <tr class="form"><td>Category</td><td>@Html.DropDownListFor(m => m[i].CategoryId, new SelectList((List<PopditWeb.Models.Category>)ViewData["Categories"], "Id", "Description", Model[i].CategoryId))</td></tr>
+                            <tr class="form"><td>Latitude</td><td>@Html.EditorFor(m => m[i].Latitude, null, "Latitude")</td></tr>
+                            <tr class="form"><td>Longitude</td><td>@Html.EditorFor(m => m[i].Longitude, null, "Longitude")</td></tr>
+                            <tr class="form"><td>Radius</td><td>@Html.DropDownListFor(m => m[i].RadiusId, new SelectList((List<PopditWeb.Models.Radius>)ViewData["Radii"], "Id", "Description", Model[i].RadiusId))</td></tr>
+                            <tr class="form"><td>Alert message</td><td>@Html.EditorFor(m => m[i].AlertMsg, null, "AlertMsg")</td></tr>
+                            <tr class="form"><td>Active</td><td class="left">@Html.EditorFor(m => m[i].Active, null, "Active")</td></tr>
+                            <tr><td></td><td><input type="submit" value="Update bubble" /></td></tr>
+                        </table>
                     }
                 </td>
             </tr>
