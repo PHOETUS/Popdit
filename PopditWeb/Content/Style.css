@@ -23,7 +23,7 @@ div.menubar
     left: 0px;
     height: 40px;
     width: 100%;
-    display: table;
+    display: table;    
 }
 div.menuitem
 {
@@ -46,6 +46,11 @@ div.select
     width: 100%;
     padding-top: 2px;
 }   
+p 
+{ 
+    width: 100%; 
+    text-align: justify; 
+}
 table { border-collapse: collapse;}
 td { padding: 0px; }
 table.content

@@ -1,6 +1,4 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@{ ViewBag.Title = "Company"; }
 
 <div class="content">
     <table id="content" class="content">
@@ -17,7 +15,16 @@
             <td class="pagetitle">Company</td>
         </tr>
         <tr>
-            <td>Lorem ipsum</td>
+            <td>
+                <p>
+                    Popdit LLC<br />
+                    P.O. Box 5904<br />
+                    Bloomington, IN 47407
+                </p>
+                <p>
+                    @Html.Raw("I n f o @ P o p d i t . c o m")
+                </p>
+            </td>
         </tr>
     </table>
 </div>
