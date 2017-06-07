@@ -23,11 +23,6 @@ namespace PopditCore.Models
         [DataMember]
         public int BubbleId { get; set; }
         [DataMember]
-        public string TimestampJson
-        {
-            get { return String.Format("{0:yyyy-MM-dd HH:mm:ss}", Timestamp); }
-            set { Timestamp = DateTime.Parse(value); }
-        }
         public System.DateTime Timestamp { get; set; }
 
         public virtual Bubble Bubble { get; set; }

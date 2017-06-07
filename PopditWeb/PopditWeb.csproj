@@ -170,7 +170,6 @@
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Filter.cs" />
-    <Compile Include="Models\FilterData.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Radius.cs" />
     <Compile Include="Models\State.cs" />
