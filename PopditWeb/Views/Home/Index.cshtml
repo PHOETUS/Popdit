@@ -5,8 +5,8 @@
 }
 
 <div class="content">
-    @using (Html.BeginForm("SignIn", "Home", FormMethod.Post))
-    {
+    @using (Html.BeginForm("SignIn", "Home", FormMethod.Post, new { @class = "content" }))        
+        {
         <table id="content" class="content">
             <tr>
                 <td colspan="2"><span class=logo><img src="~/Content/Logo.gif" width="206" height="58" /></span></td>

@@ -59,6 +59,12 @@ table.content
     width: 350px;
     text-align: center;      
 }
+form.content 
+{
+    margin: auto;
+    width: 350px;
+    text-align: center;
+}
 table.content td { padding: 2px; }
 tr.form td { letter-spacing:normal; }
 tr.form td:first-child { text-align: right; }

@@ -1,11 +1,11 @@
 ﻿@model PopditWeb.Models.Profile
 @{
     ViewBag.Title = "Create new account";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutSignedOut.cshtml";
 }
 
     <div class="content">
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Create", "profile", FormMethod.Post, new { @class = "content" }))
     {
         <table id="content" class="content">
             <tr>
