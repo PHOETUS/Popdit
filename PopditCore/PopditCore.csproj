@@ -165,7 +165,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Compile Include="Models\Token.cs" />
     <EntityDeploy Include="Models\PopditDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>PopditDB.Designer.cs</LastGenOutput>

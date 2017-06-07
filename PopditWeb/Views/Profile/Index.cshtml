@@ -43,12 +43,13 @@
             </tr>
             <tr class="form">
                 <td>Gender</td>
-                <td>@Html.DropDownListFor(model => model.Male,
+                <td>
+                    @Html.DropDownListFor(m => m.Male,
                   new List<SelectListItem>{
-                       new SelectListItem { Value = "null" , Text = "Not set" },
-                       new SelectListItem { Value = "0" , Text = "Female" },
-                       new SelectListItem { Value = "1" , Text = "Male" }
-                    })</td>
+                       new SelectListItem { Value = "false" , Text = "Female" },
+                       new SelectListItem { Value = "true" , Text = "Male" }
+                    }, "- Not set -")
+                </td>
             </tr>
             <tr class="form">
                 <td>@Html.HiddenFor(m => m.Id)</td>

@@ -25,7 +25,7 @@ namespace PopditWeb.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(Models.Profile pd)
         {
-                Stream json = await WebApiPost("api/Profile", pd);
+                Stream json = await WebApiPost("api/Profile/1", pd);
                 return RedirectToAction("Index", "Home");
         }
 

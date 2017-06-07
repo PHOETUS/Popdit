@@ -23,7 +23,7 @@
             <tr class="form">
                 <td>Phone</td>
                 <td>
-                    @Html.EditorFor(model => model.Phone })
+                    @Html.EditorFor(model => model.Phone)
                 </td>
             </tr>
             <tr class="form">
@@ -55,10 +55,9 @@
                 <td>
                     @Html.DropDownListFor(model => model.Male,
                   new List<SelectListItem>{
-                       new SelectListItem { Value = "null" , Text = "Not set" },
-                       new SelectListItem { Value = "0" , Text = "Female" },
-                       new SelectListItem { Value = "1" , Text = "Male" }
-                    })
+                       new SelectListItem { Value = "false" , Text = "Female" },
+                       new SelectListItem { Value = "true" , Text = "Male" }
+                    }, "- Not set -")
                 </td>
 
             </tr>

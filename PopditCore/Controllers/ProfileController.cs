@@ -77,20 +77,49 @@ namespace PopditCore.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Profile
+        // POST: api/Profile - This method copies a profile.
         [ResponseType(typeof(Profile))]
         public IHttpActionResult PostProfile(Profile profile)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
             DateTime now = DateTime.Now;
             profile.LastSignIn = now;
             profile.Created = now;
 
             db.Profiles.Add(profile);
+
+            // Clone the specified profile.
+            Profile template = db.Profiles.Find(1);  // Hard-coded id.
+            foreach (Filter f in template.Filters)
+            {
+                Filter clone = new Filter();
+                clone.Name = f.Name;
+                clone.CategoryId = f.CategoryId;
+                clone.RadiusId = f.RadiusId;
+                clone.ScheduleId = f.ScheduleId;
+                clone.Active = f.Active;
+                // Let the new profile own it.
+                clone.ProfileId = profile.Id;
+                db.Filters.Add(clone);
+            }
+            foreach (Bubble b in template.Bubbles)
+            {
+                Bubble clone = new Bubble();
+                clone.AddressId = b.AddressId;
+                clone.AlertMsg = b.AlertMsg;
+                clone.CategoryId = b.CategoryId;
+                clone.Latitude = b.Latitude;
+                clone.Longitude = b.Longitude;
+                clone.Name = b.Name;
+                clone.RadiusId = b.RadiusId;
+                clone.ScheduleId = b.ScheduleId;
+                clone.Active = b.Active;
+                // Let the new profile own it.
+                clone.ProfileId = profile.Id;
+                db.Bubbles.Add(clone);
+            }
+
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = profile.Id }, profile);
