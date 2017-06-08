@@ -45,25 +45,34 @@ namespace PopditWeb.Controllers
         [HttpPost]
         public async Task<ActionResult> Update(int id, FormCollection collection)
         {
-            // Get CategoryID key.
-            int i = 0;
-            while (i < collection.Keys.Count && !collection.Keys[i].Contains("CategoryId")) i++;
+            // UPDATE
+            if (collection["command"].Equals("Update"))
+            {
+                // Get CategoryID key.
+                int i = 0;
+                while (i < collection.Keys.Count && !collection.Keys[i].Contains("CategoryId")) i++;
 
-            // Get RadiusId key.
-            int j = 0;
-            while (j < collection.Keys.Count && !collection.Keys[j].Contains("RadiusId")) j++;
+                // Get RadiusId key.
+                int j = 0;
+                while (j < collection.Keys.Count && !collection.Keys[j].Contains("RadiusId")) j++;
 
-            // TBD - this is a hack for testing.
-            Models.Filter f = new Models.Filter();
-            f.Id = id;
-            f.Name = collection["Name"];
-            f.ProfileId = 1;
-            f.CategoryId = Int32.Parse(collection[i]);
-            f.ScheduleId = null;
-            f.RadiusId = Int32.Parse(collection[j]);
-            f.Active = true;
+                // TBD - this is a hack for testing.
+                Models.Filter f = new Models.Filter();
+                f.Id = id;
+                f.Name = collection["Name"];
+                f.ProfileId = 1;
+                f.CategoryId = Int32.Parse(collection[i]);
+                f.ScheduleId = null;
+                f.RadiusId = Int32.Parse(collection[j]);
+                f.Active = true;
 
-            Stream json = await WebApiPut("api/Filter/" + id.ToString(), f);
+                Stream json = await WebApiPut("api/Filter/" + id.ToString(), f);
+            }
+            // DELETE
+            if (collection["command"].Equals("Confirm deletion"))
+            {
+                Stream json = await WebApiDelete("api/Filter/" + id.ToString());
+            }
             return RedirectToAction("Index");
         }
 
