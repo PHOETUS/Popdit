@@ -20,6 +20,8 @@ namespace PopditWeb.Controllers
 
         public ActionResult Company() { return View(); }
 
-        public ActionResult WhatIs() { return View(); }
+        public ActionResult Help() { return View(); }
+
+        public ActionResult CompanyLoggedOut() { return View(); }
     }
 }

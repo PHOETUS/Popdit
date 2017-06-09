@@ -1,6 +1,5 @@
-﻿
-@{
-    ViewBag.Title = "Sign in / Sign up";
+﻿@{
+    ViewBag.Title = "Sign up / Sign in";
     Layout = "~/Views/Shared/_LayoutSignedOut.cshtml";
 }
 
@@ -12,10 +11,17 @@
                 <td colspan="2"><span class=logo><img src="~/Content/Logo.gif" width="206" height="58" /></span></td>
             </tr>
             <tr>
-                <td colspan="2">@PageData["Tagline"]</td>
+                <td colspan="2">&nbsp;</td>
             </tr>
             <tr>
-                <td colspan="2">&nbsp;</td>
+                <td class="pagetitle" colspan="2">Sign Up</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <p>Popdit helps you discover interesting places while you're on the go. You decide what's interesting. You can share your favorite places so your friends can discover them, too.</p>
+                    <p>Download the mobile app and create an account. You can manage your account from your smartphone or from any browser.</p>
+                    <p class="center">&#187; &#187; &#187; @Html.ActionLink("Create a new account", "Create", "Profile") &#171; &#171; &#171;</p>
+                </td>
             </tr>
             <tr>
                 <td class="pagetitle" colspan="2">Sign In</td>
@@ -33,8 +39,7 @@
                 <td><input type="submit" value="Sign in" /></td>
             </tr>
             <tr>
-                <td>&nbsp;</td>
-                <td>@Html.ActionLink("Create a new account", "Create", "Profile")</td>
+                <td colspan="2"><p class="center">&copy; @Html.ActionLink("Popdit LLC", "CompanyLoggedOut", "More") 2017</p></td>
             </tr>
         </table>
     }

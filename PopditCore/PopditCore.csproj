@@ -125,6 +125,7 @@
     <Compile Include="Models\Category.cs">
       <DependentUpon>PopditDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BubbleHelper.cs" />
     <Compile Include="Models\Country.cs">
       <DependentUpon>PopditDB.tt</DependentUpon>
     </Compile>

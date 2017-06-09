@@ -221,7 +221,8 @@
     <Content Include="Views\More\Metrics.cshtml" />
     <Content Include="Views\Profile\Create.cshtml" />
     <Content Include="Views\More\Account.cshtml" />
-    <Content Include="Views\More\WhatIs.cshtml" />
+    <Content Include="Views\More\CompanyLoggedOut.cshtml" />
+    <Content Include="Views\More\Help.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -10,9 +10,6 @@
             <td><span class=logo><img src="~/Content/Logo.gif" width="206" height="58" /></span></td>
         </tr>
         <tr>
-            <td>@PageData["Tagline"]</td>
-        </tr>
-        <tr>
             <td>&nbsp;</td>
         </tr>
         <tr>
@@ -57,10 +54,10 @@
                         <tr><td colspan="2">&middot; Create a new filter &middot;</td></tr>
                         <tr class="form"><td>Name</td><td>@Html.TextBox("Name")</td></tr>
                         <tr class="form"><td>Category</td><td>@Html.DropDownList("CategoryId", new SelectList((List<PopditWeb.Models.Category>)ViewData["Categories"], "Id", "Description"))</td></tr>
-                        <tr class="form"><td>Latitude</td><td>@Html.TextBox("Latitude")</td></tr>
-                        <tr class="form"><td>Longitude</td><td>@Html.TextBox("Longitude")</td></tr>
+                        <tr class="form"><td>Latitude</td><td class="latlong">@Html.TextBox("Latitude", null)</td></tr>
+                        <tr class="form"><td>Longitude</td><td class="latlong">@Html.TextBox("Longitude", null)</td></tr>
                         <tr class="form"><td>Radius</td><td>@Html.DropDownList("RadiusId", new SelectList((List<PopditWeb.Models.Radius>)ViewData["Radii"], "Id", "Description"))</td></tr>
-                        <tr class="form"><td>Alert message</td><td>@Html.TextBox("AlertMsg")</td></tr>
+                        <tr class="form"><td>Notification message</td><td>@Html.TextBox("AlertMsg")</td></tr>
                         <tr class="form"><td>Active</td><td class="left">@Html.CheckBox("Active", false)</td></tr>
                         <tr><td></td><td><input type="submit" value="Create new bubble" /></td></tr>
                     </table>
@@ -82,8 +79,8 @@
                             <tr><td colspan="2">@Model[i].Name</td></tr>
                             <tr class="form"><td>Name</td><td>@Html.EditorFor(m => m[i].Name, null, "Name")</td></tr>
                             <tr class="form"><td>Category</td><td>@Html.DropDownListFor(m => m[i].CategoryId, new SelectList((List<PopditWeb.Models.Category>)ViewData["Categories"], "Id", "Description", Model[i].CategoryId))</td></tr>
-                            <tr class="form"><td>Latitude</td><td>@Html.EditorFor(m => m[i].Latitude, null, "Latitude")</td></tr>
-                            <tr class="form"><td>Longitude</td><td>@Html.EditorFor(m => m[i].Longitude, null, "Longitude")</td></tr>
+                            <tr class="form"><td>Latitude</td><td class="latlong">@Html.EditorFor(m => m[i].Latitude, null, "Latitude")</td></tr>
+                            <tr class="form"><td>Longitude</td><td class="latlong">@Html.EditorFor(m => m[i].Longitude, null, "Longitude")</td></tr>
                             <tr class="form"><td>Radius</td><td>@Html.DropDownListFor(m => m[i].RadiusId, new SelectList((List<PopditWeb.Models.Radius>)ViewData["Radii"], "Id", "Description", Model[i].RadiusId))</td></tr>
                             <tr class="form"><td>Alert message</td><td>@Html.EditorFor(m => m[i].AlertMsg, null, "AlertMsg")</td></tr>
                             <tr class="form"><td>Active</td><td class="left">@Html.EditorFor(m => m[i].Active, null, "Active")</td></tr>
@@ -95,5 +92,8 @@
                 </td>
             </tr>
         }
+            <tr>
+                <td>@Html.ActionLink("Help", "Help", "More")</td>
+            </tr>
     </table>
 </div>

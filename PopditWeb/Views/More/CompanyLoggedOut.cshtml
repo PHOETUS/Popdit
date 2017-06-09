@@ -1,4 +1,7 @@
-﻿@{ ViewBag.Title = "Company"; }
+﻿@{ 
+    ViewBag.Title = "Company";
+    Layout = "~/Views/Shared/_LayoutSignedOut.cshtml";
+}
 
 <div class="content">
     <table id="content" class="content">
@@ -21,6 +24,7 @@
                 <p>
                     @Html.Raw("I n f o @ P o p d i t . c o m")
                 </p>
+                <p class="center">@Html.ActionLink("Home", "Index", "Home")</p>
             </td>
         </tr>
     </table>
