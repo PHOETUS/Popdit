@@ -1,7 +1,9 @@
 /* GENERAL */
-html { height: 100%; }
-body
-{
+html {
+    height: 100%;
+}
+
+body {
     height: 100%;
     background-color: #ffffff;
     color: #000000;
@@ -10,92 +12,128 @@ body
     margin: 0px;
 }
 /* DIV */
-div { box-sizing: border-box; }
-div.main
-{
+div {
+    box-sizing: border-box;
+}
+
+div.main {
     height: 100%;
     width: 100%;
     display: table;
 }
-div.menubar
-{
+
+div.menubar {
     top: 0px;
     left: 0px;
     height: 40px;
     width: 100%;
-    display: table;    
+    display: table;
 }
-div.menuitem
-{
+
+div.menuitem {
     height: 100%;
     display: table-cell;
     text-align: center;
     vertical-align: middle;
 }
-div.content
-{
+
+div.content {
     height: 100%;
     display: flex;
     vertical-align: middle;
-    padding-top: 50px 0px 50px 0px;
+    padding-top: 0px 0px 50px 0px;
     margin: auto;
 }
-div.select
-{
-    background-color:#FFFFFF;
+
+div.select {
+    background-color: #FFFFFF;
     height: 24px;
     width: 100%;
     padding-top: 2px;
-}   
+}
 /* TEXT */
-p 
-{ 
-    width: 100%; 
+p {
+    width: 100%;
     text-align: justify;
     letter-spacing: normal;
 }
-p.center { text-align: center; }
-p.help { font-size: 0.8em; text-align: center; }
-span.logo { font-size: xx-large; }
-/* TABLE */
-table { border-collapse: collapse;}
-table.content
-{
-    margin: auto;
-    width: 350px;
-    text-align: center;      
+
+p.center {
+    text-align: center;
 }
 
-table.content td { padding: 2px; }
-tr.form td { letter-spacing:normal; }
-tr.form td:first-child { text-align: right; }
-tr.item
-{
+p.help {
+    font-size: 0.8em;
+    text-align: center;
+}
+
+/* TABLE */
+table {
+    border-collapse: collapse;
+}
+
+table.content {
+    margin: auto;
+    width: 350px;
+    text-align: center;
+}
+
+table.content td {
+    padding: 2px;
+}
+
+tr.form td {
+    letter-spacing: normal;
+}
+
+tr.form td:first-child {
+    text-align: right;
+}
+
+tr.item td:first-child {
     border: solid thin #AAAAAA;
-    background-color: #ffffff;
 }
-tr.header td { padding: 4px; }
-tr.detail { display: none; }
-tr.delete { display: none; }
-td { padding: 0px; }
-td.left { text-align: left; }
-td.pagetitle 
-{ 
-    font-size: 1.2em; 
-    border-bottom: solid #AAAAAA thin; 
+
+tr.header td {
+    padding: 4px;
 }
-td.text { text-align: justify; }
-td.latlong input:first-child { text-align: right; }
+
+tr.detail {
+    display: none;
+}
+
+tr.delete {
+    display: none;
+}
+
+td {
+    padding: 0px;
+}
+
+td.left {
+    text-align: left;
+}
+
+td.pagetitle {
+    font-size: 1.2em;
+    border-bottom: solid #AAAAAA thin;
+}
+
+td.text {
+    text-align: justify;
+}
+
+td.latlong input:first-child {
+    text-align: right;
+}
 /* FORM */
-form.content 
-{
+form.content {
     margin: auto;
     width: 350px;
     text-align: center;
 }
 /* CONTROLS */
-select
-{
+select {
     width: 100%;
     font-size: inherit;
     font-family: inherit;
@@ -103,8 +141,8 @@ select
     height: 25px;
     width: 100%;
 }
-input
-{
+
+input {
     width: 100%;
     font-size: inherit;
     font-family: inherit;
@@ -112,6 +150,7 @@ input
     margin: 0px;
     padding-left: 2px;
 }
+
 button {
     width: 100%;
     height: 25px;
@@ -121,10 +160,16 @@ button {
     margin: 0px;
     padding-left: 2px;
 }
-input.confirm { color: #DD0000; }
-input[type=checkbox] { width: 13px; }
-textarea
-{
+
+input.confirm {
+    color: #DD0000;
+}
+
+input[type=checkbox] {
+    width: 13px;
+}
+
+textarea {
     width: 100%;
     font-size: inherit;
     font-family: inherit;
@@ -133,8 +178,7 @@ textarea
     padding-left: 2px;
 }
 /* LINKS */
-a 
-{ 
-    text-decoration: none; 
+a {
+    text-decoration: none;
     color: mediumseagreen;
 }
