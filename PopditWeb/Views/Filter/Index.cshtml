@@ -12,10 +12,10 @@
         <tr>
             <td class="pagetitle">Filters</td>
         </tr>
-        <tr class="item header" id="headerSearch">
-            <td onclick="ToggleCell('Search')">&middot; Search &middot;</td>
+        <tr class="header" id="headerSearch">
+            <td class="item" onclick="ToggleCell('Search')">&middot; Search &middot;</td>
         </tr>
-        <tr class="item detail" id="detailSearch">
+        <tr class="detail" id="detailSearch">
             <td>
                 @using (Html.BeginForm("Index", "Filter", FormMethod.Post))
                 {
@@ -31,11 +31,11 @@
                 }
             </td>
         </tr>
-        <tr class="item header" id="headerCreate">
-            <td onclick="ToggleCell('Create')">&middot; Create a new filter &middot;</td>
+        <tr class="header" id="headerCreate">
+            <td class="item" onclick="ToggleCell('Create')">&middot; Create a new filter &middot;</td>
         </tr>
-        <tr class="item detail" id="detailCreate">
-            <td>
+        <tr class="detail" id="detailCreate">
+            <td class="item">
                 @using (Html.BeginForm("Create", "Filter", FormMethod.Post))
                 {
                     <table class="content">
@@ -51,11 +51,11 @@
         </tr>
         @for (var i = 0; i < Model.Count(); i++)
         {
-            <tr class="item header" id="@("header" + Model[i].Id)">
-                <td onclick="ToggleCell(@Model[i].Id)">@Model[i].Name</td>
+            <tr class="header" id="@("header" + Model[i].Id)">
+                <td class="item" onclick="ToggleCell(@Model[i].Id)">@Model[i].Name</td>
             </tr>
-            <tr class="item detail" id="@("detail" + Model[i].Id)">
-                <td>
+            <tr class="detail" id="@("detail" + Model[i].Id)">
+                <td class="item">
                     @using (Html.BeginForm("Update/" + Model[i].Id.ToString(), "Filter", FormMethod.Post))
                     {
                         @Html.Hidden("Id", Model[i].Id, new { @name = "Id" })

@@ -90,10 +90,6 @@ tr.form td:first-child {
     text-align: right;
 }
 
-tr.item td:first-child {
-    border: solid thin #AAAAAA;
-}
-
 tr.header td {
     padding: 4px;
 }
@@ -108,6 +104,10 @@ tr.delete {
 
 td {
     padding: 0px;
+}
+
+td.item {
+    border: solid thin #AAAAAA;
 }
 
 td.left {
