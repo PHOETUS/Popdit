@@ -7,35 +7,30 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PopditCore.Models
+namespace DBLayer.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.Serialization;
-
-    [DataContract]
-    public partial class Country
+    
+    public partial class Address
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Country()
+        public Address()
         {
-            this.Addresses = new HashSet<Address>();
+            this.Bubbles = new HashSet<Bubble>();
         }
     
-        [DataMember]
         public int Id { get; set; }
-        [DataMember]
-        public string Name { get; set; }
-        [DataMember]
-        public string ISO { get; set; }
-        [DataMember]
-        public string ISO3 { get; set; }
-        [DataMember]
-        public Nullable<short> Numcode { get; set; }
-        [DataMember]
-        public short Phonecode { get; set; }
+        public string Street1 { get; set; }
+        public string Street2 { get; set; }
+        public string City { get; set; }
+        public Nullable<int> StateId { get; set; }
+        public Nullable<int> CountryId { get; set; }
+        public string Zip { get; set; }
     
+        public virtual Country Country { get; set; }
+        public virtual State State { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Address> Addresses { get; set; }
+        public virtual ICollection<Bubble> Bubbles { get; set; }
     }
 }

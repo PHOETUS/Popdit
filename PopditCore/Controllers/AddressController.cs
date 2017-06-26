@@ -4,13 +4,14 @@ using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
-using PopditCore.Models;
+using DBLayer.Models;
 
 namespace PopditCore.Controllers
 {
     public class AddressController : ApiController
     {
         private PopditDBEntities db = new PopditDBEntities();
+
 
         // GET: api/Address
         // public IQueryable<Address> GetAddresses() { return db.Addresses; }

@@ -2,6 +2,7 @@
 using System.Data;
 using System.Linq;
 using System.Web.Http;
+using DBLayer.Models;
 using PopditPop.Models;
 
 namespace PopditPop.Controllers
@@ -12,7 +13,7 @@ namespace PopditPop.Controllers
 
         // POST: api/Bubble - Gets the bubbles that lie partially or fully within a zone.
         [HttpPost]
-        public System.Web.Http.Results.JsonResult<List<Models.Bubble>> GetBubbles(Zone z)
+        public System.Web.Http.Results.JsonResult<List<Bubble>> GetBubbles(Zone z)
         {
             // TBD - limit bubble set by user's filters.
 

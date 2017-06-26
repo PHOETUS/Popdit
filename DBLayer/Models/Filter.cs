@@ -7,30 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PopditPop.Models
+namespace DBLayer.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.Serialization;
-
-    [DataContract]
-    public partial class Event
+    
+    public partial class Filter
     {
-        [DataMember]
         public int Id { get; set; }
-        [DataMember]        
+        public string Name { get; set; }
         public int ProfileId { get; set; }
-        [DataMember]
-        public int BubbleId { get; set; }
-        [DataMember]
-        public string TimestampJson
-        {
-            get { return String.Format("{0:yyyy-MM-dd HH:mm:ss}", Timestamp); }
-            set { Timestamp = DateTime.Parse(value); }
-        }
-        public System.DateTime Timestamp { get; set; }
-
-        public virtual Bubble Bubble { get; set; }
+        public Nullable<int> CategoryId { get; set; }
+        public Nullable<int> ScheduleId { get; set; }
+        public int RadiusId { get; set; }
+        public bool Active { get; set; }
+    
+        public virtual Category Category { get; set; }
         public virtual Profile Profile { get; set; }
+        public virtual Radius Radius { get; set; }
     }
 }

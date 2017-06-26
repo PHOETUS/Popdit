@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
-using PopditPop.Models;
+using DBLayer.Models;
 
 namespace PopditPop.Controllers
 {

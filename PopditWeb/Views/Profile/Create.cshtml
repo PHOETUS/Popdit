@@ -4,12 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div class="content">
+<div class="content">
     @using (Html.BeginForm())
     {
         <table id="content" class="content">
             <tr>
-                <td colspan="2"><span class=logo><img src="~/Content/Logo.gif" width="206" height="58"/></span></td>
+                <td colspan="2"><span class=logo><img src="~/Content/Logo.gif" width="206" height="58" /></span></td>
             </tr>
             <tr>
                 <td colspan="2">@PageData["Tagline"]</td>
@@ -23,7 +23,7 @@
             <tr class="form">
                 <td>Phone</td>
                 <td>
-                    @Html.EditorFor(model => model.Phone })
+                    @Html.EditorFor(model => model.Phone)
                 </td>
             </tr>
             <tr class="form">
@@ -68,4 +68,4 @@
             </tr>
         </table>
     }
-    </div>
+</div>

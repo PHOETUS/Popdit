@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PopditPop.Models
+namespace DBLayer.Models
 {
     using System;
     using System.Collections.Generic;
