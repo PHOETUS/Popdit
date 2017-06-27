@@ -21,7 +21,7 @@ namespace PopditWeb.Models
         [DataMember]        
         public int ProfileId { get; set; }
         [DataMember]
-        public int TripId { get; set; }
+        public int BubbleId { get; set; }
         [DataMember]
         public System.DateTime Timestamp { get; set; }
 

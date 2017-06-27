@@ -7,22 +7,16 @@
 <div class="content">
     <table id="content" class="content">
         <tr>
-            <td><span class=logo><img src="~/Content/Logo.gif" width="206" height="58" /></span></td>
-        </tr>
-        <tr>
-            <td>@PageData["Tagline"]</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
+            <td colspan="2" class="logo"><img src="~/Content/Logo.gif" width="206" height="58" /></td>
         </tr>
         <tr>
             <td class="pagetitle">Bubbles</td>
         </tr>
-        <tr class="item header" id="headerSearch">
-            <td onclick="ToggleDiv('Search')">&middot; Search &middot;</td>
+        <tr class="header" id="headerSearch">
+            <td class="item" onclick="ToggleCell('Search')">&middot; Search &middot;</td>
         </tr>
-        <tr class="item detail" id="detailSearch">
-            <td>
+        <tr class="detail" id="detailSearch">
+            <td class="item">
                 @using (Html.BeginForm("Index", "Bubble", FormMethod.Post))
                 {
                     <table class="content">
@@ -46,21 +40,21 @@
                 }
             </td>
         </tr>
-        <tr class="item header" id="headerCreate">
-            <td onclick="ToggleDiv('Create')">&middot; Create a new bubble &middot;</td>
+        <tr class="header" id="headerCreate">
+            <td class="item" onclick="ToggleCell('Create')">&middot; Create a new bubble &middot;</td>
         </tr>
-        <tr class="item detail" id="detailCreate">
-            <td>
+        <tr class="detail" id="detailCreate">
+            <td class="item">
                 @using (Html.BeginForm("Create", "Bubble", FormMethod.Post))
                 {
                     <table class="content">
                         <tr><td colspan="2">&middot; Create a new filter &middot;</td></tr>
                         <tr class="form"><td>Name</td><td>@Html.TextBox("Name")</td></tr>
                         <tr class="form"><td>Category</td><td>@Html.DropDownList("CategoryId", new SelectList((List<PopditWeb.Models.Category>)ViewData["Categories"], "Id", "Description"))</td></tr>
-                        <tr class="form"><td>Latitude</td><td>@Html.TextBox("Latitude")</td></tr>
-                        <tr class="form"><td>Longitude</td><td>@Html.TextBox("Longitude")</td></tr>
+                        <tr class="form"><td>Latitude</td><td class="latlong">@Html.TextBox("Latitude", null)</td></tr>
+                        <tr class="form"><td>Longitude</td><td class="latlong">@Html.TextBox("Longitude", null)</td></tr>
                         <tr class="form"><td>Radius</td><td>@Html.DropDownList("RadiusId", new SelectList((List<PopditWeb.Models.Radius>)ViewData["Radii"], "Id", "Description"))</td></tr>
-                        <tr class="form"><td>Alert message</td><td>@Html.TextBox("AlertMsg")</td></tr>
+                        <tr class="form"><td>Notification message</td><td>@Html.TextBox("AlertMsg")</td></tr>
                         <tr class="form"><td>Active</td><td class="left">@Html.CheckBox("Active", false)</td></tr>
                         <tr><td></td><td><input type="submit" value="Create new bubble" /></td></tr>
                     </table>
@@ -69,11 +63,11 @@
         </tr>
         @for (var i = 0; i < Model.Count(); i++)
         {
-            <tr class="item header" id="@("header" + Model[i].Id)">
-                <td  onclick="ToggleDiv(@Model[i].Id)">@Model[i].Name</td>
+            <tr class="header" id="@("header" + Model[i].Id)">
+                <td class="item" onclick="ToggleCell(@Model[i].Id)">@Model[i].Name</td>
             </tr>
-            <tr class="item detail" id="@("detail" + Model[i].Id)">
-                <td>
+            <tr class="detail" id="@("detail" + Model[i].Id)">
+                <td class="item">
                     @using (Html.BeginForm("Update/" + Model[i].Id.ToString(), "Bubble", FormMethod.Post))
                     {
                         @Html.Hidden("Id", Model[i].Id, new { @name = "Id" })
@@ -82,16 +76,21 @@
                             <tr><td colspan="2">@Model[i].Name</td></tr>
                             <tr class="form"><td>Name</td><td>@Html.EditorFor(m => m[i].Name, null, "Name")</td></tr>
                             <tr class="form"><td>Category</td><td>@Html.DropDownListFor(m => m[i].CategoryId, new SelectList((List<PopditWeb.Models.Category>)ViewData["Categories"], "Id", "Description", Model[i].CategoryId))</td></tr>
-                            <tr class="form"><td>Latitude</td><td>@Html.EditorFor(m => m[i].Latitude, null, "Latitude")</td></tr>
-                            <tr class="form"><td>Longitude</td><td>@Html.EditorFor(m => m[i].Longitude, null, "Longitude")</td></tr>
+                            <tr class="form"><td>Latitude</td><td class="latlong">@Html.EditorFor(m => m[i].Latitude, null, "Latitude")</td></tr>
+                            <tr class="form"><td>Longitude</td><td class="latlong">@Html.EditorFor(m => m[i].Longitude, null, "Longitude")</td></tr>
                             <tr class="form"><td>Radius</td><td>@Html.DropDownListFor(m => m[i].RadiusId, new SelectList((List<PopditWeb.Models.Radius>)ViewData["Radii"], "Id", "Description", Model[i].RadiusId))</td></tr>
                             <tr class="form"><td>Alert message</td><td>@Html.EditorFor(m => m[i].AlertMsg, null, "AlertMsg")</td></tr>
                             <tr class="form"><td>Active</td><td class="left">@Html.EditorFor(m => m[i].Active, null, "Active")</td></tr>
-                            <tr><td></td><td><input type="submit" value="Update bubble" /></td></tr>
+                            <tr><td>&nbsp;</td><td><input name="command" type="submit" value="Update" /></td></tr>
+                            <tr><td>&nbsp;</td><td><input type="button" onclick="ToggleRow(@Model[i].Id)" value="Delete" /></td></tr>
+                            <tr class="delete" id="@("delete" + Model[i].Id)"><td>&nbsp;</td><td><input name="command" type="submit" value="Confirm deletion" class="confirm" /></td></tr>
                         </table>
                     }
                 </td>
             </tr>
         }
+            <tr>
+                <td>@Html.ActionLink("Help", "Help", "More")</td>
+            </tr>
     </table>
 </div>

@@ -43,6 +43,7 @@ namespace PopditCore.Controllers
             oldBubble.Name = newBubble.Name ?? oldBubble.Name;
             oldBubble.Latitude = newBubble.Latitude; // ?? oldBubble.Latitude;
             oldBubble.Longitude = newBubble.Longitude; // ?? oldBubble.Longitude;
+            oldBubble.UpdateBounds();
             oldBubble.AlertMsg = newBubble.AlertMsg ?? oldBubble.AlertMsg;
             oldBubble.AddressId = newBubble.AddressId ?? oldBubble.AddressId;
             oldBubble.ProfileId = newBubble.ProfileId; // ?? oldBubble.ProfileId;

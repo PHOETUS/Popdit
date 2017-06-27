@@ -1,0 +1,28 @@
+﻿@{ 
+    ViewBag.Title = "Company";
+    Layout = "~/Views/Shared/_LayoutSignedOut.cshtml";
+}
+
+<div class="content">
+    <table id="content" class="content">
+        <tr>
+            <td colspan="2" class="logo"><img src="~/Content/Logo.gif" width="206" height="58" /></td>
+        </tr>
+        <tr>
+            <td class="pagetitle">Company</td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    Popdit LLC<br />
+                    P.O. Box 5904<br />
+                    Bloomington, IN 47407
+                </p>
+                <p>
+                    @Html.Raw("I n f o @ P o p d i t . c o m")
+                </p>
+                <p class="center">@Html.ActionLink("Home", "Index", "Home")</p>
+            </td>
+        </tr>
+    </table>
+</div>

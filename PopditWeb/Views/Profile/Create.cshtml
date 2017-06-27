@@ -1,21 +1,15 @@
 ﻿@model PopditWeb.Models.Profile
 @{
     ViewBag.Title = "Create new account";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutSignedOut.cshtml";
 }
 
-<div class="content">
-    @using (Html.BeginForm())
+    <div class="content">
+    @using (Html.BeginForm("Create", "profile", FormMethod.Post, new { @class = "content" }))
     {
         <table id="content" class="content">
             <tr>
-                <td colspan="2"><span class=logo><img src="~/Content/Logo.gif" width="206" height="58" /></span></td>
-            </tr>
-            <tr>
-                <td colspan="2">@PageData["Tagline"]</td>
-            </tr>
-            <tr>
-                <td colspan="2">&nbsp;</td>
+                <td colspan="2" class="logo"><img src="~/Content/Logo.gif" width="206" height="58" /></td>
             </tr>
             <tr>
                 <td class="pagetitle" colspan="2">Create new account</td>
@@ -55,10 +49,9 @@
                 <td>
                     @Html.DropDownListFor(model => model.Male,
                   new List<SelectListItem>{
-                       new SelectListItem { Value = "null" , Text = "Not set" },
-                       new SelectListItem { Value = "0" , Text = "Female" },
-                       new SelectListItem { Value = "1" , Text = "Male" }
-                    })
+                       new SelectListItem { Value = "false" , Text = "Female" },
+                       new SelectListItem { Value = "true" , Text = "Male" }
+                    }, "- Not set -")
                 </td>
 
             </tr>
@@ -68,4 +61,4 @@
             </tr>
         </table>
     }
-</div>
+    </div>

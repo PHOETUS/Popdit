@@ -49,28 +49,37 @@ namespace PopditWeb.Controllers
         [HttpPost]
         public async Task<ActionResult> Update(int id, FormCollection collection)
         {
-            // Get CategoryID key.
-            int i = 0;
-            while (i < collection.Keys.Count && !collection.Keys[i].Contains("CategoryId")) i++;
+            // UPDATE
+            if (collection["command"].Equals("Update"))
+            {
+                // Get CategoryID key.
+                int i = 0;
+                while (i < collection.Keys.Count && !collection.Keys[i].Contains("CategoryId")) i++;
 
-            // Get RadiusId key.
-            int j = 0;
-            while (j < collection.Keys.Count && !collection.Keys[j].Contains("RadiusId")) j++;
+                // Get RadiusId key.
+                int j = 0;
+                while (j < collection.Keys.Count && !collection.Keys[j].Contains("RadiusId")) j++;
 
-            // TBD - this is a hack for testing.
-            Models.Bubble b = new Models.Bubble();
-            b.Id = id;
-            b.ProfileId = Int32.Parse(collection["ProfileId"]);
-            b.Name = collection["Name"].ToString();
-            b.CategoryId = Int32.Parse(collection[i]);
-            b.Latitude = decimal.Parse(collection["Latitude"].ToString());
-            b.Longitude = decimal.Parse(collection["Longitude"].ToString());
-            b.AlertMsg = collection["AlertMsg"].ToString();
-            b.ScheduleId = 99; // TBD - hack
-            b.RadiusId = Int32.Parse(collection[j]);
-            b.Active = collection["Active"].Contains("true");
+                // TBD - this is a hack for testing.
+                Models.Bubble b = new Models.Bubble();
+                b.Id = id;
+                b.ProfileId = Int32.Parse(collection["ProfileId"]);
+                b.Name = collection["Name"].ToString();
+                b.CategoryId = Int32.Parse(collection[i]);
+                b.Latitude = decimal.Parse(collection["Latitude"].ToString());
+                b.Longitude = decimal.Parse(collection["Longitude"].ToString());
+                b.AlertMsg = collection["AlertMsg"].ToString();
+                b.ScheduleId = 99; // TBD - hack
+                b.RadiusId = Int32.Parse(collection[j]);
+                b.Active = collection["Active"].Contains("true");
 
-            Stream json = await WebApiPut("api/Bubble/" + id.ToString(), b);
+                Stream json = await WebApiPut("api/Bubble/" + id.ToString(), b);
+            }
+            // DELETE
+            if (collection["command"].Equals("Confirm deletion"))
+            {
+                Stream json = await WebApiDelete("api/Bubble/" + id.ToString());
+            }
             return RedirectToAction("Index");
         }
 

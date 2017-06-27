@@ -1,0 +1,32 @@
+﻿@{ ViewBag.Title = "Help"; }
+
+<div class="content">
+    <table id="content" class="content">
+        <tr>
+            <td colspan="2" class="logo"><img src="~/Content/Logo.gif" width="206" height="58" /></td>
+        </tr>
+        <tr>
+            <td class="pagetitle">Help</td>
+        </tr>
+        <tr>
+            <td class="text">
+                <p>@Html.ActionLink("Account", "Account", "More")</p>
+                <p>Your account enables you to enter a credit card number and view your bills.  For now, Popdit is free, so this page is coming soon.</p>
+                <p>@Html.ActionLink("Bubbles", "Index", "Bubble")</p>
+                <p>A bubble is a place with a radius for notifications.  If someone with a matching filter pops one of your bubbles, he'll get a notification.</p>
+                <p>@Html.ActionLink("Company", "Company", "More")</p>
+                <p>The company page lists Popdit's contact information.</p>
+                <p>@Html.ActionLink("Filters", "Index", "Filter")</p>
+                <p>A filter is a description of places that interest you.  If you pop a bubble that matches one of your filters, you'll get a notification.</p>
+                <p>@Html.ActionLink("History", "History", "More")</p>
+                <p>Your history is the list of notifications you've received.</p>
+                <p>@Html.ActionLink("Developers", "Developers", "More")</p>
+                <p>The developers page contains special information for advanced users.</p>
+                <p>@Html.ActionLink("Metrics", "Metrics", "More")</p>
+                <p>Your metrics are information about your bubbles that have been popped.</p>
+                <p>@Html.ActionLink("Profile", "Index", "Profile")</p>
+                <p>Your profile is all about you.</p>
+            </td>
+        </tr>
+    </table>
+</div>

@@ -6,17 +6,11 @@
 }
 
     <div class="content">
-    @using (Html.BeginForm("Update/" + Model.Id.ToString(), "Profile", FormMethod.Post))
+    @using (Html.BeginForm("Update/" + Model.Id.ToString(), "Profile", FormMethod.Post, new { @class = "content" }))
     {
         <table id="content" class="content">
             <tr>
-                <td colspan="2"><span class=logo><img src="~/Content/Logo.gif" width="206" height="58"/></span></td>
-            </tr>
-            <tr>
-                <td colspan="2">@PageData["Tagline"]</td>
-            </tr>
-            <tr>
-                <td colspan="2">&nbsp;</td>
+                <td colspan="2" class="logo"><img src="~/Content/Logo.gif" width="206" height="58"/></td>
             </tr>
             <tr>
                 <td class="pagetitle" colspan="2">Profile</td>
@@ -43,12 +37,13 @@
             </tr>
             <tr class="form">
                 <td>Gender</td>
-                <td>@Html.DropDownListFor(model => model.Male,
+                <td>
+                    @Html.DropDownListFor(m => m.Male,
                   new List<SelectListItem>{
-                       new SelectListItem { Value = "null" , Text = "Not set" },
-                       new SelectListItem { Value = "0" , Text = "Female" },
-                       new SelectListItem { Value = "1" , Text = "Male" }
-                    })</td>
+                       new SelectListItem { Value = "false" , Text = "Female" },
+                       new SelectListItem { Value = "true" , Text = "Male" }
+                    }, "- Not set -")
+                </td>
             </tr>
             <tr class="form">
                 <td>@Html.HiddenFor(m => m.Id)</td>

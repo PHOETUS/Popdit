@@ -7,21 +7,15 @@
 <div class="content">
     <table id="content" class="content">
         <tr>
-            <td><span class=logo><img src="~/Content/Logo.gif" width="206" height="58"/></span></td>
-        </tr>
-        <tr>
-            <td>@PageData["Tagline"]</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
+            <td colspan="2" class="logo"><img src="~/Content/Logo.gif" width="206" height="58" /></td>
         </tr>
         <tr>
             <td class="pagetitle">Filters</td>
         </tr>
-        <tr class="item header" id="headerSearch">
-            <td onclick="ToggleDiv('Search')">&middot; Search &middot;</td>
+        <tr class="header" id="headerSearch">
+            <td class="item" onclick="ToggleCell('Search')">&middot; Search &middot;</td>
         </tr>
-        <tr class="item detail" id="detailSearch">
+        <tr class="detail" id="detailSearch">
             <td>
                 @using (Html.BeginForm("Index", "Filter", FormMethod.Post))
                 {
@@ -37,11 +31,11 @@
                 }
             </td>
         </tr>
-        <tr class="item header" id="headerCreate">
-            <td onclick="ToggleDiv('Create')">&middot; Create a new filter &middot;</td>
+        <tr class="header" id="headerCreate">
+            <td class="item" onclick="ToggleCell('Create')">&middot; Create a new filter &middot;</td>
         </tr>
-        <tr class="item detail" id="detailCreate">
-            <td>
+        <tr class="detail" id="detailCreate">
+            <td class="item">
                 @using (Html.BeginForm("Create", "Filter", FormMethod.Post))
                 {
                     <table class="content">
@@ -57,11 +51,11 @@
         </tr>
         @for (var i = 0; i < Model.Count(); i++)
         {
-            <tr class="item header" id="@("header" + Model[i].Id)">
-                <td onclick="ToggleDiv(@Model[i].Id)">@Model[i].Name</td>
+            <tr class="header" id="@("header" + Model[i].Id)">
+                <td class="item" onclick="ToggleCell(@Model[i].Id)">@Model[i].Name</td>
             </tr>
-            <tr class="item detail" id="@("detail" + Model[i].Id)">
-                <td>
+            <tr class="detail" id="@("detail" + Model[i].Id)">
+                <td class="item">
                     @using (Html.BeginForm("Update/" + Model[i].Id.ToString(), "Filter", FormMethod.Post))
                     {
                         @Html.Hidden("Id", Model[i].Id, new { @name = "Id" })
@@ -72,11 +66,16 @@
                             <tr class="form"><td>Category</td><td>@Html.DropDownListFor(m => m[i].CategoryId, new SelectList((List<PopditWeb.Models.Category>)ViewData["Categories"], "Id", "Description", Model[i].CategoryId), "- Select Category -")</td></tr>
                             <tr class="form"><td>Radius</td><td>@Html.DropDownListFor(m => m[i].RadiusId, new SelectList((List<PopditWeb.Models.Radius>)ViewData["Radii"], "Id", "Description", Model[i].RadiusId))</td></tr>
                             <tr class="form"><td>Active</td><td class="left">@Html.EditorFor(m => m[i].Active, null, "Active")</td></tr>
-                            <tr><td></td><td><input type="submit" value="Update filter" /></td></tr>
+                            <tr><td>&nbsp;</td><td><input name="command" type="submit" value="Update" /></td></tr>
+                            <tr><td>&nbsp;</td><td><input type="button" onclick="ToggleRow(@Model[i].Id)" value="Delete" /></td></tr>
+                            <tr class="delete" id="@("delete" + Model[i].Id)"><td>&nbsp;</td><td><input name="command" type="submit" value="Confirm deletion" class="confirm" /></td></tr>
                         </table>
                     }
                 </td>
             </tr>
         }
+        <tr>
+            <td>@Html.ActionLink("Help", "Help", "More")</td>
+        </tr>
     </table>
 </div>
