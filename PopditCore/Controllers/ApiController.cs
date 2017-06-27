@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using PopditCore.Models;
+using DBLayer.Models;
 
 namespace PopditCore.Controllers
 {

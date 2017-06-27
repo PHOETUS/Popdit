@@ -8,7 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using PopditCore.Models;
+using DBLayer.Models;
 
 namespace PopditCore.Controllers
 {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
-using PopditCore.Models;
+using DBLayer.Models;
 
 namespace PopditCore.Controllers
 {
@@ -15,16 +15,16 @@ namespace PopditCore.Controllers
         private PopditDBEntities db = new PopditDBEntities();
 
         // GET: api/Filter
-        public System.Web.Http.Results.JsonResult<List<Models.Filter>> GetFilters()
+        public System.Web.Http.Results.JsonResult<List<Filter>> GetFilters()
         {
             return Json(db.Filters.Where(m => m.ProfileId == AuthenticatedUserId).OrderBy(m => m.Name).ToList());
         }
 
         // GET: api/Filter/5
-        [ResponseType(typeof(Models.Filter))]
-        public System.Web.Http.Results.JsonResult<Models.Filter> GetFilter(int id)
+        [ResponseType(typeof(Filter))]
+        public System.Web.Http.Results.JsonResult<Filter> GetFilter(int id)
         {
-            Models.Filter filter = db.Filters.Find(id);
+            Filter filter = db.Filters.Find(id);
             return Json(filter);            
         }
 

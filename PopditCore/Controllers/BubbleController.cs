@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
-using PopditCore.Models;
+using DBLayer.Models;
 
 namespace PopditCore.Controllers
 {
@@ -15,14 +15,14 @@ namespace PopditCore.Controllers
         private PopditDBEntities db = new PopditDBEntities();
 
         // GET: api/Bubble
-        public System.Web.Http.Results.JsonResult<List<Models.Bubble>> GetBubbles()
+        public System.Web.Http.Results.JsonResult<List<Bubble>> GetBubbles()
         {
             return Json(db.Bubbles.Where(m => m.ProfileId == AuthenticatedUserId).OrderBy(m => m.Name).ToList());
         }
 
         // GET: api/Bubble/5
         [ResponseType(typeof(Bubble))]
-        public System.Web.Http.Results.JsonResult<Models.Bubble> GetBubble(int id)
+        public System.Web.Http.Results.JsonResult<Bubble> GetBubble(int id)
         {
             Bubble bubble = db.Bubbles.Find(id);
             return Json(bubble);
@@ -43,7 +43,9 @@ namespace PopditCore.Controllers
             oldBubble.Name = newBubble.Name ?? oldBubble.Name;
             oldBubble.Latitude = newBubble.Latitude; // ?? oldBubble.Latitude;
             oldBubble.Longitude = newBubble.Longitude; // ?? oldBubble.Longitude;
-            oldBubble.UpdateBounds();
+            
+            //Not sure what this function was doing but it's not present now.
+            //oldBubble.UpdateBounds();
             oldBubble.AlertMsg = newBubble.AlertMsg ?? oldBubble.AlertMsg;
             oldBubble.AddressId = newBubble.AddressId ?? oldBubble.AddressId;
             oldBubble.ProfileId = newBubble.ProfileId; // ?? oldBubble.ProfileId;

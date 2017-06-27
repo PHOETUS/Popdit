@@ -7,7 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
-using PopditCore.Models;
+using DBLayer.Models;
 
 namespace PopditCore.Controllers
 {
@@ -16,7 +16,7 @@ namespace PopditCore.Controllers
         private PopditDBEntities db = new PopditDBEntities();
 
         // GET: api/Profile
-        public System.Web.Http.Results.JsonResult<List<Models.Profile>> GetProfiles()
+        public System.Web.Http.Results.JsonResult<List<Profile>> GetProfiles()
         {
             return Json(db.Profiles.Where(m => m.Id == AuthenticatedUserId).ToList());
         }
