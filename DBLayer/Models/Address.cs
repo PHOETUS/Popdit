@@ -11,7 +11,9 @@ namespace DBLayer.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract]
     public partial class Address
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,13 +21,20 @@ namespace DBLayer.Models
         {
             this.Bubbles = new HashSet<Bubble>();
         }
-    
+
+        [DataMember]
         public int Id { get; set; }
+        [DataMember]
         public string Street1 { get; set; }
+        [DataMember]
         public string Street2 { get; set; }
+        [DataMember]
         public string City { get; set; }
+        [DataMember]
         public Nullable<int> StateId { get; set; }
+        [DataMember]
         public Nullable<int> CountryId { get; set; }
+        [DataMember]
         public string Zip { get; set; }
     
         public virtual Country Country { get; set; }

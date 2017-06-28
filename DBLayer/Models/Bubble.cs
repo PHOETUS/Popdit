@@ -11,7 +11,10 @@ namespace DBLayer.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+    using System.ComponentModel.DataAnnotations;
+
+    [DataContract]
     public partial class Bubble
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,22 +22,37 @@ namespace DBLayer.Models
         {
             this.Events = new HashSet<Event>();
         }
-    
+
+        [DataMember]
         public int Id { get; set; }
+        [DataMember]
         public int ProfileId { get; set; }
+        [DataMember]
         public string Name { get; set; }
+        [DataMember]
         public int CategoryId { get; set; }
+        [DataMember]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0.000000}")]
         public decimal Latitude { get; set; }
+        [DataMember]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0.000000}")]
+        public decimal Longitude { get; set; }
+        [DataMember]
+        public Nullable<int> AddressId { get; set; }
+        [DataMember]
+        [DataType(DataType.MultilineText)]
+        public string AlertMsg { get; set; }
+        [DataMember]
+        public int RadiusId { get; set; }
+        [DataMember]
+        public int ScheduleId { get; set; }
+        [DataMember]
+        public bool Active { get; set; }
+
         public Nullable<decimal> MinLatitude { get; set; }
         public Nullable<decimal> MaxLatitude { get; set; }
-        public decimal Longitude { get; set; }
         public Nullable<decimal> MaxLongitude { get; set; }
         public Nullable<decimal> MinLongitude { get; set; }
-        public Nullable<int> AddressId { get; set; }
-        public string AlertMsg { get; set; }
-        public int RadiusId { get; set; }
-        public int ScheduleId { get; set; }
-        public bool Active { get; set; }
     
         public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

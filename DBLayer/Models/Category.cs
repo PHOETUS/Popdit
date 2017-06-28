@@ -11,7 +11,9 @@ namespace DBLayer.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract]
     public partial class Category
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,9 +24,13 @@ namespace DBLayer.Models
             this.Filters = new HashSet<Filter>();
         }
     
+        [DataMember]
         public int Id { get; set; }
+        [DataMember]
         public string Description { get; set; }
+        [DataMember]
         public string GoogleDescription { get; set; }
+        [DataMember]
         public Nullable<int> CategoryId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -11,7 +11,9 @@ namespace DBLayer.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract]
     public partial class Country
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,11 +22,17 @@ namespace DBLayer.Models
             this.Addresses = new HashSet<Address>();
         }
     
+        [DataMember]
         public int Id { get; set; }
+        [DataMember]
         public string Name { get; set; }
+        [DataMember]
         public string ISO { get; set; }
+        [DataMember]
         public string ISO3 { get; set; }
+        [DataMember]
         public Nullable<short> Numcode { get; set; }
+        [DataMember]
         public short Phonecode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

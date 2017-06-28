@@ -89,16 +89,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Models\PopditDB.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PopditDB.edmx</DependentUpon>
-      <LastGenOutput>PopditDB.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\PopditDB.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PopditDB.edmx</DependentUpon>
-      <LastGenOutput>PopditDB.cs</LastGenOutput>
-    </Content>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -108,63 +98,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Address.cs">
-      <DependentUpon>PopditDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Bubble.cs">
-      <DependentUpon>PopditDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Category.cs">
-      <DependentUpon>PopditDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Country.cs">
-      <DependentUpon>PopditDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Event.cs">
-      <DependentUpon>PopditDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Filter.cs">
-      <DependentUpon>PopditDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PopditDB.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PopditDB.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PopditDB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PopditDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PopditDB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PopditDB.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Profile.cs">
-      <DependentUpon>PopditDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Radius.cs">
-      <DependentUpon>PopditDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\State.cs">
-      <DependentUpon>PopditDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>PopditDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Zone.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <EntityDeploy Include="Models\PopditDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PopditDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\PopditDB.edmx.diagram">
-      <DependentUpon>PopditDB.edmx</DependentUpon>
-    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -172,7 +110,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DBLayer\DBLayer.csproj">
+      <Project>{354601d9-facb-488e-9a70-2c8b3a4f70fc}</Project>
+      <Name>DBLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
