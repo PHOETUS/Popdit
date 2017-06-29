@@ -21,7 +21,7 @@ namespace DBLayer.Models
         [DataMember]        
         public int ProfileId { get; set; }
         [DataMember]
-        public string BubbleId { get; set; }
+        public int BubbleId { get; set; }
         [DataMember]
         public string TimestampJson
         {
