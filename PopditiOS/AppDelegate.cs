@@ -9,22 +9,27 @@ namespace PopditiOS
 	[Register ("AppDelegate")]
 	public class AppDelegate : UIApplicationDelegate
 	{
-		// class-level declarations
+        public override void PerformFetch(UIApplication application, System.Action<UIBackgroundFetchResult> completionHandler)
+        {
+            // Check for new data, and display it.
+            // Inform system of fetch results.
+            // completionHandler(UIBackgroundFetchResult.NewData);
+        }
 
-		public override UIWindow Window {
-			get;
-			set;
-		}
-
-		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
+        public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
-            // Override point for customization after application launch.
-			// If not required for your application you can safely delete this method
-
-			return true;
+            // Set background fetch interval.
+            // UIApplication.SharedApplication.SetMinimumBackgroundFetchInterval(UIApplication.BackgroundFetchIntervalMinimum);
+            return true;
 		}
 
-		public override void OnResignActivation (UIApplication application)
+        public override UIWindow Window
+        {
+            get;
+            set;
+        }
+
+        public override void OnResignActivation (UIApplication application)
 		{
 			// Invoked when the application is about to move from active to inactive state.
 			// This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) 

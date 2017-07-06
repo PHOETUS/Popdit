@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\BubbleController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Global.asax.cs">

@@ -1,18 +1,27 @@
 ﻿using System;
-
+using CoreLocation;
 using Foundation;
 using UIKit;
 
 namespace PopditiOS
 {
-public partial class WebViewController : UIViewController
-	{
-		static bool UserInterfaceIdiomIsPhone {
+    public partial class WebViewController : UIViewController
+    {
+        public LocationManager manager { get; set; }
+
+        public void HandleBubblePopped(object sender, BubblePoppedEventArgs e)
+        {
+            manager.HandleBubblePopped(e);
+        }
+
+        static bool UserInterfaceIdiomIsPhone {
 			get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
 		}
 
 		public WebViewController (IntPtr handle) : base (handle)
 		{
+            manager = new LocationManager();
+            manager.StartLocationUpdates();
 		}
 			
 		public override void ViewDidLoad ()
@@ -21,8 +30,10 @@ public partial class WebViewController : UIViewController
 
 			// Intercept URL loading to handle native calls from browser
 			WebView.ShouldStartLoad += HandleShouldStartLoad;
+            // Monitor location.
+            manager.BubblePopped += HandleBubblePopped;
 
-            WebView.LoadRequest(new NSUrlRequest(new NSUrl("http://192.168.1.106:82")));
+            WebView.LoadRequest(new NSUrlRequest(new NSUrl("http://192.168.1.106:82")));            
 
             // Perform any additional setup after loading the view, typically from a nib.
         }
