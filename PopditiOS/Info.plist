@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>PopditiOS</string>
+	<string>Popdit</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.companyname.PopditiOS</string>
 	<key>CFBundleShortVersionString</key>
@@ -44,8 +44,8 @@
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
-		<string>fetch</string>
-		<string>remote-notification</string>
 	</array>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>For notifications about cool places</string>
 </dict>
 </plist>

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using DBLayer.Models;
 
-namespace PopditCore.Controllers
+namespace PopditPop.Controllers
 {
     public class ApiController : System.Web.Http.ApiController
     {
