@@ -9,11 +9,6 @@ namespace PopditiOS
     {
         public LocationManager manager { get; set; }
 
-        public void HandleBubblePopped(object sender, BubblePoppedEventArgs e)
-        {
-            manager.HandleBubblePopped(e);
-        }
-
         static bool UserInterfaceIdiomIsPhone {
 			get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
 		}
@@ -21,7 +16,7 @@ namespace PopditiOS
 		public WebViewController (IntPtr handle) : base (handle)
 		{
             manager = new LocationManager();
-            manager.StartLocationUpdates();
+            manager.Start();
 		}
 			
 		public override void ViewDidLoad ()
@@ -31,7 +26,7 @@ namespace PopditiOS
 			// Intercept URL loading to handle native calls from browser
 			WebView.ShouldStartLoad += HandleShouldStartLoad;
             // Monitor location.
-            manager.BubblePopped += HandleBubblePopped;
+            // manager.BubblePopped += HandleBubblePopped;
 
             WebView.LoadRequest(new NSUrlRequest(new NSUrl("http://192.168.1.106:82")));            
 

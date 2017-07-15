@@ -1,5 +1,6 @@
 ﻿using Foundation;
 using UIKit;
+using UserNotifications;
 
 namespace PopditiOS
 {
@@ -20,6 +21,11 @@ namespace PopditiOS
 		{
             // Set background fetch interval.
             // UIApplication.SharedApplication.SetMinimumBackgroundFetchInterval(UIApplication.BackgroundFetchIntervalMinimum);
+
+            // Get permission for notifications.
+            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) => {
+                // Handle approval
+            });
             return true;
 		}
 

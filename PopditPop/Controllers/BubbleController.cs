@@ -24,12 +24,14 @@ namespace PopditPop.Controllers
             // NOTE - This algorithm can fail if the zone is entirely contained within the bubble; 
             // Therefore, it is reliable only if the zone is **bigger** than the biggest allowable bubble.
 
-            return Json(db.Bubbles.Where(b =>
+            System.Web.Http.Results.JsonResult<List<Bubble>> result = Json(db.Bubbles.Where(b =>
             ((z.MinLatitude < b.MaxLatitude && b.MaxLatitude < z.MaxLatitude) ||
              (z.MinLatitude < b.MinLatitude && b.MinLatitude < z.MaxLatitude)) &&
             ((z.MinLongitude < b.MaxLongitude && b.MaxLongitude < z.MaxLongitude) ||
              (z.MinLongitude < b.MinLongitude && b.MinLongitude < z.MaxLongitude))
              ).ToList());
+
+            return result;
         }
 
         protected override void Dispose(bool disposing)

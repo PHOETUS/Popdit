@@ -3,6 +3,13 @@
     // A zone in which bubbles can exist.
     public class Zone
     {
+        public Zone(decimal latitude, decimal longitude, int radius)
+        {
+            Latitude = latitude;
+            Longitude = longitude;
+            Radius = radius;
+        }
+
         private const decimal degree = 111195;
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
