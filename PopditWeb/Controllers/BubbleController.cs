@@ -31,14 +31,22 @@ namespace PopditWeb.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(FormCollection collection)
         {
+            // Get CategoryID key.
+            int i = 0;
+            while (i < collection.Keys.Count && !collection.Keys[i].Contains("CategoryId")) i++;
+
+            // Get RadiusId key.
+            int j = 0;
+            while (j < collection.Keys.Count && !collection.Keys[j].Contains("RadiusId")) j++;
+
             // Create new bubble from FormCollection
             Models.Bubble b = new Models.Bubble();
             b.Name = collection["Name"].ToString();
-            b.CategoryId = 11; // TBD - hack
+            b.CategoryId = ConvertToInt(collection[i]);
             b.Latitude = decimal.Parse(collection["Latitude"].ToString());
             b.Longitude = decimal.Parse(collection["Longitude"].ToString());
             b.AlertMsg = collection["AlertMsg"].ToString();
-            b.RadiusId = 1; // TBD - remove this hack and replace with value from dropdown.
+            b.RadiusId = ConvertToInt(collection[j]);
             b.Active = collection["Active"].Contains("true");
 
             Stream json = await WebApiPost("api/bubble", b);
@@ -63,14 +71,14 @@ namespace PopditWeb.Controllers
                 // TBD - this is a hack for testing.
                 Models.Bubble b = new Models.Bubble();
                 b.Id = id;
-                b.ProfileId = Int32.Parse(collection["ProfileId"]);
+                b.ProfileId = ConvertToInt(collection["ProfileId"]);
                 b.Name = collection["Name"].ToString();
-                b.CategoryId = Int32.Parse(collection[i]);
+                b.CategoryId = ConvertToInt(collection[i]);
                 b.Latitude = decimal.Parse(collection["Latitude"].ToString());
                 b.Longitude = decimal.Parse(collection["Longitude"].ToString());
                 b.AlertMsg = collection["AlertMsg"].ToString();
                 b.ScheduleId = 99; // TBD - hack
-                b.RadiusId = Int32.Parse(collection[j]);
+                b.RadiusId = ConvertToInt(collection[j]);
                 b.Active = collection["Active"].Contains("true");
 
                 Stream json = await WebApiPut("api/Bubble/" + id.ToString(), b);

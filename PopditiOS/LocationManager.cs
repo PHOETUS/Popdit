@@ -19,8 +19,8 @@ namespace PopditiOS
     {
         protected CLLocationManager LocMgr;
         string SecToken = "8126502080";
-        const int bubbleZoneRadius = 4000; // Radius in meters, minimum 3300m (> 2 miles) to ensure working algorithm.  TBD - move to config
-        const int refreshZoneRadius = 3000; // Radius in meters.  TBD - move to config
+        const int bubbleZoneRadius = 10000; // Radius in meters, minimum 3300m (> 2 miles) to ensure working algorithm.  TBD - move to config
+        const int refreshZoneRadius = 9000; // Radius in meters.  TBD - move to config
         List<BubbleMobile> BubbleCatalog;
 
         protected async Task<Stream> WebApiPost(string servicePath, Object content)
@@ -105,6 +105,7 @@ namespace PopditiOS
                     CLCircularRegion bubbleRegion = new CLCircularRegion(new CLLocationCoordinate2D((double)bubble.Latitude, (double)bubble.Longitude), bubble.Radius, bubble.Id.ToString());
                     LocationMgr.StartMonitoring(bubbleRegion);
                     bubble.Region = bubbleRegion;
+                    Debug.WriteLine(">>>>> Adding bubble #" + bubble.Id.ToString());
                 }
                 // Redefine the refresh zone and give it this event handler.
                 CLCircularRegion refreshRegion = new CLCircularRegion(new CLLocationCoordinate2D(latitude, longitude), refreshZoneRadius, "RefreshZone");

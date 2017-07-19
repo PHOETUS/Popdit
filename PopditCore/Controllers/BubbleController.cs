@@ -54,6 +54,11 @@ namespace PopditCore.Controllers
             oldBubble.RadiusId = newBubble.RadiusId; // ?? oldBubble.RadiusId;
             oldBubble.Active = newBubble.Active; // ?? oldBubble.Active;
 
+            // Force loading of Radius for use in UpdateMaxMin.
+            db.Entry(oldBubble).Reference(b => b.Radius).Load();  // TBD - too expensive
+            // Update the max and min lat and long.
+            oldBubble.UpdateMaxMin();
+
             db.Entry(oldBubble).State = EntityState.Modified;
 
             try { db.SaveChanges(); }
@@ -73,6 +78,8 @@ namespace PopditCore.Controllers
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
             bubble.ProfileId = AuthenticatedUserId;
+            bubble.Radius = db.Radii.Find(bubble.RadiusId);  // TBD - too expensive
+            bubble.UpdateMaxMin();
             db.Bubbles.Add(bubble);
             db.SaveChanges();
 

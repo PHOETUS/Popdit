@@ -11,6 +11,24 @@ namespace PopditWeb.Controllers
     {
         protected List<Object> mList;
 
+        public static int ConvertToInt(string x)
+        {
+            if (x == null) return 0;
+            if (x.Length == 0) return 0;
+            int r;
+            Int32.TryParse(x, out r);
+            return r;
+        }
+
+        public static int? ConvertToNullableInt(string x)
+        {
+            if (x == null) return null;
+            if (x.Length == 0) return null;
+            int r;
+            Int32.TryParse(x, out r);
+            return r;
+        }
+
         protected async Task<Stream> WebApiPost(string servicePath, Object content)
         {
             try

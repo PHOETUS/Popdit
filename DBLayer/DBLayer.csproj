@@ -66,6 +66,7 @@
     <Compile Include="Models\Bubble.cs">
       <DependentUpon>PopditDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BubblePartial.cs" />
     <Compile Include="Models\Category.cs">
       <DependentUpon>PopditDB.tt</DependentUpon>
     </Compile>

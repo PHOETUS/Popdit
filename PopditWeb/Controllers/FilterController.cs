@@ -32,10 +32,14 @@ namespace PopditWeb.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(FormCollection collection)
         {
+            // Get RadiusId key.
+            int j = 0;
+            while (j < collection.Keys.Count && !collection.Keys[j].Contains("RadiusId")) j++;
+
             // Create new filter from FormCollection
             Models.Filter f = new Models.Filter();
             f.Name = collection["Name"].ToString();
-            f.RadiusId = 1; // TBD - remove this hack and replace with value from dropdown.
+            f.RadiusId = ConvertToInt(collection[j]);
 
             Stream json = await WebApiPost("api/Filter", f);
             return RedirectToAction("Index", "Filter");
@@ -60,10 +64,10 @@ namespace PopditWeb.Controllers
                 Models.Filter f = new Models.Filter();
                 f.Id = id;
                 f.Name = collection["Name"];
-                f.ProfileId = 1;
-                f.CategoryId = Int32.Parse(collection[i]);
+                f.ProfileId = ConvertToInt(collection["ProfileId"]);
+                f.CategoryId = ConvertToNullableInt(collection[i]);
                 f.ScheduleId = null;
-                f.RadiusId = Int32.Parse(collection[j]);
+                f.RadiusId = ConvertToInt(collection[j]);
                 f.Active = true;
 
                 Stream json = await WebApiPut("api/Filter/" + id.ToString(), f);
