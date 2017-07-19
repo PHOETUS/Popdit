@@ -2,7 +2,7 @@
 using System.Data;
 using System.Linq;
 using System.Web.Http;
-using DBLayer.Models;
+using PopditDB.Models;
 using PopditPop.Models;
 
 namespace PopditPop.Controllers

@@ -7,37 +7,35 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DBLayer.Models
+namespace PopditDB.Models
 {
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     [DataContract]
-    public partial class Radius
+    public partial class Country
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Radius()
+        public Country()
         {
-            this.Bubbles = new HashSet<Bubble>();
-            this.Filters = new HashSet<Filter>();
-            this.Profiles = new HashSet<Profile>();
+            this.Addresses = new HashSet<Address>();
         }
     
         [DataMember]
         public int Id { get; set; }
         [DataMember]
-        public string Description { get; set; }
+        public string Name { get; set; }
         [DataMember]
-        public int Meters { get; set; }
+        public string ISO { get; set; }
         [DataMember]
-        public decimal Degrees { get; set; }
+        public string ISO3 { get; set; }
+        [DataMember]
+        public Nullable<short> Numcode { get; set; }
+        [DataMember]
+        public short Phonecode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bubble> Bubbles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Filter> Filters { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Profile> Profiles { get; set; }
+        public virtual ICollection<Address> Addresses { get; set; }
     }
 }

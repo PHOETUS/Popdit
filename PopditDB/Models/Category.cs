@@ -7,39 +7,38 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DBLayer.Models
+namespace PopditDB.Models
 {
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     [DataContract]
-    public partial class Address
+    public partial class Category
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Address()
+        public Category()
         {
             this.Bubbles = new HashSet<Bubble>();
+            this.Categories1 = new HashSet<Category>();
+            this.Filters = new HashSet<Filter>();
         }
-
+    
         [DataMember]
         public int Id { get; set; }
         [DataMember]
-        public string Street1 { get; set; }
+        public string Description { get; set; }
         [DataMember]
-        public string Street2 { get; set; }
+        public string GoogleDescription { get; set; }
         [DataMember]
-        public string City { get; set; }
-        [DataMember]
-        public Nullable<int> StateId { get; set; }
-        [DataMember]
-        public Nullable<int> CountryId { get; set; }
-        [DataMember]
-        public string Zip { get; set; }
+        public Nullable<int> CategoryId { get; set; }
     
-        public virtual Country Country { get; set; }
-        public virtual State State { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bubble> Bubbles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Category> Categories1 { get; set; }
+        public virtual Category Category1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Filter> Filters { get; set; }
     }
 }

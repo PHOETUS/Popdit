@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DBLayer.Models
+namespace PopditDB.Models
 {
     partial class Bubble
     {

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DBLayer.Models
+namespace PopditDB.Models
 {
     using System;
     using System.Data.Entity;

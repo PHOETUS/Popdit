@@ -7,8 +7,8 @@
     <ProjectGuid>{354601D9-FACB-488E-9A70-2C8B3A4F70FC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DBLayer</RootNamespace>
-    <AssemblyName>DBLayer</AssemblyName>
+    <RootNamespace>PopditDB</RootNamespace>
+    <AssemblyName>PopditDB</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

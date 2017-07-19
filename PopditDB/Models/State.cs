@@ -7,38 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DBLayer.Models
+namespace PopditDB.Models
 {
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     [DataContract]
-    public partial class Category
+    public partial class State
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category()
+        public State()
         {
-            this.Bubbles = new HashSet<Bubble>();
-            this.Categories1 = new HashSet<Category>();
-            this.Filters = new HashSet<Filter>();
+            this.Addresses = new HashSet<Address>();
         }
     
         [DataMember]
         public int Id { get; set; }
         [DataMember]
-        public string Description { get; set; }
+        public string Name { get; set; }
         [DataMember]
-        public string GoogleDescription { get; set; }
-        [DataMember]
-        public Nullable<int> CategoryId { get; set; }
+        public string Code { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bubble> Bubbles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Category> Categories1 { get; set; }
-        public virtual Category Category1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Filter> Filters { get; set; }
+        public virtual ICollection<Address> Addresses { get; set; }
     }
 }
