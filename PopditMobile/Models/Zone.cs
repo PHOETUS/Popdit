@@ -1,4 +1,4 @@
-﻿namespace PopditiOS.Models
+﻿namespace PopditMobile.Models
 {
     // A zone in which bubbles can exist.
     public class Zone

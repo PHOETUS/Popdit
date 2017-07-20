@@ -1,6 +1,6 @@
 ﻿using CoreLocation;
 
-namespace PopditiOS.Models
+namespace PopditMobile.Models
 {
     public partial class BubbleMobile
     { 

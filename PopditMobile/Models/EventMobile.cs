@@ -1,4 +1,4 @@
-﻿namespace PopditiOS.Models
+﻿namespace PopditMobile.Models
 {
     using System;
 

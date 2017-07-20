@@ -3,7 +3,7 @@ using System.Data;
 using System.Linq;
 using System.Web.Http;
 using PopditDB.Models;
-using PopditPop.Models;
+using PopditMobile.Models;
 
 namespace PopditPop.Controllers
 {
