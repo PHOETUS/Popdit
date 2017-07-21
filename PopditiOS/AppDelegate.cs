@@ -22,10 +22,15 @@ namespace PopditiOS
             // Set background fetch interval.
             // UIApplication.SharedApplication.SetMinimumBackgroundFetchInterval(UIApplication.BackgroundFetchIntervalMinimum);
 
+            // TBD - use a sound.
             // Get permission for notifications.
             UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) => {
                 // Handle approval
             });
+
+            // Watch for notifications while the app is active
+            UNUserNotificationCenter.Current.Delegate = new UserNotificationCenterDelegate();
+
             return true;
 		}
 

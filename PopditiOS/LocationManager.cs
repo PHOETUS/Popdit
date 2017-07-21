@@ -23,28 +23,10 @@ namespace PopditiOS
         const int refreshZoneRadius = 9000; // Radius in meters.  TBD - move to config
         List<BubbleMobile> BubbleCatalog;
 
-        protected async Task<Stream> WebApiPost(string servicePath, Object content)
+        protected struct CatalogEntry
         {
-            using (HttpClient client = new HttpClient())
-            {
-                try
-                {
-                    client.BaseAddress = new Uri("http://192.168.1.106:83/"); // TBD - move to config
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.DefaultRequestHeaders.Add("Authorization", SecurityToken);
-                    string json = JsonConvert.SerializeObject(content);
-                    StringContent sc = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = await client.PostAsync(servicePath, sc).ConfigureAwait(false);
-                    return response.Content.ReadAsStreamAsync().Result;
-                }
-                catch (Exception e)
-                {
-                    // TBD - Handle error
-                    Debug.WriteLine(">>>>> Error in WebApiPost: " + e.Message);
-                    return null;
-                }
-            }
+            BubbleMobile BubbleMobile;
+            CLRegion Region;
         }
 
         // A location bubble was popped.  Notify the server and display the notification string to the user.
@@ -57,6 +39,7 @@ namespace PopditiOS
                 Debug.WriteLine(">>>>> Popped bubble #" + bubbleId.ToString());
                 // Notify the server and get notification message.
                 EventMobile localEvent = new EventMobile();
+                localEvent.ProfileId = 8;
                 localEvent.BubbleId = bubbleId;
                 localEvent.TimestampJson = DateTime.Now.ToShortTimeString();
                 Stream json = await WebApiPost("api/Event", localEvent);
@@ -76,11 +59,8 @@ namespace PopditiOS
 
                 UNUserNotificationCenter.Current.AddNotificationRequest(request, (err) =>
                 {
-                    if (err != null)
-                    {
-                            // Do something with error...
-                        }
-                });
+                    if (err != null) { Debug.WriteLine(">>>>> Message error: " + err.DebugDescription);  }
+                });                
             }
         }
 
@@ -104,7 +84,7 @@ namespace PopditiOS
                 {
                     CLCircularRegion bubbleRegion = new CLCircularRegion(new CLLocationCoordinate2D((double)bubble.Latitude, (double)bubble.Longitude), bubble.Radius, bubble.Id.ToString());
                     LocationMgr.StartMonitoring(bubbleRegion);
-                    bubble.Region = bubbleRegion;
+                    //bubble.Region = bubbleRegion;
                     Debug.WriteLine(">>>>> Adding bubble #" + bubble.Id.ToString());
                 }
                 // Redefine the refresh zone and give it this event handler.
@@ -215,6 +195,30 @@ namespace PopditiOS
             if (UIDevice.CurrentDevice.CheckSystemVersion(9, 0))
             {
                 LocMgr.AllowsBackgroundLocationUpdates = true;
+            }
+        }
+
+        protected async Task<Stream> WebApiPost(string servicePath, Object content)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    client.BaseAddress = new Uri("http://192.168.1.106:83/"); // TBD - move to config
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add("Authorization", SecurityToken);
+                    string json = JsonConvert.SerializeObject(content);
+                    StringContent sc = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = await client.PostAsync(servicePath, sc).ConfigureAwait(false);
+                    return response.Content.ReadAsStreamAsync().Result;
+                }
+                catch (Exception e)
+                {
+                    // TBD - Handle error
+                    Debug.WriteLine(">>>>> Error in WebApiPost: " + e.Message);
+                    return null;
+                }
             }
         }
 

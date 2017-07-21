@@ -2,6 +2,7 @@
 using System.Web.Http;
 using System.Web.Http.Description;
 using PopditDB.Models;
+using PopditMobile.Models;
 
 namespace PopditPop.Controllers
 {
@@ -29,17 +30,26 @@ namespace PopditPop.Controllers
         }
 
         // POST: api/Event
-        [ResponseType(typeof(Event))]
-        public IHttpActionResult PostEvent(Event @event)
+        [ResponseType(typeof(EventMobile))]
+        public IHttpActionResult PostEvent(EventMobile @event)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
-            db.Events.Add(@event);
+            // Set up Event fields for storage in DB.
+            Event e = new Event();
+            e.BubbleId = @event.BubbleId;
+            e.ProfileId = @event.ProfileId;
+            e.TimestampJson = @event.TimestampJson;
+
+            db.Events.Add(e);
             db.SaveChanges();
 
+            // Set EventMobileFields for return trip.
+            db.Entry(e).Reference(b => b.Profile).Load();  // TBD - speed this up - this is crap.
+            @event.ProviderName = e.Profile.Nickname;
+            db.Entry(e).Reference(b => b.Bubble).Load();  // TBD - speed this up - this is crap.
+            @event.Msg = e.Bubble.AlertMsg;
+            
             return CreatedAtRoute("DefaultApi", new { id = @event.Id }, @event);
         }
 

@@ -99,6 +99,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UserNotificationCenterDelegate.cs" />
     <Compile Include="WebViewController.designer.cs">
       <DependentUpon>WebViewController.cs</DependentUpon>
     </Compile>
