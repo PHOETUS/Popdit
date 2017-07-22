@@ -59,11 +59,13 @@
                        new SelectListItem { Value = "true" , Text = "Male" }
                     }, "- Not set -")
                 </td>
-
             </tr>
             <tr>
                 <td>@Html.HiddenFor(m => m.Id)</td>
                 <td><input type="submit" value="Create new account" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><p class="center">@Html.ActionLink("Sign In", "Index", "Home")</p></td>
             </tr>
         </table>
     }
