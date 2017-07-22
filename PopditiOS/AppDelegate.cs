@@ -24,7 +24,7 @@ namespace PopditiOS
 
             // TBD - use a sound.
             // Get permission for notifications.
-            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) => {
+            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert | UNAuthorizationOptions.Sound, (approved, err) => {
                 // Handle approval
             });
 

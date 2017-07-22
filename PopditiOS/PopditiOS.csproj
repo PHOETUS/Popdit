@@ -198,6 +198,7 @@
   <ItemGroup>
     <Content Include="Entitlements.plist" />
     <BundleResource Include="Resources\nameLogo.png" />
+    <BundleResource Include="Resources\bubblepop.wav" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PopditMobile\PopditMobile.csproj">

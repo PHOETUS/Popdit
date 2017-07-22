@@ -15,19 +15,13 @@ using System.Diagnostics;
 
 namespace PopditiOS
 {
-    public class LocationManager
+    public class LocationManager : IDisposable
     {
         protected CLLocationManager LocMgr;
         string SecToken = "8126502080";
         const int bubbleZoneRadius = 10000; // Radius in meters, minimum 3300m (> 2 miles) to ensure working algorithm.  TBD - move to config
         const int refreshZoneRadius = 9000; // Radius in meters.  TBD - move to config
         List<BubbleMobile> BubbleCatalog;
-
-        protected struct CatalogEntry
-        {
-            BubbleMobile BubbleMobile;
-            CLRegion Region;
-        }
 
         // A location bubble was popped.  Notify the server and display the notification string to the user.
         async void Pop(object sender, CLRegionEventArgs e)
@@ -51,6 +45,7 @@ namespace PopditiOS
                                                            // content.Subtitle = "Your prescription is ready";  // Not implemented.
                 content.Body = serverEvent.Msg;
                 //content.Badge = 1; // Not implemented.
+                content.Sound = UNNotificationSound.GetSound("bubblepop.wav");
 
                 var trigger = UNTimeIntervalNotificationTrigger.CreateTrigger(1, false); // 1 second delay, do not repeat.
 
@@ -223,5 +218,10 @@ namespace PopditiOS
         }
 
         public CLLocationManager LocationMgr { get { return this.LocMgr; } }
+
+        void IDisposable.Dispose()
+        {
+            if (!LocMgr.Equals(null)) LocMgr.Dispose();
+        }
     }
 }

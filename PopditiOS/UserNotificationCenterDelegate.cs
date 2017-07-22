@@ -12,7 +12,7 @@ namespace PopditiOS
         {
             Debug.WriteLine(">>>>> Notification: " + notification.Request.Identifier.ToString());
             // Displaythe notification.
-            completionHandler(UNNotificationPresentationOptions.Alert);
+            completionHandler(UNNotificationPresentationOptions.Alert | UNNotificationPresentationOptions.Sound);
         }
     }
 
