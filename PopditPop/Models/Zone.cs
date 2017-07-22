@@ -1,27 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Runtime.Serialization;
 
 namespace PopditPop.Models
-{
+{ 
     // A zone in which bubbles can exist.
-    [DataContract]
     public class Zone
     {
+        public Zone(decimal latitude, decimal longitude, int radius)
+        {
+            Latitude = latitude;
+            Longitude = longitude;
+            Radius = radius;
+            UpdateMaxMin();
+        }
+
+        public void UpdateMaxMin()
+        {
+            const decimal metersPerDegree = 111195m;
+            decimal LatRadius = metersPerDegree / Radius;
+            MaxLatitude = Latitude + LatRadius;
+            MinLatitude = Latitude - LatRadius;
+            decimal LongRadius = metersPerDegree / Radius * (decimal)Math.Cos((double)Latitude);
+            MaxLongitude = Longitude + LongRadius;
+            MinLongitude = Longitude - LongRadius;
+        }
+
         private const decimal degree = 111195;
-        [DataMember]
         public decimal Latitude { get; set; }
-        [DataMember]
         public decimal Longitude { get; set; }
-        [DataMember]
         public int Radius { get; set; }
-        private decimal RadiusLat {  get { return Radius / degree; } }
-        private decimal RadiusLong {  get { return Radius / degree; } }
-        public decimal MaxLatitude {  get { return Latitude + RadiusLat;  } }
-        public decimal MinLatitude { get { return Latitude - RadiusLat; } }
-        public decimal MaxLongitude { get { return Longitude + RadiusLong; } }
-        public decimal MinLongitude { get { return Longitude - RadiusLong; } }
+        public decimal MaxLatitude { get; set; }
+        public decimal MinLatitude { get; set; }
+        public decimal MaxLongitude { get; set; }
+        public decimal MinLongitude { get; set; }
     }
 }

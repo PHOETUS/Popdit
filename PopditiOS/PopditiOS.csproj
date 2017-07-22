@@ -90,6 +90,7 @@
     <OutputPath>bin\iPhone\Stage\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CredentialManager.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <None Include="app.config" />
@@ -109,7 +110,6 @@
     <BundleResource Include="Resources\style.css" />
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="Resources\LaunchScreen.xib" />
     <InterfaceDefinition Include="Main.storyboard" />
   </ItemGroup>
   <ItemGroup>

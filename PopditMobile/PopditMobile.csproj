@@ -37,7 +37,7 @@
   <ItemGroup>
     <Compile Include="Models\BubbleMobile.cs" />
     <Compile Include="Models\EventMobile.cs" />
-    <Compile Include="Models\Zone.cs" />
+    <Compile Include="Models\Location.cs" />
     <Compile Include="PopditMobile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

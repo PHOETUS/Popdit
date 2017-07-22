@@ -10,13 +10,6 @@ namespace PopditiOS
 	[Register ("AppDelegate")]
 	public class AppDelegate : UIApplicationDelegate
 	{
-        public override void PerformFetch(UIApplication application, System.Action<UIBackgroundFetchResult> completionHandler)
-        {
-            // Check for new data, and display it.
-            // Inform system of fetch results.
-            // completionHandler(UIBackgroundFetchResult.NewData);
-        }
-
         public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
             // Set background fetch interval.
