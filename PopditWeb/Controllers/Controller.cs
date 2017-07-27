@@ -38,7 +38,7 @@ namespace PopditWeb.Controllers
                     client.BaseAddress = new Uri(System.Configuration.ConfigurationManager.AppSettings["CoreURL"]);
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.DefaultRequestHeaders.Add("Authorization", HttpContext.Request.Cookies["Popdit"].Values["Phone"]);  // TBD - this is just a hack for testing
+                    client.DefaultRequestHeaders.Add("Authentication", HttpContext.Request.Cookies["Popdit"].Values["Phone"]);  // TBD - this is just a hack for testing
 
                     HttpResponseMessage response = await client.PostAsJsonAsync(servicePath, content).ConfigureAwait(false);
                     return response.Content.ReadAsStreamAsync().Result;
@@ -60,7 +60,7 @@ namespace PopditWeb.Controllers
                     client.BaseAddress = new Uri(System.Configuration.ConfigurationManager.AppSettings["CoreURL"]);
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.DefaultRequestHeaders.Add("Authorization", HttpContext.Request.Cookies["Popdit"].Values["Phone"]);  // TBD - this is just a hack for testing
+                    client.DefaultRequestHeaders.Add("Authentication", HttpContext.Request.Cookies["Popdit"].Values["Phone"]);  // TBD - this is just a hack for testing
 
                     HttpResponseMessage response = await client.GetAsync(servicePath).ConfigureAwait(false);
                     return response.Content.ReadAsStreamAsync().Result;
@@ -82,7 +82,7 @@ namespace PopditWeb.Controllers
                     client.BaseAddress = new Uri(System.Configuration.ConfigurationManager.AppSettings["CoreURL"]);
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.DefaultRequestHeaders.Add("Authorization", HttpContext.Request.Cookies["Popdit"].Values["Phone"]);  // TBD - this is just a hack for testing
+                    client.DefaultRequestHeaders.Add("Authentication", HttpContext.Request.Cookies["Popdit"].Values["Phone"]);  // TBD - this is just a hack for testing
 
                     HttpResponseMessage response = await client.DeleteAsync(servicePath).ConfigureAwait(false);
                     return response.Content.ReadAsStreamAsync().Result;
@@ -104,7 +104,7 @@ namespace PopditWeb.Controllers
                     client.BaseAddress = new Uri(System.Configuration.ConfigurationManager.AppSettings["CoreURL"]);
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.DefaultRequestHeaders.Add("Authorization", HttpContext.Request.Cookies["Popdit"].Values["Phone"]);  // TBD - this is just a hack for testing
+                    client.DefaultRequestHeaders.Add("Authentication", HttpContext.Request.Cookies["Popdit"].Values["Phone"]);  // TBD - this is just a hack for testing
 
                     HttpResponseMessage response = await client.PutAsJsonAsync(servicePath, content).ConfigureAwait(false);
                     return response.Content.ReadAsStreamAsync().Result;

@@ -32,6 +32,10 @@ namespace PopditWeb.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(FormCollection collection)
         {
+            // Get CategoryID key.
+            int i = 0;
+            while (i < collection.Keys.Count && !collection.Keys[i].Contains("CategoryId")) i++;
+
             // Get RadiusId key.
             int j = 0;
             while (j < collection.Keys.Count && !collection.Keys[j].Contains("RadiusId")) j++;
@@ -39,6 +43,7 @@ namespace PopditWeb.Controllers
             // Create new filter from FormCollection
             Models.Filter f = new Models.Filter();
             f.Name = collection["Name"].ToString();
+            f.CategoryId = ConvertToNullableInt(collection[i]);
             f.RadiusId = ConvertToInt(collection[j]);
 
             Stream json = await WebApiPost("api/Filter", f);

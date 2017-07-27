@@ -17,16 +17,18 @@ namespace PopditCore.Controllers
         // GET: api/Filter
         public System.Web.Http.Results.JsonResult<List<Filter>> GetFilters()
         {
-            return Json(db.Filters.Where(m => m.ProfileId == AuthenticatedUserId).OrderBy(m => m.Name).ToList());
+            return Json(db.Filters.Where(m => m.ProfileId == AuthenticatedUserId).OrderBy(m => m.Name).ToList());  // Security.
         }
 
+        /*
         // GET: api/Filter/5
         [ResponseType(typeof(Filter))]
         public System.Web.Http.Results.JsonResult<Filter> GetFilter(int id)
         {
-            Filter filter = db.Filters.Find(id);
+            Filter filter = db.Filters.Find(id);  // TBD - Security.
             return Json(filter);            
         }
+        */
 
         // PUT: api/Filter/5
         [ResponseType(typeof(void))]
@@ -38,13 +40,13 @@ namespace PopditCore.Controllers
 
             // Change only the changed fields in the filter.
             // Only the fields below are changeable via the API.
-            Filter oldFilter = db.Filters.Find(id);
+            Filter oldFilter = db.Filters.Find(id);  // TBD - Security.
             oldFilter.Name = newFilter.Name ?? oldFilter.Name;
-            oldFilter.ProfileId = newFilter.ProfileId; // ?? oldFilter.ProfileId;
+            oldFilter.ProfileId = newFilter.ProfileId;
             oldFilter.CategoryId = newFilter.CategoryId ?? oldFilter.CategoryId;
             oldFilter.ScheduleId = newFilter.ScheduleId ?? oldFilter.ScheduleId;
-            oldFilter.RadiusId = newFilter.RadiusId; // ?? oldFilter.RadiusId;
-            oldFilter.Active = newFilter.Active; // ?? oldFilter.Active;
+            oldFilter.RadiusId = newFilter.RadiusId; 
+            oldFilter.Active = newFilter.Active; 
 
             db.Entry(oldFilter).State = EntityState.Modified;
 
@@ -64,7 +66,7 @@ namespace PopditCore.Controllers
         {
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
-            filter.ProfileId = AuthenticatedUserId;
+            filter.ProfileId = AuthenticatedUserId;  // Security.
             db.Filters.Add(filter);
             db.SaveChanges();
 
@@ -75,7 +77,7 @@ namespace PopditCore.Controllers
         [ResponseType(typeof(Filter))]
         public IHttpActionResult DeleteFilter(int id)
         {
-            Filter filter = db.Filters.Find(id);
+            Filter filter = db.Filters.Find(id);  // TBD - Security.
             if (filter == null)
             {
                 return NotFound();

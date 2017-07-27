@@ -107,7 +107,7 @@ namespace PopditiOS
                     client.BaseAddress = new Uri("http://192.168.1.107:83/"); // TBD - move to config
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.DefaultRequestHeaders.Add("Authorization", credentials.SecurityToken);
+                    client.DefaultRequestHeaders.Add("Authentication", credentials.SecurityToken);
                     string json = JsonConvert.SerializeObject(content);
                     StringContent sc = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                     HttpResponseMessage response = await client.PostAsync(servicePath, sc).ConfigureAwait(false);
