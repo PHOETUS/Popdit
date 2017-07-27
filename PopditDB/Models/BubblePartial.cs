@@ -7,10 +7,10 @@ namespace PopditDB.Models
         public void UpdateMaxMin()
         {
             const decimal metersPerDegree = 111195m;
-            decimal LatRadius = metersPerDegree / Radius.Meters;
+            decimal LatRadius = Radius.Meters / metersPerDegree;
             MaxLatitude = Latitude + LatRadius;
             MinLatitude = Latitude - LatRadius;
-            decimal LongRadius = metersPerDegree / Radius.Meters * (decimal)Math.Cos((double)Latitude);
+            decimal LongRadius = Radius.Meters / metersPerDegree * (decimal)Math.Cos((double)Latitude);
             MaxLongitude = Longitude + LongRadius;
             MinLongitude = Longitude - LongRadius;
         }

@@ -38,6 +38,8 @@ namespace PopditWeb.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0.000000}")]
         public decimal Longitude { get; set; }
         [DataMember]
+        public string AddressString;
+        [DataMember]
         public Nullable<int> AddressId { get; set; }
         [DataMember]
         [DataType(DataType.MultilineText)]

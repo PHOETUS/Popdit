@@ -29,6 +29,8 @@ namespace PopditWeb.Models
         public int RadiusId { get; set; }
         [DataMember]
         public bool Active { get; set; }
+        [DataMember]
+        public string PublicKey { get; set; }
     
         public virtual Category Category { get; set; }
         public virtual Profile Profile { get; set; }

@@ -22,15 +22,9 @@ namespace PopditiOS
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-
 			// Intercept URL loading to handle native calls from browser
 			WebView.ShouldStartLoad += HandleShouldStartLoad;
-            // Monitor location.
-            // manager.BubblePopped += HandleBubblePopped;
-
-            WebView.LoadRequest(new NSUrlRequest(new NSUrl("http://192.168.1.106:82")));            
-
-            // Perform any additional setup after loading the view, typically from a nib.
+            WebView.LoadRequest(new NSUrlRequest(new NSUrl("http://192.168.1.107:82")));            
         }
 
 		public override void DidReceiveMemoryWarning ()

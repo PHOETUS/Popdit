@@ -2,18 +2,6 @@
   "images": [
     {
       "scale": "2x",
-      "size": "83.5x83.5",
-      "idiom": "ipad",
-      "filename": "logo167.png"
-    },
-    {
-      "scale": "1x",
-      "size": "29x29",
-      "idiom": "iphone",
-      "filename": "logo29.png"
-    },
-    {
-      "scale": "2x",
       "size": "29x29",
       "idiom": "iphone",
       "filename": "logo58.png"
@@ -35,18 +23,6 @@
       "size": "40x40",
       "idiom": "iphone",
       "filename": "logo120.png"
-    },
-    {
-      "scale": "1x",
-      "size": "57x57",
-      "idiom": "iphone",
-      "filename": "logo57.png"
-    },
-    {
-      "scale": "2x",
-      "size": "57x57",
-      "idiom": "iphone",
-      "filename": "logo114.png"
     },
     {
       "scale": "2x",
@@ -86,30 +62,6 @@
     },
     {
       "scale": "1x",
-      "size": "50x50",
-      "idiom": "ipad",
-      "filename": "logo50.png"
-    },
-    {
-      "scale": "2x",
-      "size": "50x50",
-      "idiom": "ipad",
-      "filename": "logo100.png"
-    },
-    {
-      "scale": "1x",
-      "size": "72x72",
-      "idiom": "ipad",
-      "filename": "logo72.png"
-    },
-    {
-      "scale": "2x",
-      "size": "72x72",
-      "idiom": "ipad",
-      "filename": "logo144.png"
-    },
-    {
-      "scale": "1x",
       "size": "76x76",
       "idiom": "ipad",
       "filename": "logo76.png"
@@ -119,11 +71,19 @@
       "size": "76x76",
       "idiom": "ipad",
       "filename": "logo152.png"
+    },
+    {
+      "scale": "2x",
+      "size": "83.5x83.5",
+      "idiom": "ipad",
+      "filename": "logo167.png"
     }
   ],
-  "properties": {},
+  "properties": {
+    "pre-rendered": false
+  },
   "info": {
     "version": 1,
-    "author": "xcode"
+    "author": ""
   }
 }

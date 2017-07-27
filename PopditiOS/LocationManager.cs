@@ -86,6 +86,12 @@ namespace PopditiOS
                         CLCircularRegion bubbleRegion = new CLCircularRegion(new CLLocationCoordinate2D((double)bubble.Latitude, (double)bubble.Longitude), bubble.Radius, bubble.Id.ToString());
                         LocMgr.StartMonitoring(bubbleRegion);
                         Debug.WriteLine(">>>>> Adding bubble #" + bubble.Id.ToString());
+                        // Check to see if we're already inside the bubble.  This will not raise a "RegionEntered" event.
+                        if (bubbleRegion.Contains(new CLLocationCoordinate2D(latitude, longitude)))
+                        {
+                            Pop(null, new CLRegionEventArgs(bubbleRegion));
+                            Debug.WriteLine(">>>>> Inside bubble #" + bubble.Id.ToString());
+                        }
                     }
                 }
             }
@@ -98,7 +104,7 @@ namespace PopditiOS
             {
                 try
                 {
-                    client.BaseAddress = new Uri("http://192.168.1.106:83/"); // TBD - move to config
+                    client.BaseAddress = new Uri("http://192.168.1.107:83/"); // TBD - move to config
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     client.DefaultRequestHeaders.Add("Authorization", credentials.SecurityToken);
@@ -136,7 +142,7 @@ namespace PopditiOS
         {
             this.LocMgr = new CLLocationManager();
             this.LocMgr.PausesLocationUpdatesAutomatically = false;
-            this.LocMgr.DesiredAccuracy = CLLocation.AccuracyNearestTenMeters;
+            this.LocMgr.DesiredAccuracy = CLLocation.AccuracyNearestTenMeters;  // TBD - Move to config?
 
             // iOS 8 has additional permissions requirements
             if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))

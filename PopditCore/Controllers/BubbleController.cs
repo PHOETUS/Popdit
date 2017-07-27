@@ -1,12 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.IO;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Threading.Tasks;
+using System.Net.Http.Headers;
+using Newtonsoft.Json.Linq;
 using PopditDB.Models;
+using PopditMobile.Models;
 
 namespace PopditCore.Controllers
 {
@@ -14,12 +21,48 @@ namespace PopditCore.Controllers
     {
         private PopditDBEntities db = new PopditDBEntities();
 
+        async Task<Location> Geocode(string address)
+        {
+            address = address.Replace(' ', '+');
+            string url = System.Configuration.ConfigurationManager.AppSettings["GeocodeURL"];
+            url = url + "address=" + address + "&key=" + System.Configuration.ConfigurationManager.AppSettings["GeocodeApiKey"];
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    string json = await client.GetStringAsync(url).ConfigureAwait(false);
+                    // Parse the location out of the Google API geocode results.
+                    dynamic location = JObject.Parse(json)["results"][0]["geometry"]["location"];
+                    return new Location((decimal)location["lat"], (decimal)location["lng"]);
+                }
+            }
+            catch (Exception e)
+            {
+                // TBD - Handle error
+                return null;
+            }
+
+            /*
+            dynamic jobject = JObject.Parse(json);
+            dynamic results = jobject["results"];
+            dynamic result = results[0];
+            dynamic geometry = result["geometry"];
+            dynamic location = geometry["location"];
+            double lat = location["lat"];
+            double lng = location["lng"];
+            */
+        }
+
         // GET: api/Bubble
         public System.Web.Http.Results.JsonResult<List<Bubble>> GetBubbles()
         {
-            return Json(db.Bubbles.Where(m => m.ProfileId == AuthenticatedUserId).OrderBy(m => m.Name).ToList());
+            return Json(db.Bubbles.Where(m => m.ProfileId == AuthenticatedUserId).OrderBy(m => m.Name).ToList()); // Security.
         }
 
+        /*
         // GET: api/Bubble/5
         [ResponseType(typeof(Bubble))]
         public System.Web.Http.Results.JsonResult<Bubble> GetBubble(int id)
@@ -27,6 +70,7 @@ namespace PopditCore.Controllers
             Bubble bubble = db.Bubbles.Find(id);
             return Json(bubble);
         }
+        */
 
         // PUT: api/Bubble/5
         [ResponseType(typeof(void))]
@@ -39,20 +83,17 @@ namespace PopditCore.Controllers
             // Change only the changed fields in the profile.
             // Only the fields below are changeable via the API.
             // Non-nullable fields must be supplied.
-            Bubble oldBubble = db.Bubbles.Find(id);
+            Bubble oldBubble = db.Bubbles.Find(id);  // TBD - Security.
             oldBubble.Name = newBubble.Name ?? oldBubble.Name;
-            oldBubble.Latitude = newBubble.Latitude; // ?? oldBubble.Latitude;
-            oldBubble.Longitude = newBubble.Longitude; // ?? oldBubble.Longitude;
-            
-            //Not sure what this function was doing but it's not present now.
-            //oldBubble.UpdateBounds();
+            oldBubble.Latitude = newBubble.Latitude;
+            oldBubble.Longitude = newBubble.Longitude;
             oldBubble.AlertMsg = newBubble.AlertMsg ?? oldBubble.AlertMsg;
             oldBubble.AddressId = newBubble.AddressId ?? oldBubble.AddressId;
-            oldBubble.ProfileId = newBubble.ProfileId; // ?? oldBubble.ProfileId;
-            oldBubble.CategoryId = newBubble.CategoryId; // ?? oldBubble.CategoryId;
-            oldBubble.ScheduleId = newBubble.ScheduleId; // ?? oldBubble.ScheduleId;
-            oldBubble.RadiusId = newBubble.RadiusId; // ?? oldBubble.RadiusId;
-            oldBubble.Active = newBubble.Active; // ?? oldBubble.Active;
+            oldBubble.ProfileId = newBubble.ProfileId;
+            oldBubble.CategoryId = newBubble.CategoryId;
+            oldBubble.ScheduleId = newBubble.ScheduleId;
+            oldBubble.RadiusId = newBubble.RadiusId;
+            oldBubble.Active = newBubble.Active;
 
             // Force loading of Radius for use in UpdateMaxMin.
             db.Entry(oldBubble).Reference(b => b.Radius).Load();  // TBD - too expensive
@@ -77,11 +118,13 @@ namespace PopditCore.Controllers
         {
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
-            bubble.ProfileId = AuthenticatedUserId;
+            bubble.ProfileId = AuthenticatedUserId; // Security
             bubble.Radius = db.Radii.Find(bubble.RadiusId);  // TBD - too expensive
             bubble.UpdateMaxMin();
             db.Bubbles.Add(bubble);
             db.SaveChanges();
+
+            Location loc = Geocode("4718 E Donington Dr., Bloomington, IN 47401").Result;
 
             return CreatedAtRoute("DefaultApi", new { id = bubble.Id }, bubble);
         }
@@ -90,7 +133,7 @@ namespace PopditCore.Controllers
         [ResponseType(typeof(Bubble))]
         public IHttpActionResult DeleteBubble(int id)
         {
-            Bubble bubble = db.Bubbles.Find(id);
+            Bubble bubble = db.Bubbles.Find(id); // TBD - Security.
             if (bubble == null)
             {
                 return NotFound();

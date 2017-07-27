@@ -18,14 +18,14 @@ namespace PopditCore.Controllers
         // GET: api/Profile
         public System.Web.Http.Results.JsonResult<List<Profile>> GetProfiles()
         {
-            return Json(db.Profiles.Where(m => m.Id == AuthenticatedUserId).ToList());
+            return Json(db.Profiles.Where(m => m.Id == AuthenticatedUserId).ToList()); // Security.
         }
 
         // GET: api/Profile/5
-        [ResponseType(typeof(Profile))] // TBD - Is this line necessary and correct?
+        [ResponseType(typeof(Profile))] 
         public System.Web.Http.Results.JsonResult<Profile> GetProfile(int id)
         {
-            Profile profile = db.Profiles.Find(id);
+            Profile profile = db.Profiles.Find(id);  // TBD - Security.
             return Json(profile);
         }
 
@@ -46,7 +46,7 @@ namespace PopditCore.Controllers
             // Change only the changed fields in the profile.
             // Only the fields below are changeable via the API.
             // Non-nullable fields must be supplied.
-            Profile oldProfile = db.Profiles.Find(id);
+            Profile oldProfile = db.Profiles.Find(id);  // TBD - Security.
             oldProfile.Nickname = newProfile.Nickname ?? oldProfile.Nickname;
             oldProfile.Email = newProfile.Email ?? oldProfile.Email;
             oldProfile.Password = newProfile.Password ?? oldProfile.Password;
@@ -65,13 +65,9 @@ namespace PopditCore.Controllers
             catch (DbUpdateConcurrencyException)
             {
                 if (!ProfileExists(id))
-                {
                     return NotFound();
-                }
                 else
-                {
                     throw;
-                }
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -129,7 +125,7 @@ namespace PopditCore.Controllers
         [ResponseType(typeof(Profile))]
         public IHttpActionResult DeleteProfile(int id)
         {
-            Profile profile = db.Profiles.Find(id);
+            Profile profile = db.Profiles.Find(id);  // TBD - Security.
             if (profile == null)
             {
                 return NotFound();
@@ -143,16 +139,10 @@ namespace PopditCore.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
+            if (disposing) db.Dispose();
             base.Dispose(disposing);
         }
 
-        private bool ProfileExists(int id)
-        {
-            return db.Profiles.Count(e => e.Id == id) > 0;
-        }
+        private bool ProfileExists(int id) { return db.Profiles.Count(e => e.Id == id) > 0; }
     }
 }
