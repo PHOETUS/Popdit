@@ -45,6 +45,7 @@ namespace PopditWeb.Controllers
             f.Name = collection["Name"].ToString();
             f.CategoryId = ConvertToNullableInt(collection[i]);
             f.RadiusId = ConvertToInt(collection[j]);
+            f.Active = collection["Active"].Contains("true");
 
             Stream json = await WebApiPost("api/Filter", f);
             return RedirectToAction("Index", "Filter");
@@ -73,7 +74,7 @@ namespace PopditWeb.Controllers
                 f.CategoryId = ConvertToNullableInt(collection[i]);
                 f.ScheduleId = null;
                 f.RadiusId = ConvertToInt(collection[j]);
-                f.Active = true;
+                f.Active = collection["Active"].Contains("true");
 
                 Stream json = await WebApiPut("api/Filter/" + id.ToString(), f);
             }

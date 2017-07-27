@@ -12,7 +12,7 @@ namespace PopditPop.Controllers
             get
             {
                 // TBD HACK - get current user Id.  This would be a good place to handle authentication failure.
-                string phone = Request.Headers.GetValues("Authentication").ToList()[0];  // TBD - hack for testing
+                string phone = Request.Headers.GetValues("Authorization").ToList()[0];  // TBD - hack for testing
                 int id = db.Profiles.Single(p => p.Phone == phone).Id;
                 return id;
             }
