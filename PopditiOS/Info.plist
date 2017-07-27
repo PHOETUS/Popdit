@@ -47,5 +47,7 @@
 	<string>For notifications about cool places</string>
 	<key>CFBundleShortVersion</key>
 	<string>1</string>
+	<key>XSAppIconAssets</key>
+	<string>Resources/Images.xcassets/AppIcons.appiconset</string>
 </dict>
 </plist>

@@ -67,6 +67,14 @@ p.help {
     text-align: center;
 }
 
+li {
+    text-align: left;
+    text-align: justify;
+    letter-spacing: normal;
+    list-style: square;
+    margin-left: -22px;
+}
+
 /* TABLE */
 table {
     border-collapse: collapse;

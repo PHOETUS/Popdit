@@ -29,8 +29,7 @@ namespace PopditWeb.Controllers
         {
             if (x == null) return 0;
             if (x.Length == 0) return 0;
-            int r;
-            Int32.TryParse(x, out r);
+            Int32.TryParse(x, out int r);
             return r;
         }
 
@@ -38,8 +37,7 @@ namespace PopditWeb.Controllers
         {
             if (x == null) return null;
             if (x.Length == 0) return null;
-            int r;
-            Int32.TryParse(x, out r);
+            Int32.TryParse(x, out int r);
             return r;
         }
 

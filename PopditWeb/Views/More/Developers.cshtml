@@ -9,7 +9,27 @@
             <td class="pagetitle">Developers</td>
         </tr>
         <tr>
-            <td><p>Coming soon</p></td>
+            <td>
+                <p>For software developers who are curious about the inner workings of Popdit, here are a few details.</p>
+                <p>Popdit comprises a <u>Mobile Application</u>, a number of <u>Servers</u>, and (optionally) a desktop or mobile <u>Browser</u>.</p>
+                <p>The Mobile Application comprises a <u>Mobile Client</u> and an embedded <u>Mobile Browser</u>. The Mobile Client manages the device’s location and communicates with the Servers.</p>
+                <p>
+                    The Servers comprise four servers hosted on Amazon Web Services:
+                    <ul>
+                        <li>The <u>DB Server</u> stores the data in a MySQL database.</li>
+                        <li>The <u>Pop Server</u> communicates with the Mobile Applicationvia proprietary web services.  It supports the Mobile Application, providing bubbles and notifications.</li>
+                        <li>The <u>Core Server</u> communicates with the Web Server via public web services.  It supports the Web Server, providing access to the DB Server and to geocoding services.</li>
+                        <li>
+                            The <u>Web Server</u> communicates with the Browser, providing a user interface that enables users to create and manage accounts.
+                            so partners can implement their own part or all of the Web Server’s functionality, given an API key.
+                        </li>
+                    </ul>
+                </p>
+                <p>The Browser (virtually any desktop or mobile browser) communicates securely with the Web Server.</p>
+                <p>All communication is both secure (either with credentials via SSL or within a firewalled subnet) and stateless (via RESTful JSON web services). All resources are independently scalable both vertically and horizontally. Disaster recovery is facilitated by regular data backups and server images. All code is managed in a
+                hosted Bitbucket repository.</p>
+                <p>The code for the Web Server and an SDK for the public web services will be made publicly available in the near future.</p>
+            </td>
         </tr>
     </table>
 </div>

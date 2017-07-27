@@ -10,7 +10,7 @@ namespace PopditDB.Models
             decimal LatRadius = Radius.Meters / metersPerDegree;
             MaxLatitude = Latitude + LatRadius;
             MinLatitude = Latitude - LatRadius;
-            decimal LongRadius = Radius.Meters / metersPerDegree * (decimal)Math.Cos((double)Latitude);
+            decimal LongRadius = Radius.Meters / metersPerDegree * (decimal)Math.Abs(Math.Cos((double)Latitude));
             MaxLongitude = Longitude + LongRadius;
             MinLongitude = Longitude - LongRadius;
         }

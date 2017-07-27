@@ -16,7 +16,7 @@ namespace PopditWeb.Controllers
 
         public ActionResult Account() { return View(); }
 
-        public ActionResult Developers() { return View(); }
+        //public ActionResult Developers() { return View(); }
 
         public ActionResult Company() { return View(); }
 
