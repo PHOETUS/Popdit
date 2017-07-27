@@ -60,7 +60,7 @@ namespace PopditiOS
         // The user left the refresh zone.  Get a new catalog of bubbles from the server.
         async void Refresh(object sender, CLRegionEventArgs e)
         {
-            if (credentials.SecurityToken.Length > 0 && (e == null || e.Region.Identifier.Equals("RefreshZone"))) // Ignore location bubbles.
+            if (credentials.BasicAuthString.Length > 0 && (e == null || e.Region.Identifier.Equals("RefreshZone"))) // Ignore location bubbles.
             {
                 // Get the user's location and code it as the bubble zone.
                 CLLocation location = LocMgr.Location;
@@ -99,7 +99,7 @@ namespace PopditiOS
 
         protected async Task<Stream> WebApiPost(string servicePath, Object content)
         {
-            string securityToken = credentials.SecurityToken;
+            string securityToken = credentials.BasicAuthString;
             using (HttpClient client = new HttpClient())
             {
                 try
@@ -107,7 +107,7 @@ namespace PopditiOS
                     client.BaseAddress = new Uri("http://192.168.1.107:83/"); // TBD - move to config
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.DefaultRequestHeaders.Add("Authorization", credentials.SecurityToken);
+                    client.DefaultRequestHeaders.Add("Authorization", credentials.BasicAuthString);
                     string json = JsonConvert.SerializeObject(content);
                     StringContent sc = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                     HttpResponseMessage response = await client.PostAsync(servicePath, sc).ConfigureAwait(false);
@@ -134,7 +134,7 @@ namespace PopditiOS
         // Poll for the security token until it's available, then kick off the first refresh.
         async void AwaitCredentials()
         {
-            while (credentials.SecurityToken.Length == 0) await Task.Delay(500);
+            while (credentials.BasicAuthString.Length == 0) await Task.Delay(500);
             Refresh(null, null);
         }
         

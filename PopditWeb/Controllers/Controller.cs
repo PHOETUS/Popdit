@@ -19,7 +19,7 @@ namespace PopditWeb.Controllers
             {
                 string uid = HttpContext.Request.Cookies["Popdit"].Values["Phone"];
                 string pwd = HttpContext.Request.Cookies["Popdit"].Values["Password"];
-                uidPwd = System.Convert.ToBase64String(System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(uid + ":" + pwd));
+                uidPwd = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(uid + ":" + pwd));
             }
             catch { } // Swallow exception - if something went wrong, just return and empty auth string.
             return "Basic " + uidPwd;

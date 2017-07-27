@@ -10,36 +10,25 @@ namespace PopditiOS
 {
     class CredentialsManager
     {
-        string SecToken = "";
+        string AuthString = "";
 
         // Get the security token for this mobile device.  Try this object, then the cookie, then the server.
         // If this function fails, the user needs to sign in.
         // TBD - Add error handling to force sign in.
-        public string SecurityToken
+        public string BasicAuthString
         {
             get
             {
-                // If security token is not initialized in this object ...
-                if (SecToken.Length == 0)
+                // If auth string is not initialized in this object ...
+                if (AuthString.Length == 0)
                 {
-                    // Try to get the security token from the cookie.
-                    SecToken = GetValueForPopditCookieKey("Phone"); // TBD s/b "SecurityToken".
-                                                                    // If security token is not found in the cookie ...
-                    if (SecToken.Length == 0)
-                    {
-                        // Get the security token from the server.
-                        string phone = GetValueForPopditCookieKey("Phone");
-                        string pwd = GetValueForPopditCookieKey("Password");
-                        // Initialize security token in this object.
-                        if (phone.Length > 0 && pwd.Length > 0)
-                        {
-                            SecToken = GetSecurityTokenFromServer(phone, pwd);
-                            // Initialize security token in the cookie.
-                            SetValueForPopditCookie("Phone", SecToken); // TBD s/b "SecurityToken".
-                        }
-                    }
+                    // Try to get the security token from the cookies anbd store it for next time.
+                    string uid = GetValueForPopditCookieKey("Phone");
+                    string pwd = GetValueForPopditCookieKey("Password");
+                    if (uid.Length != 0 && pwd.Length != 0)
+                        AuthString = "Basic " + Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(uid + ":" + pwd));                     
                 }
-                return SecToken;
+                return AuthString;
             }
         }
 
