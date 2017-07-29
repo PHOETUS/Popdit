@@ -47,10 +47,16 @@
       <HintPath>..\packages\MySql.Data.Entity.6.9.9\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -80,19 +86,19 @@
       <DependentUpon>PopditDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PopditDB.Context.cs">
-      <DependentUpon>PopditDB.Context.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>PopditDB.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PopditDB.cs">
-      <DependentUpon>PopditDB.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>PopditDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PopditDB.Designer.cs">
-      <DependentUpon>PopditDB.edmx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>PopditDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Profile.cs">
       <DependentUpon>PopditDB.tt</DependentUpon>
@@ -109,10 +115,20 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <EntityDeploy Include="Models\PopditDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>PopditDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="Models\PopditDB.edmx.diagram">
+      <DependentUpon>PopditDB.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Models\PopditDB.Context.tt">
@@ -125,18 +141,6 @@
       <DependentUpon>PopditDB.edmx</DependentUpon>
       <LastGenOutput>PopditDB.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Models\PopditDB.edmx.diagram">
-      <DependentUpon>PopditDB.edmx</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

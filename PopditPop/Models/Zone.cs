@@ -5,7 +5,7 @@ namespace PopditPop.Models
     // A zone in which bubbles can exist.
     public class Zone
     {
-        public Zone(decimal latitude, decimal longitude, int radius)
+        public Zone(double latitude, double longitude, int radius)
         {
             Latitude = latitude;
             Longitude = longitude;
@@ -15,22 +15,22 @@ namespace PopditPop.Models
 
         public void UpdateMaxMin()
         {
-            const decimal metersPerDegree = 111195m;
-            decimal LatRadius = metersPerDegree / Radius;
+            const double metersPerDegree = 111195;
+            double LatRadius = metersPerDegree / Radius;
             MaxLatitude = Latitude + LatRadius;
             MinLatitude = Latitude - LatRadius;
-            decimal LongRadius = metersPerDegree / Radius * (decimal)Math.Cos((double)Latitude);
+            double LongRadius = metersPerDegree / Radius * (double)Math.Cos((double)Latitude);
             MaxLongitude = Longitude + LongRadius;
             MinLongitude = Longitude - LongRadius;
         }
 
-        private const decimal degree = 111195;
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
+        private const double degree = 111195;
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         public int Radius { get; set; }
-        public decimal MaxLatitude { get; set; }
-        public decimal MinLatitude { get; set; }
-        public decimal MaxLongitude { get; set; }
-        public decimal MinLongitude { get; set; }
+        public double MaxLatitude { get; set; }
+        public double MinLatitude { get; set; }
+        public double MaxLongitude { get; set; }
+        public double MinLongitude { get; set; }
     }
 }

@@ -102,7 +102,6 @@ namespace PopditCore.Controllers
             foreach (Bubble b in template.Bubbles)
             {
                 Bubble clone = new Bubble();
-                clone.AddressId = b.AddressId;
                 clone.AlertMsg = b.AlertMsg;
                 clone.CategoryId = b.CategoryId;
                 clone.Latitude = b.Latitude;

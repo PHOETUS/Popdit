@@ -22,6 +22,8 @@ namespace PopditDB.Models
         [DataMember]
         public int ProfileId { get; set; }
         [DataMember]
+        public Nullable<int> ProviderId { get; set; }
+        [DataMember]
         public Nullable<int> CategoryId { get; set; }
         [DataMember]
         public Nullable<int> ScheduleId { get; set; }
@@ -29,9 +31,12 @@ namespace PopditDB.Models
         public int RadiusId { get; set; }
         [DataMember]
         public bool Active { get; set; }
+        [DataMember]
+        public string PublicKey { get; set; }
     
         public virtual Category Category { get; set; }
         public virtual Profile Profile { get; set; }
+        public virtual Profile Profile1 { get; set; }
         public virtual Radius Radius { get; set; }
     }
 }

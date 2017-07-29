@@ -2,10 +2,10 @@
 {
     public class Location
     {
-        public decimal Latitude;
-        public decimal Longitude;
+        public double Latitude;
+        public double Longitude;
 
-        public Location(decimal Lat, decimal Long)
+        public Location(double Lat, double Long)
         {
             Latitude = Lat;
             Longitude = Long;

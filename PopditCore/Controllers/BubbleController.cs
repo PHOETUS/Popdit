@@ -36,7 +36,7 @@ namespace PopditCore.Controllers
                     string json = await client.GetStringAsync(url).ConfigureAwait(false);
                     // Parse the location out of the Google API geocode results.
                     dynamic location = JObject.Parse(json)["results"][0]["geometry"]["location"];
-                    return new Location((decimal)location["lat"], (decimal)location["lng"]);
+                    return new Location(location["lat"], location["lng"]);
                 }
             }
             catch (Exception e)
@@ -88,7 +88,6 @@ namespace PopditCore.Controllers
             oldBubble.Latitude = newBubble.Latitude;
             oldBubble.Longitude = newBubble.Longitude;
             oldBubble.AlertMsg = newBubble.AlertMsg ?? oldBubble.AlertMsg;
-            oldBubble.AddressId = newBubble.AddressId ?? oldBubble.AddressId;
             oldBubble.ProfileId = newBubble.ProfileId;
             oldBubble.CategoryId = newBubble.CategoryId;
             oldBubble.ScheduleId = newBubble.ScheduleId;

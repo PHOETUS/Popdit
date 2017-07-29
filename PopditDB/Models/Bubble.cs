@@ -32,29 +32,23 @@ namespace PopditDB.Models
         [DataMember]
         public int CategoryId { get; set; }
         [DataMember]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0.000000}")]
-        public decimal Latitude { get; set; }
+        public double Latitude { get; set; }
+        public Nullable<double> MinLatitude { get; set; }
+        public Nullable<double> MaxLatitude { get; set; }
         [DataMember]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0.000000}")]
-        public decimal Longitude { get; set; }
+        public double Longitude { get; set; }
+        public Nullable<double> MaxLongitude { get; set; }
+        public Nullable<double> MinLongitude { get; set; }
         [DataMember]
-        public Nullable<int> AddressId { get; set; }
-        [DataMember]
-        [DataType(DataType.MultilineText)]
         public string AlertMsg { get; set; }
         [DataMember]
         public int RadiusId { get; set; }
-        [DataMember]
         public int ScheduleId { get; set; }
         [DataMember]
         public bool Active { get; set; }
-
-        public Nullable<decimal> MinLatitude { get; set; }
-        public Nullable<decimal> MaxLatitude { get; set; }
-        public Nullable<decimal> MaxLongitude { get; set; }
-        public Nullable<decimal> MinLongitude { get; set; }
+        [DataMember]
+        public string Address { get; set; }
     
-        public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Event> Events { get; set; }
         public virtual Category Category { get; set; }

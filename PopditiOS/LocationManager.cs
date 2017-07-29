@@ -40,7 +40,7 @@ namespace PopditiOS
                 // Display the notification.
                 var content = new UNMutableNotificationContent();
                 content.Title = serverEvent.ProviderName;  // Name of provider.
-                                                           // content.Subtitle = "Your prescription is ready";  // Not implemented.
+                //content.Subtitle = serverEvent.Name;
                 content.Body = serverEvent.Msg;
                 //content.Badge = 1; // Not implemented.
                 content.Sound = UNNotificationSound.GetSound("bubblepop.wav");
@@ -67,7 +67,7 @@ namespace PopditiOS
                 double latitude = location.Coordinate.Latitude; // TBD double
                 double longitude = location.Coordinate.Longitude; // TBD double
                 Debug.WriteLine(">>>>> Refreshing at " + latitude.ToString() + ", " + longitude.ToString());
-                Location loc = new Location((decimal)latitude, (decimal)longitude);
+                Location loc = new Location(latitude, longitude);
                 // Get all the bubbles in the zone.
                 Stream json = await WebApiPost("api/Bubble", loc);
                 DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<BubbleMobile>));
@@ -104,7 +104,7 @@ namespace PopditiOS
             {
                 try
                 {
-                    client.BaseAddress = new Uri("http://192.168.1.107:83/"); // TBD - move to config
+                    client.BaseAddress = new Uri("http://pop-stage.popdit.com/"); // TBD - move to config
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     client.DefaultRequestHeaders.Add("Authorization", credentials.BasicAuthString);
