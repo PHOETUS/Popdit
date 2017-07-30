@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Web.Http;
 
 namespace PopditWeb.Controllers
 {
@@ -21,7 +22,7 @@ namespace PopditWeb.Controllers
                 string pwd = HttpContext.Request.Cookies["Popdit"].Values["Password"];
                 uidPwd = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(uid + ":" + pwd));
             }
-            catch { } // Swallow exception - if something went wrong, just return and empty auth string.
+            catch { } // Swallow exception - if something went wrong, just return an empty auth string.
             return "Basic " + uidPwd;
         }
 
@@ -41,6 +42,42 @@ namespace PopditWeb.Controllers
             return r;
         }
 
+        public enum WebApiMethod { Get, Post, Put, Delete }
+
+        protected async Task<Stream> WebApi(WebApiMethod method, string servicePath, Object content = null)
+        {
+            HttpResponseMessage response = null;
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(System.Configuration.ConfigurationManager.AppSettings["CoreURL"]);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Authorization", BasicAuthString());
+
+                switch (method)
+                {
+                    case WebApiMethod.Get:
+                        response = await client.GetAsync(servicePath).ConfigureAwait(false);
+                        break;
+                    case WebApiMethod.Post:
+                        response = await client.PostAsJsonAsync(servicePath, content).ConfigureAwait(false);
+                        break;
+                    case WebApiMethod.Put:
+                        response = await client.PutAsJsonAsync(servicePath, content).ConfigureAwait(false);
+                        break;
+                    case WebApiMethod.Delete:
+                        response = await client.DeleteAsync(servicePath).ConfigureAwait(false);
+                        break;
+                }
+            }
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK) throw new Exception("API call failed. " + response.StatusCode + " " + response.ReasonPhrase);
+
+            return response.Content.ReadAsStreamAsync().Result;
+        }
+
+        /*
         protected async Task<Stream> WebApiPost(string servicePath, Object content)
         {
             try
@@ -50,7 +87,7 @@ namespace PopditWeb.Controllers
                     client.BaseAddress = new Uri(System.Configuration.ConfigurationManager.AppSettings["CoreURL"]);
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.DefaultRequestHeaders.Add("Authorization", BasicAuthString());  // TBD - this is just a hack for testing
+                    client.DefaultRequestHeaders.Add("Authorization", BasicAuthString());
 
                     HttpResponseMessage response = await client.PostAsJsonAsync(servicePath, content).ConfigureAwait(false);
                     return response.Content.ReadAsStreamAsync().Result;
@@ -72,7 +109,7 @@ namespace PopditWeb.Controllers
                     client.BaseAddress = new Uri(System.Configuration.ConfigurationManager.AppSettings["CoreURL"]);
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.DefaultRequestHeaders.Add("Authorization", BasicAuthString());  // TBD - this is just a hack for testing
+                    client.DefaultRequestHeaders.Add("Authorization", BasicAuthString());
 
                     HttpResponseMessage response = await client.GetAsync(servicePath).ConfigureAwait(false);
                     return response.Content.ReadAsStreamAsync().Result;
@@ -94,7 +131,7 @@ namespace PopditWeb.Controllers
                     client.BaseAddress = new Uri(System.Configuration.ConfigurationManager.AppSettings["CoreURL"]);
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.DefaultRequestHeaders.Add("Authorization", BasicAuthString());  // TBD - this is just a hack for testing
+                    client.DefaultRequestHeaders.Add("Authorization", BasicAuthString());
 
                     HttpResponseMessage response = await client.DeleteAsync(servicePath).ConfigureAwait(false);
                     return response.Content.ReadAsStreamAsync().Result;
@@ -116,7 +153,7 @@ namespace PopditWeb.Controllers
                     client.BaseAddress = new Uri(System.Configuration.ConfigurationManager.AppSettings["CoreURL"]);
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.DefaultRequestHeaders.Add("Authorization", BasicAuthString());  // TBD - this is just a hack for testing
+                    client.DefaultRequestHeaders.Add("Authorization", BasicAuthString());
 
                     HttpResponseMessage response = await client.PutAsJsonAsync(servicePath, content).ConfigureAwait(false);
                     return response.Content.ReadAsStreamAsync().Result;
@@ -128,5 +165,6 @@ namespace PopditWeb.Controllers
                 return null;
             }
         }
+        */
     }
 }

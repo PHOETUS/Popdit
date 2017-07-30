@@ -14,7 +14,6 @@ namespace PopditWeb.Controllers
         // POST: Home
         public ActionResult SignIn(FormCollection collection)
         {
-            // TBD - Make this secure.
             string phone = collection["Phone"];
             string pwd = collection["Password"];
 

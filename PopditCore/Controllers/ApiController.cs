@@ -2,7 +2,9 @@
 using System.Linq;
 using System.Text;
 using PopditDB.Models;
-
+using System.Net.Http;
+using System.Web.Http;
+using System.Net;
 
 namespace PopditCore.Controllers
 {
@@ -31,9 +33,13 @@ namespace PopditCore.Controllers
                         pwd = uidPwd.Substring(separatorIndex + 1);
                     }
                     id = db.Profiles.Single(p => p.Phone == phone && p.Password == pwd).Id;
+                    return id;
                 }
-                catch { }  // If anything goes wrong, just return 0.
-                return id;
+                catch
+                {
+                    var msg = new HttpResponseMessage(HttpStatusCode.Unauthorized) { ReasonPhrase = "Authentication failed.  Please sign in." };
+                    throw new HttpResponseException(msg);
+                }                
             }
         }
     }
