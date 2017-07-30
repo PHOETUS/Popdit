@@ -40,7 +40,7 @@ namespace PopditiOS
                 // Display the notification.
                 var content = new UNMutableNotificationContent();
                 content.Title = serverEvent.ProviderName;  // Name of provider.
-                //content.Subtitle = serverEvent.Name;
+                content.Subtitle = serverEvent.MsgTitle;
                 content.Body = serverEvent.Msg;
                 //content.Badge = 1; // Not implemented.
                 content.Sound = UNNotificationSound.GetSound("bubblepop.wav");
@@ -104,7 +104,8 @@ namespace PopditiOS
             {
                 try
                 {
-                    client.BaseAddress = new Uri("http://pop-stage.popdit.com/"); // TBD - move to config
+                    client.BaseAddress = new Uri("http://192.168.1.107:83/"); // TBD - move to config
+                    //client.BaseAddress = new Uri("http://pop-stage.popdit.com/"); // TBD - move to config
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     client.DefaultRequestHeaders.Add("Authorization", credentials.BasicAuthString);

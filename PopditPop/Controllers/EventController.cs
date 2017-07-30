@@ -48,7 +48,8 @@ namespace PopditPop.Controllers
             db.Entry(e).Reference(b => b.Profile).Load();  // TBD - speed this up - this is crap.
             @event.ProviderName = e.Profile.Nickname;
             db.Entry(e).Reference(b => b.Bubble).Load();  // TBD - speed this up - this is crap.
-            @event.Msg = e.Bubble.AlertMsg;
+            @event.MsgTitle = e.Bubble.Name;
+            @event.Msg = e.Bubble.AlertMsg;            
             
             return CreatedAtRoute("DefaultApi", new { id = @event.Id }, @event);
         }

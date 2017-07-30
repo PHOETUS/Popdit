@@ -5,6 +5,7 @@
     public partial class EventMobile
     {
         public string ProviderName { get; set; }  // Added for mobile app.
+        public string MsgTitle { get; set; }
         public string Msg { get; set; }  // Added for mobile app.
         public int Id { get; set; }
         public int ProfileId { get; set; }
