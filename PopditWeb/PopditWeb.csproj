@@ -209,6 +209,7 @@
     <Content Include="Views\More\Account.cshtml" />
     <Content Include="Views\More\CompanyLoggedOut.cshtml" />
     <Content Include="Views\More\Help.cshtml" />
+    <Content Include="Views\More\Welcome.cshtml" />
     <None Include="Web.Stage.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

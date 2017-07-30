@@ -43,11 +43,17 @@ namespace PopditWeb.Controllers
             Models.Bubble b = new Models.Bubble();
             b.Name = collection["Name"].ToString();
             b.CategoryId = ConvertToInt(collection[i]);
-            b.Latitude = decimal.Parse(collection["Latitude"].ToString());
-            b.Longitude = decimal.Parse(collection["Longitude"].ToString());
             b.AlertMsg = collection["AlertMsg"].ToString();
             b.RadiusId = ConvertToInt(collection[j]);
             b.Active = collection["Active"].Contains("true");
+            b.Address = collection["Address"].ToString();
+
+            string lat = collection["Latitude"].ToString();
+            if (lat.Length == 0) lat = "0";
+            b.Latitude = decimal.Parse(lat);
+            string lng = collection["Latitude"].ToString();
+            if (lng.Length == 0) lng = "0";
+            b.Longitude = decimal.Parse(lng);
 
             Stream json = await WebApiPost("api/bubble", b);
             return RedirectToAction("Index", "Bubble");
@@ -74,12 +80,18 @@ namespace PopditWeb.Controllers
                 b.ProfileId = ConvertToInt(collection["ProfileId"]);
                 b.Name = collection["Name"].ToString();
                 b.CategoryId = ConvertToInt(collection[i]);
-                b.Latitude = decimal.Parse(collection["Latitude"].ToString());
-                b.Longitude = decimal.Parse(collection["Longitude"].ToString());
                 b.AlertMsg = collection["AlertMsg"].ToString();
                 b.ScheduleId = 99; // TBD - hack
                 b.RadiusId = ConvertToInt(collection[j]);
                 b.Active = collection["Active"].Contains("true");
+                b.Address = collection["Address"].ToString();
+
+                string lat = collection["Latitude"].ToString();
+                if (lat.Length == 0) lat = "0";
+                b.Latitude = decimal.Parse(lat);
+                string lng = collection["Latitude"].ToString();
+                if (lng.Length == 0) lng = "0";
+                b.Longitude = decimal.Parse(lng);
 
                 Stream json = await WebApiPut("api/Bubble/" + id.ToString(), b);
             }

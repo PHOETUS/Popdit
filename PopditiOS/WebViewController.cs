@@ -1,5 +1,4 @@
 ﻿using System;
-using CoreLocation;
 using Foundation;
 using UIKit;
 
@@ -24,7 +23,7 @@ namespace PopditiOS
 			base.ViewDidLoad ();
 			// Intercept URL loading to handle native calls from browser
 			WebView.ShouldStartLoad += HandleShouldStartLoad;
-            WebView.LoadRequest(new NSUrlRequest(new NSUrl("http://stage-popdit.com")));            
+            WebView.LoadRequest(new NSUrlRequest(new NSUrl("http://stage.popdit.com/")));            
         }
 
 		public override void DidReceiveMemoryWarning ()

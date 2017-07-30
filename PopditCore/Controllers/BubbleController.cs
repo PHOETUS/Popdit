@@ -36,7 +36,7 @@ namespace PopditCore.Controllers
                     string json = await client.GetStringAsync(url).ConfigureAwait(false);
                     // Parse the location out of the Google API geocode results.
                     dynamic location = JObject.Parse(json)["results"][0]["geometry"]["location"];
-                    return new Location(location["lat"], location["lng"]);
+                    return new Location((double)location["lat"], (double)location["lng"]);
                 }
             }
             catch (Exception e)
@@ -93,6 +93,16 @@ namespace PopditCore.Controllers
             oldBubble.ScheduleId = newBubble.ScheduleId;
             oldBubble.RadiusId = newBubble.RadiusId;
             oldBubble.Active = newBubble.Active;
+            // oldBubble.Address = newBubble.Address ?? oldBubble.Address;
+
+            // if the address changed, and it's not null or zero-length, geocode it into the lat/long.
+            if (newBubble.Address != oldBubble.Address && newBubble.Address != null && newBubble.Address.Length > 0)
+            {
+                Location loc = Geocode(newBubble.Address).Result;
+                oldBubble.Latitude = loc.Latitude;
+                oldBubble.Longitude = loc.Longitude;
+                oldBubble.Address = newBubble.Address;
+            }
 
             // Force loading of Radius for use in UpdateMaxMin.
             db.Entry(oldBubble).Reference(b => b.Radius).Load();  // TBD - too expensive
@@ -118,12 +128,19 @@ namespace PopditCore.Controllers
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
             bubble.ProfileId = AuthenticatedUserId; // Security
+
+            // if there's an address, geocode it into the lat/long.
+            if (bubble.Address != null && bubble.Address.Length > 0)
+            {
+                Location loc = Geocode(bubble.Address).Result;
+                bubble.Latitude = loc.Latitude;
+                bubble.Longitude = loc.Longitude;
+            }
+
             bubble.Radius = db.Radii.Find(bubble.RadiusId);  // TBD - too expensive
             bubble.UpdateMaxMin();
             db.Bubbles.Add(bubble);
             db.SaveChanges();
-
-            Location loc = Geocode("4718 E Donington Dr., Bloomington, IN 47401").Result;
 
             return CreatedAtRoute("DefaultApi", new { id = bubble.Id }, bubble);
         }

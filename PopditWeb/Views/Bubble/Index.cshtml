@@ -50,7 +50,7 @@
                     <table class="content">
                         <tr><td colspan="2">&middot; Create a new bubble &middot;</td></tr>
                         <tr class="form"><td>Name</td><td>@Html.TextBox("Name")</td></tr>
-                        <tr class="form"><td>Address</td><td>@Html.TextBox("AddresString", null)</td></tr>
+                        <tr class="form"><td>Address</td><td>@Html.TextBox("Address", null)</td></tr>
                         <tr class="form"><td>Latitude</td><td class="latlong">@Html.TextBox("Latitude", null)</td></tr>
                         <tr class="form"><td>Longitude</td><td class="latlong">@Html.TextBox("Longitude", null)</td></tr>
                         <tr class="form"><td>Category</td><td>@Html.DropDownList("CategoryId", new SelectList((List<PopditWeb.Models.Category>)ViewData["Categories"], "Id", "Description"))</td></tr>
@@ -76,7 +76,7 @@
                         <table class="content">
                             <tr><td colspan="2">@Model[i].Name</td></tr>
                             <tr class="form"><td>Name</td><td>@Html.EditorFor(m => m[i].Name, null, "Name")</td></tr>
-                            <tr class="form"><td>Address</td><td class="latlong">@Html.EditorFor(m => m[i].AddressString, null, "AddressString")</td></tr>
+                            <tr class="form"><td>Address</td><td class="latlong">@Html.EditorFor(m => m[i].Address, null, "AddressString")</td></tr>
                             <tr class="form"><td>Latitude</td><td class="latlong">@Html.EditorFor(m => m[i].Latitude, null, "Latitude")</td></tr>
                             <tr class="form"><td>Longitude</td><td class="latlong">@Html.EditorFor(m => m[i].Longitude, null, "Longitude")</td></tr>
                             <tr class="form"><td>Category</td><td>@Html.DropDownListFor(m => m[i].CategoryId, new SelectList((List<PopditWeb.Models.Category>)ViewData["Categories"], "Id", "Description", Model[i].CategoryId))</td></tr>

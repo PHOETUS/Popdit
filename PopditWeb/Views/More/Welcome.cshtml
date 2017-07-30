@@ -1,0 +1,19 @@
+﻿@{ ViewBag.Title = "Welcome"; }
+
+<div class="content">
+    <table id="content" class="content">
+        <tr>
+            <td colspan="2" class="logo"><img src="~/Content/Logo.gif" width="206" height="58" /></td>
+        </tr>
+        <tr>
+            <td class="pagetitle">Welcome</td>
+        </tr>
+        <tr>
+            <td class="text">
+                <p>Interesting places have bubbles around them.</p>
+                <p>If you have a filter that matches a bubble and you pop it, you'll hear it pop and you'll get a message.</p>
+                <p>Know a cool place?  Make a @Html.ActionLink("bubble", "Index", "Bubble").</p>
+                <p>Want to know about cool places?  Make a @Html.ActionLink("filter", "Index", "Bubble").</p>
+        </tr>
+    </table>
+</div>

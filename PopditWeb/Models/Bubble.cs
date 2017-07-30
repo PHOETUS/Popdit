@@ -38,7 +38,7 @@ namespace PopditWeb.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0.000000}")]
         public decimal Longitude { get; set; }
         [DataMember]
-        public string AddressString;
+        public string Address;
         [DataMember]
         public Nullable<int> AddressId { get; set; }
         [DataMember]
@@ -55,8 +55,7 @@ namespace PopditWeb.Models
         public Nullable<decimal> MaxLatitude { get; set; }
         public Nullable<decimal> MaxLongitude { get; set; }
         public Nullable<decimal> MinLongitude { get; set; }
-    
-        public virtual Address Address { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Event> Events { get; set; }
         public virtual Category Category { get; set; }

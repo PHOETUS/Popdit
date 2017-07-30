@@ -14,7 +14,7 @@ namespace PopditWeb.Controllers
         // POST: Home
         public ActionResult SignIn(FormCollection collection)
         {
-            // TBD - Make this secure.  Use OAuth and encrypt the cookie.
+            // TBD - Make this secure.
             string phone = collection["Phone"];
             string pwd = collection["Password"];
 
@@ -27,7 +27,7 @@ namespace PopditWeb.Controllers
             cookie.Expires = DateTime.Now.AddDays(cookieDaysToLive);
             HttpContext.Response.Cookies.Add(cookie);
 
-            return RedirectToAction("Index", "Filter");
+            return RedirectToAction("Welcome", "More");
         }
 
         public ActionResult SignOut()

@@ -43,7 +43,7 @@
                         <tr class="form"><td>Name</td><td>@Html.TextBox("Name")</td></tr>
                         <tr class="form"><td>Category</td><td>@Html.DropDownList("CategoryId", new SelectList((List<PopditWeb.Models.Category>)ViewData["Categories"], "Id", "Description"), "- Select Category -")</td></tr>
                         <tr class="form"><td>Radius</td><td>@Html.DropDownList("RadiusId", new SelectList((List<PopditWeb.Models.Radius>)ViewData["Radii"], "Id", "Description"))</td></tr>
-                        <tr class="form"><td>Active</td><td class="left">@Html.CheckBox("Active", false)</td></tr>
+                        <tr class="form"><td>Active</td><td class="left">@Html.CheckBox("Active", true)</td></tr>
                         <tr><td></td><td><input type="submit" value="Create new filter" /></td></tr>
                     </table>
                 }
