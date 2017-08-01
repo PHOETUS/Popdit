@@ -40,8 +40,6 @@ namespace PopditWeb.Models
         [DataMember]
         public string Address;
         [DataMember]
-        public Nullable<int> AddressId { get; set; }
-        [DataMember]
         [DataType(DataType.MultilineText)]
         public string AlertMsg { get; set; }
         [DataMember]

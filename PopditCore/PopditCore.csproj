@@ -108,6 +108,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
+    <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\FilterController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RadiusController.cs" />

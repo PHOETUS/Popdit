@@ -11,13 +11,19 @@ namespace PopditDB.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract]
     public partial class Event
     {
+        [DataMember]
         public int Id { get; set; }
+        [DataMember]
         public int ProfileId { get; set; }
+        [DataMember]
         public int BubbleId { get; set; }
-        public System.DateTime Timestamp { get; set; }
+        [DataMember]
+        public System.DateTime Timestamp { get; set; }       
         public string TimestampJson
         {
             get { return String.Format("{0:yyyy-MM-dd HH:mm:ss}", Timestamp); }

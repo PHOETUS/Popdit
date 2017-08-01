@@ -11,9 +11,9 @@
 <body>
     <div class=main>
         <div class=menubar>
+            <div class=menuitem>@Html.ActionLink("History", "Index", "Event")</div>
             <div class=menuitem>@Html.ActionLink("Filters", "Index", "Filter")</div>
-            <div class=menuitem>@Html.ActionLink("Bubbles", "Index", "Bubble")</div>
-            <div class=menuitem>@Html.ActionLink("Profile", "Index", "Profile")</div>
+            <div class=menuitem>@Html.ActionLink("Bubbles", "Index", "Bubble")</div>            
             <div class=menuitem>@Html.ActionLink("More", "Index", "More")</div>
         </div>
     @RenderBody()

@@ -72,9 +72,11 @@ namespace PopditWeb.Controllers
                 }
             }
 
-            if (response.StatusCode != System.Net.HttpStatusCode.OK) throw new Exception("API call failed. " + response.StatusCode + " " + response.ReasonPhrase);
-
-            return response.Content.ReadAsStreamAsync().Result;
+            if (response.StatusCode == System.Net.HttpStatusCode.OK ||
+                response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                return response.Content.ReadAsStreamAsync().Result;
+            else
+                throw new Exception("API call failed. " + response.StatusCode + " " + response.ReasonPhrase);            
         }
 
         /*

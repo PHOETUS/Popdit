@@ -35,6 +35,17 @@ namespace PopditiOS
 
 		bool HandleShouldStartLoad (UIWebView webView, NSUrlRequest request, UIWebViewNavigationType navigationType)
 		{
+            //if (request.Url.AbsoluteString.Contains("popdit.com")
+            if (request.Url.AbsoluteString.Contains("192.168.1"))
+                return true;
+            else
+            {
+                UIApplication.SharedApplication.OpenUrl(request.Url);
+                return false;
+            }
+
+
+            /*
 			// If the URL is not our own custom scheme, just let the webView load the URL as usual
 			const string scheme = "hybrid:";
 
@@ -61,7 +72,8 @@ namespace PopditiOS
 			}
 
 			return false;
-		}
+            */
+        }
 	}
 }
 

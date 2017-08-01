@@ -86,7 +86,7 @@ namespace PopditWeb.Controllers
                     f.CategoryId = ConvertToNullableInt(collection[i]);
                     f.ScheduleId = null;
                     f.RadiusId = ConvertToInt(collection[j]);
-                    f.Active = collection["Active"].Contains("true");
+                    f.Active = collection["Active"].Contains("true");                  
 
                     Stream json = await WebApi(WebApiMethod.Put, "api/Filter/" + id.ToString(), f);
                 }

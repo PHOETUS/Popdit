@@ -26,7 +26,7 @@ namespace PopditWeb.Controllers
             cookie.Expires = DateTime.Now.AddDays(cookieDaysToLive);
             HttpContext.Response.Cookies.Add(cookie);
 
-            return RedirectToAction("Welcome", "More");
+            return RedirectToAction("Index", "Event");
         }
 
         public ActionResult SignOut()

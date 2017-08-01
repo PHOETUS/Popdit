@@ -10,8 +10,6 @@ namespace PopditWeb.Controllers
     {
         public ActionResult Index() { return View(); }
 
-        public ActionResult History() { return View(); }
-
         public ActionResult Metrics() { return View(); }
 
         public ActionResult Account() { return View(); }
@@ -19,8 +17,6 @@ namespace PopditWeb.Controllers
         //public ActionResult Developers() { return View(); }
 
         public ActionResult Company() { return View(); }
-
-        public ActionResult Welcome() { return View(); }
 
         public ActionResult Help() { return View(); }
 

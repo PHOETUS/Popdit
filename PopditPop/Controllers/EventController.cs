@@ -15,7 +15,7 @@ namespace PopditPop.Controllers
         {
             return db.Events;
         }
-
+       
         // GET: api/Event/5
         [ResponseType(typeof(Event))]
         public IHttpActionResult GetEvent(int id)
@@ -45,11 +45,11 @@ namespace PopditPop.Controllers
             db.SaveChanges();
 
             // Set EventMobileFields for return trip.
-            db.Entry(e).Reference(b => b.Profile).Load();  // TBD - speed this up - this is crap.
-            @event.ProviderName = e.Profile.Nickname;
-            db.Entry(e).Reference(b => b.Bubble).Load();  // TBD - speed this up - this is crap.
-            @event.MsgTitle = e.Bubble.Name;
-            @event.Msg = e.Bubble.AlertMsg;            
+            Bubble bubble = db.Bubbles.Find(@event.BubbleId);
+            db.Entry(bubble).Reference(b => b.Profile).Load();  // TBD - speed this up - this is crap.
+            @event.ProviderName = bubble.Profile.Nickname;
+            @event.MsgTitle = bubble.Name;
+            @event.Msg = bubble.AlertMsg;            
             
             return CreatedAtRoute("DefaultApi", new { id = @event.Id }, @event);
         }
