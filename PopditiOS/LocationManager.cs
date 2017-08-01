@@ -38,23 +38,28 @@ namespace PopditiOS
                 DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(EventMobile));
                 EventMobile serverEvent = (EventMobile)serializer.ReadObject(json);
                 // Display the notification.
-                var content = new UNMutableNotificationContent();
-                content.Title = serverEvent.ProviderName;  // Name of provider.
-                content.Subtitle = serverEvent.MsgTitle;
-                content.Body = serverEvent.Msg;
-                //content.Badge = 1; // Not implemented.
-                content.Sound = UNNotificationSound.GetSound("bubblepop.wav");
-
-                var trigger = UNTimeIntervalNotificationTrigger.CreateTrigger(1, false); // 1 second delay, do not repeat.
-
-                var requestID = "Popdit" + " " + e.Region.Identifier;
-                var request = UNNotificationRequest.FromIdentifier(requestID, content, trigger);
-
-                UNUserNotificationCenter.Current.AddNotificationRequest(request, (err) =>
-                {
-                    if (err != null) { Debug.WriteLine(">>>>> Message error: " + err.DebugDescription);  }
-                });                
+                DisplayNotification(serverEvent.ProviderName, serverEvent.MsgTitle, serverEvent.Msg, "Popdit" + " " + e.Region.Identifier);
             }
+        }
+
+        void DisplayNotification(string title, string subtitle, string body, string requestId)
+        {
+            var content = new UNMutableNotificationContent();
+            if (title != null) content.Title = title;
+            if (subtitle != null) content.Subtitle = subtitle;
+            if (body != null) content.Body = body;
+            //content.Badge = 1; // Not implemented.
+            content.Sound = UNNotificationSound.GetSound("bubblepop.wav");
+
+            var trigger = UNTimeIntervalNotificationTrigger.CreateTrigger(1, false); // 1 second delay, do not repeat.
+
+            //var requestID = "Popdit" + " " + e.Region.Identifier;
+            var request = UNNotificationRequest.FromIdentifier(requestId, content, trigger);
+
+            UNUserNotificationCenter.Current.AddNotificationRequest(request, (err) =>
+            {
+                if (err != null) { Debug.WriteLine(">>>>> Message error: " + err.DebugDescription); }
+            });
         }
 
         // The user left the refresh zone.  Get a new catalog of bubbles from the server.
@@ -135,7 +140,14 @@ namespace PopditiOS
         // Poll for the security token until it's available, then kick off the first refresh.
         async void AwaitCredentials()
         {
-            while (credentials.BasicAuthString.Length == 0) await Task.Delay(500);
+            int count = 0;
+            while (credentials.BasicAuthString.Length == 0)
+            {
+                await Task.Delay(500);
+                count++;
+                if (count == 1200)  // 10 minutes.
+                    DisplayNotification("Please sign in", null, "Popdit cannot notify you about cool places until you sign in.", "Sign in");
+            }
             Refresh(null, null);
         }
         
