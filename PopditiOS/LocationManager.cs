@@ -10,7 +10,7 @@ using Foundation;
 using UIKit;
 using CoreLocation;
 using UserNotifications;
-using PopditMobile.Models;
+using PopditMobile;
 using System.Diagnostics;
 
 namespace PopditiOS

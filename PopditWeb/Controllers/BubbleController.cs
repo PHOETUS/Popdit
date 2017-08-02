@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.IO;
 using System.Threading.Tasks;
 using System.Runtime.Serialization.Json;
+using PopditMobile;
 
 namespace PopditWeb.Controllers
 {
@@ -16,17 +17,17 @@ namespace PopditWeb.Controllers
             {
                 // Categories
                 Stream jsonCategories = await WebApi(WebApiMethod.Get, "api/Category");
-                DataContractJsonSerializer serializerCategory = new DataContractJsonSerializer(typeof(List<Models.Category>));
-                ViewData["Categories"] = (List<Models.Category>)serializerCategory.ReadObject(jsonCategories);
+                DataContractJsonSerializer serializerCategory = new DataContractJsonSerializer(typeof(List<Category>));
+                ViewData["Categories"] = (List<Category>)serializerCategory.ReadObject(jsonCategories);
 
                 // Radii
                 Stream jsonRadii = await WebApi(WebApiMethod.Get, "api/Radius");
-                DataContractJsonSerializer serializerRadius = new DataContractJsonSerializer(typeof(List<Models.Radius>));
-                ViewData["Radii"] = (List<Models.Radius>)serializerRadius.ReadObject(jsonRadii);
+                DataContractJsonSerializer serializerRadius = new DataContractJsonSerializer(typeof(List<Radius>));
+                ViewData["Radii"] = (List<Radius>)serializerRadius.ReadObject(jsonRadii);
 
                 Stream json = await WebApi(WebApiMethod.Get, "api/Bubble");
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<Models.Bubble>));
-                return View((List<Models.Bubble>)serializer.ReadObject(json));
+                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<BubbleInterop>));
+                return View((List<BubbleInterop>)serializer.ReadObject(json));
             }
             // Authentication failure?
             catch (Exception e) { return RedirectToAction("Index", "Home"); }
@@ -47,7 +48,7 @@ namespace PopditWeb.Controllers
                 while (j < collection.Keys.Count && !collection.Keys[j].Contains("RadiusId")) j++;
 
                 // Create new bubble from FormCollection
-                Models.Bubble b = new Models.Bubble();
+                BubbleInterop b = new BubbleInterop();
                 b.Name = collection["Name"].ToString();
                 b.CategoryId = ConvertToInt(collection[i]);
                 b.AlertMsg = collection["AlertMsg"].ToString();
@@ -57,10 +58,10 @@ namespace PopditWeb.Controllers
 
                 string lat = collection["Latitude"].ToString();
                 if (lat.Length == 0) lat = "0";
-                b.Latitude = decimal.Parse(lat);
+                b.Latitude = double.Parse(lat);
                 string lng = collection["Latitude"].ToString();
                 if (lng.Length == 0) lng = "0";
-                b.Longitude = decimal.Parse(lng);
+                b.Longitude = double.Parse(lng);
 
                 Stream json = await WebApi(WebApiMethod.Post, "api/bubble", b);
                 return RedirectToAction("Index", "Bubble");
@@ -87,7 +88,7 @@ namespace PopditWeb.Controllers
                     while (j < collection.Keys.Count && !collection.Keys[j].Contains("RadiusId")) j++;
 
                     // TBD - this is a hack for testing.
-                    Models.Bubble b = new Models.Bubble();
+                    BubbleInterop b = new BubbleInterop();
                     b.Id = id;
                     b.ProfileId = ConvertToInt(collection["ProfileId"]);
                     b.Name = collection["Name"].ToString();
@@ -100,10 +101,10 @@ namespace PopditWeb.Controllers
 
                     string lat = collection["Latitude"].ToString();
                     if (lat.Length == 0) lat = "0";
-                    b.Latitude = decimal.Parse(lat);
+                    b.Latitude = double.Parse(lat);
                     string lng = collection["Latitude"].ToString();
                     if (lng.Length == 0) lng = "0";
-                    b.Longitude = decimal.Parse(lng);
+                    b.Longitude = double.Parse(lng);
 
                     Stream json = await WebApi(WebApiMethod.Put, "api/Bubble/" + id.ToString(), b);
                 }

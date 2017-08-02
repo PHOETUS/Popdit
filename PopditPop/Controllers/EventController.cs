@@ -2,7 +2,7 @@
 using System.Web.Http;
 using System.Web.Http.Description;
 using PopditDB.Models;
-using PopditMobile.Models;
+using PopditMobile;
 
 namespace PopditPop.Controllers
 {

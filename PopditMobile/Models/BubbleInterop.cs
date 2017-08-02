@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PopditWeb.Models
+namespace PopditMobile
 {
     using System;
     using System.Collections.Generic;
@@ -15,12 +15,12 @@ namespace PopditWeb.Models
     using System.ComponentModel.DataAnnotations;
 
     [DataContract]
-    public partial class Bubble
+    public partial class BubbleInterop
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Bubble()
+        public BubbleInterop()
         {
-            this.Events = new HashSet<Event>();
+            this.Events = new HashSet<EventInterop>();
         }
 
         [DataMember]
@@ -33,10 +33,10 @@ namespace PopditWeb.Models
         public int CategoryId { get; set; }
         [DataMember]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0.000000}")]
-        public decimal Latitude { get; set; }
+        public double Latitude { get; set; }
         [DataMember]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0.000000}")]
-        public decimal Longitude { get; set; }
+        public double Longitude { get; set; }
         [DataMember]
         public string Address;
         [DataMember]
@@ -55,7 +55,7 @@ namespace PopditWeb.Models
         public Nullable<decimal> MinLongitude { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Event> Events { get; set; }
+        public virtual ICollection<EventInterop> Events { get; set; }
         public virtual Category Category { get; set; }
         public virtual Profile Profile { get; set; }
         public virtual Radius Radius { get; set; }

@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Configuration;
 using System.Web;
 using System.Web.Mvc;
 
@@ -9,7 +8,15 @@ namespace PopditWeb.Controllers
     public class HomeController : Controller
     {
         // GET: Home
-        public ActionResult Index()  { return View(); }
+        public ActionResult Index()
+        {
+            // If there's a cookie, try to go straight to the Pops page; otherwise, go to the login page.
+            HttpCookie cookie = HttpContext.Request.Cookies["Popdit"];
+            if (cookie != null)
+                return RedirectToAction("Index", "Event");
+            else
+                return View();
+        }
 
         // POST: Home
         public ActionResult SignIn(FormCollection collection)
@@ -17,8 +24,8 @@ namespace PopditWeb.Controllers
             string phone = collection["Phone"];
             string pwd = collection["Password"];
 
-            string cookieName = "Popdit"; // TBD - Do not hard-code.
-            int cookieDaysToLive = 7; // TBD - Do not hard-code.
+            string cookieName = "Popdit";
+            int cookieDaysToLive = Convert.ToInt32(ConfigurationManager.AppSettings["CookieDaysToLive"]);
 
             HttpCookie cookie = HttpContext.Request.Cookies[cookieName] ?? new HttpCookie(cookieName);
             cookie.Values["Phone"] = phone; 

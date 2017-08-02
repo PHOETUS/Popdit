@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PopditWeb.Models
+namespace PopditMobile
 {
     using System;
     using System.Collections.Generic;
@@ -19,9 +19,9 @@ namespace PopditWeb.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Profile()
         {
-            this.Bubbles = new HashSet<Bubble>();
-            this.Events = new HashSet<Event>();
-            this.Filters = new HashSet<Filter>();
+            this.Bubbles = new HashSet<BubbleInterop>();
+            this.Events = new HashSet<EventInterop>();
+            this.Filters = new HashSet<FilterInterop>();
         }
     
         [DataMember]
@@ -51,11 +51,11 @@ namespace PopditWeb.Models
         public System.DateTime Created { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bubble> Bubbles { get; set; }
+        public virtual ICollection<BubbleInterop> Bubbles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Event> Events { get; set; }
+        public virtual ICollection<EventInterop> Events { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Filter> Filters { get; set; }
+        public virtual ICollection<FilterInterop> Filters { get; set; }
         public virtual Radius Radius { get; set; }
     }
 }

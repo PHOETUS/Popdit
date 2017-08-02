@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using PopditDB.Models;
-using PopditMobile.Models;
+using PopditMobile;
 
 namespace PopditCore.Controllers
 {

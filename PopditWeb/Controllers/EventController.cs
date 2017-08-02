@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
-using PopditMobile.Models;
+using PopditMobile;
 
 namespace PopditWeb.Controllers
 {

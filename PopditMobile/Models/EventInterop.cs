@@ -7,14 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PopditWeb.Models
+namespace PopditMobile
 {
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     [DataContract]
-    public partial class Event
+    public partial class EventInterop
     {
         [DataMember]
         public int Id { get; set; }
@@ -25,7 +25,7 @@ namespace PopditWeb.Models
         [DataMember]
         public System.DateTime Timestamp { get; set; }
 
-        public virtual Bubble Bubble { get; set; }
+        public virtual BubbleInterop Bubble { get; set; }
         public virtual Profile Profile { get; set; }
     }
 }

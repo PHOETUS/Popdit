@@ -7,21 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PopditWeb.Models
+namespace PopditMobile
 {
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     [DataContract]
-    public partial class Radius
+    public partial class Category
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Radius()
+        public Category()
         {
-            this.Bubbles = new HashSet<Bubble>();
-            this.Filters = new HashSet<Filter>();
-            this.Profiles = new HashSet<Profile>();
+            this.Bubbles = new HashSet<BubbleInterop>();
+            this.Categories1 = new HashSet<Category>();
+            this.Filters = new HashSet<FilterInterop>();
         }
     
         [DataMember]
@@ -29,15 +29,16 @@ namespace PopditWeb.Models
         [DataMember]
         public string Description { get; set; }
         [DataMember]
-        public int Meters { get; set; }
+        public string GoogleDescription { get; set; }
         [DataMember]
-        public decimal Degrees { get; set; }
+        public Nullable<int> CategoryId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bubble> Bubbles { get; set; }
+        public virtual ICollection<BubbleInterop> Bubbles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Filter> Filters { get; set; }
+        public virtual ICollection<Category> Categories1 { get; set; }
+        public virtual Category Category1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Profile> Profiles { get; set; }
+        public virtual ICollection<FilterInterop> Filters { get; set; }
     }
 }

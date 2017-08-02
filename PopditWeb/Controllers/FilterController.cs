@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Runtime.Serialization.Json;
 using System;
+using PopditMobile;
 
 namespace PopditWeb.Controllers
 {
@@ -16,18 +17,18 @@ namespace PopditWeb.Controllers
             {
                 // Categories
                 Stream jsonCategories = await WebApi(WebApiMethod.Get, "api/Category");
-                DataContractJsonSerializer serializerCategory = new DataContractJsonSerializer(typeof(List<Models.Category>));
-                ViewData["Categories"] = (List<Models.Category>)serializerCategory.ReadObject(jsonCategories);
+                DataContractJsonSerializer serializerCategory = new DataContractJsonSerializer(typeof(List<Category>));
+                ViewData["Categories"] = (List<Category>)serializerCategory.ReadObject(jsonCategories);
 
                 // Radii
                 Stream jsonRadii = await WebApi(WebApiMethod.Get, "api/Radius");
-                DataContractJsonSerializer serializerRadius = new DataContractJsonSerializer(typeof(List<Models.Radius>));
-                ViewData["Radii"] = (List<Models.Radius>)serializerRadius.ReadObject(jsonRadii);
+                DataContractJsonSerializer serializerRadius = new DataContractJsonSerializer(typeof(List<Radius>));
+                ViewData["Radii"] = (List<Radius>)serializerRadius.ReadObject(jsonRadii);
 
                 // Filters
                 Stream json = await WebApi(WebApiMethod.Get, "api/Filter");
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<Models.Filter>));
-                return View((List<Models.Filter>)serializer.ReadObject(json));
+                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<FilterInterop>));
+                return View((List<FilterInterop>)serializer.ReadObject(json));
             }
             // Authentication failure?
             catch (Exception e) { return RedirectToAction("Index", "Home"); }
@@ -48,7 +49,7 @@ namespace PopditWeb.Controllers
                 while (j < collection.Keys.Count && !collection.Keys[j].Contains("RadiusId")) j++;
 
                 // Create new filter from FormCollection
-                Models.Filter f = new Models.Filter();
+                FilterInterop f = new FilterInterop();
                 f.Name = collection["Name"].ToString();
                 f.CategoryId = ConvertToNullableInt(collection[i]);
                 f.RadiusId = ConvertToInt(collection[j]);
@@ -79,7 +80,7 @@ namespace PopditWeb.Controllers
                     while (j < collection.Keys.Count && !collection.Keys[j].Contains("RadiusId")) j++;
 
                     // TBD - this is a hack for testing.
-                    Models.Filter f = new Models.Filter();
+                    FilterInterop f = new FilterInterop();
                     f.Id = id;
                     f.Name = collection["Name"];
                     f.ProfileId = ConvertToInt(collection["ProfileId"]);

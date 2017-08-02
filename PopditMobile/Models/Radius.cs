@@ -7,21 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PopditWeb.Models
+namespace PopditMobile
 {
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     [DataContract]
-    public partial class Category
+    public partial class Radius
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category()
+        public Radius()
         {
-            this.Bubbles = new HashSet<Bubble>();
-            this.Categories1 = new HashSet<Category>();
-            this.Filters = new HashSet<Filter>();
+            this.Bubbles = new HashSet<BubbleInterop>();
+            this.Filters = new HashSet<FilterInterop>();
+            this.Profiles = new HashSet<Profile>();
         }
     
         [DataMember]
@@ -29,16 +29,15 @@ namespace PopditWeb.Models
         [DataMember]
         public string Description { get; set; }
         [DataMember]
-        public string GoogleDescription { get; set; }
+        public int Meters { get; set; }
         [DataMember]
-        public Nullable<int> CategoryId { get; set; }
+        public decimal Degrees { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bubble> Bubbles { get; set; }
+        public virtual ICollection<BubbleInterop> Bubbles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Category> Categories1 { get; set; }
-        public virtual Category Category1 { get; set; }
+        public virtual ICollection<FilterInterop> Filters { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Filter> Filters { get; set; }
+        public virtual ICollection<Profile> Profiles { get; set; }
     }
 }
