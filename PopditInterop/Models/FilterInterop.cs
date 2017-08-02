@@ -7,29 +7,33 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PopditMobile
+namespace PopditInterop
 {
     using System;
-    using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     [DataContract]
-    public partial class State
+    public partial class FilterInterop
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public State()
-        {
-            this.Addresses = new HashSet<Address>();
-        }
-    
         [DataMember]
         public int Id { get; set; }
         [DataMember]
         public string Name { get; set; }
         [DataMember]
-        public string Code { get; set; }
+        public int ProfileId { get; set; }
+        [DataMember]
+        public Nullable<int> CategoryId { get; set; }
+        [DataMember]
+        public Nullable<int> ScheduleId { get; set; }
+        [DataMember]
+        public int RadiusId { get; set; }
+        [DataMember]
+        public bool Active { get; set; }
+        [DataMember]
+        public string PublicKey { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Address> Addresses { get; set; }
+        public virtual Category Category { get; set; }
+        public virtual Profile Profile { get; set; }
+        public virtual Radius Radius { get; set; }
     }
 }

@@ -7,38 +7,55 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PopditMobile
+namespace PopditInterop
 {
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     [DataContract]
-    public partial class Category
+    public partial class Profile
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category()
+        public Profile()
         {
             this.Bubbles = new HashSet<BubbleInterop>();
-            this.Categories1 = new HashSet<Category>();
+            this.Events = new HashSet<EventInterop>();
             this.Filters = new HashSet<FilterInterop>();
         }
     
         [DataMember]
         public int Id { get; set; }
         [DataMember]
-        public string Description { get; set; }
+        public string Nickname { get; set; }
         [DataMember]
-        public string GoogleDescription { get; set; }
+        public string Email { get; set; }
         [DataMember]
-        public Nullable<int> CategoryId { get; set; }
+        public string Password { get; set; }
+        [DataMember]
+        public string Phone { get; set; }
+        [DataMember]
+        public string CallbackAddress { get; set; }
+        [DataMember]
+        public Nullable<int> RadiusId { get; set; }
+        [DataMember]
+        public string DobJson
+        {
+            get { return String.Format("{0:yyyy-MM-dd}", DOB); }
+            set { DOB = DateTime.Parse(value); }
+        }
+        public Nullable<System.DateTime> DOB { get; set; }
+        [DataMember]
+        public Nullable<bool> Male { get; set; }
+        public System.DateTime LastSignIn { get; set; }
+        public System.DateTime Created { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BubbleInterop> Bubbles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Category> Categories1 { get; set; }
-        public virtual Category Category1 { get; set; }
+        public virtual ICollection<EventInterop> Events { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FilterInterop> Filters { get; set; }
+        public virtual Radius Radius { get; set; }
     }
 }

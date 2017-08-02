@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Json;
 using Newtonsoft.Json;
-using Foundation;
 using UIKit;
 using CoreLocation;
 using UserNotifications;
-using PopditMobile;
+using PopditInterop;
 using System.Diagnostics;
 
 namespace PopditiOS

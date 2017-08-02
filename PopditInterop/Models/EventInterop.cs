@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PopditMobile
+namespace PopditInterop
 {
     using System;
     using System.Collections.Generic;

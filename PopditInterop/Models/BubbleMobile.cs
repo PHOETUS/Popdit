@@ -1,4 +1,4 @@
-﻿namespace PopditMobile
+﻿namespace PopditInterop
 {
     public partial class BubbleMobile
     { 

@@ -44,10 +44,10 @@
     <Compile Include="Models\EventMobile.cs" />
     <Compile Include="Models\FilterInterop.cs" />
     <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\PopditMobile.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Radius.cs" />
     <Compile Include="Models\State.cs" />
-    <Compile Include="Models\PopditMobile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

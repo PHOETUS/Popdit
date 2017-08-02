@@ -5,11 +5,11 @@ using System.Text;
 
 using Xamarin.Forms;
 
-namespace PopditMobile
+namespace PopditInterop
 {
-    public class PopditMobile : ContentPage
+    public class PopdirInterop : ContentPage
     {
-        public PopditMobile()
+        public PopdirInterop()
         {
             var button = new Button
             {
