@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Http;
@@ -23,7 +24,7 @@ namespace PopditPop.Controllers
             int refreshRadius = 6000;  // Area outside of which to refresh bubble catalog.
 
             Zone z = new Zone(loc.Latitude, loc.Longitude, catalogRadius);
-            
+
             // A bubble overlaps a zone if 
             // 1) its min or max lat is between the zone's min and min lat; and
             // 2) its min or max long is between the zone's min and max long.
@@ -32,15 +33,25 @@ namespace PopditPop.Controllers
             // Therefore, it is reliable only if the zone is **bigger** than the biggest allowable bubble.
             // The biggest allowable bubble radius is currently 2 miles or 3219 meters.
 
+            // Get a list of bubbles popped by this user in the last 24 hours.
+            DateTime dayAgo = DateTime.Now.AddDays(-1);
+            List<Bubble> popped = db.Events.Where(e => e.ProfileId == AuthenticatedUserId && e.Timestamp > dayAgo).Select(e => e.Bubble).ToList();
+
+            // Get a list of bubbles in the user's area.
             List<Bubble> bubbles = db.Bubbles.Where(b =>
             ((z.MinLatitude < b.MaxLatitude && b.MaxLatitude < z.MaxLatitude) ||
              (z.MinLatitude < b.MinLatitude && b.MinLatitude < z.MaxLatitude)) &&
             ((z.MinLongitude < b.MaxLongitude && b.MaxLongitude < z.MaxLongitude) ||
              (z.MinLongitude < b.MinLongitude && b.MinLongitude < z.MaxLongitude))).ToList();
 
+            // Find the complement.
+            List<Bubble> poppable = new List<Bubble>();
+            foreach (Bubble b in bubbles)
+                if (!popped.Contains(b)) poppable.Add(b);
+
             // Convert Bubble to lightweight BubbleMobile for use by mobile app.
             List<BubbleMobile> bubblesMobile = new List<BubbleMobile>();
-            foreach (Bubble b in bubbles)
+            foreach (Bubble b in poppable)
             {
                 BubbleMobile bm = new BubbleMobile();
                 bm.Id = b.Id;
