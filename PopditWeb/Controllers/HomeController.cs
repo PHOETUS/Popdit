@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Web;
 using System.Web.Mvc;
+using System.Text.RegularExpressions;
 
 namespace PopditWeb.Controllers
 {
@@ -10,16 +11,20 @@ namespace PopditWeb.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            // If there's a query string, redirect.
+            // Get query string.
             string f = Request.QueryString["f"];
-            if (f != null) return RedirectToAction("Index", "Filter", new { f = f });
-
-            // If there's a cookie, try to go straight to the Pops page; otherwise, go to the login page.
+            // Get cookie.
             HttpCookie cookie = HttpContext.Request.Cookies["Popdit"];
-            if (cookie != null)
-                return RedirectToAction("Index", "Event");
+
+            // If there's no cookie or it's expired, just display the sign in page.  
+            if (cookie == null) return View();
             else
-                return View();
+            {
+                // If there's a query string, go to the filters page.
+                if (f != null) return RedirectToAction("Index", "Filter", new { f = f });
+                // Otherwise go to the Pops page.
+                else return RedirectToAction("Index", "Event");
+            }
         }
 
         // POST: Home
@@ -32,7 +37,7 @@ namespace PopditWeb.Controllers
             int cookieDaysToLive = Convert.ToInt32(ConfigurationManager.AppSettings["CookieDaysToLive"]);
 
             HttpCookie cookie = HttpContext.Request.Cookies[cookieName] ?? new HttpCookie(cookieName);
-            cookie.Values["Phone"] = phone; 
+            cookie.Values["Phone"] = Regex.Replace(phone, "[^0-9.]", ""); // Strip out alpha characters.
             cookie.Values["Password"] = pwd;
             cookie.Expires = DateTime.Now.AddDays(cookieDaysToLive);
             HttpContext.Response.Cookies.Add(cookie);
@@ -45,7 +50,8 @@ namespace PopditWeb.Controllers
             string cookieName = "Popdit"; // TBD - Do not hard-code.
 
             HttpCookie cookie = HttpContext.Request.Cookies[cookieName];
-            if (cookie != null) cookie.Expires = DateTime.Now.AddHours(-1);
+            if (cookie != null) cookie.Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies.Add(cookie);
 
             return RedirectToAction("Index", "Home");
         }

@@ -12,6 +12,7 @@ namespace PopditDB.Models
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
+    using System.Text.RegularExpressions;
 
     [DataContract]
     public partial class Profile
