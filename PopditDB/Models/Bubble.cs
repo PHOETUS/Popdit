@@ -17,6 +17,17 @@ namespace PopditDB.Models
     [DataContract]
     public partial class Bubble
     {
+        public void UpdateMaxMin()
+        {
+            const double metersPerDegree = 111195;
+            double LatRadius = Radius.Meters / metersPerDegree;
+            MaxLatitude = Latitude + LatRadius;
+            MinLatitude = Latitude - LatRadius;
+            double LongRadius = Radius.Meters / metersPerDegree * Math.Abs(Math.Cos(Latitude));
+            MaxLongitude = Longitude + LongRadius;
+            MinLongitude = Longitude - LongRadius;
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Bubble()
         {
@@ -32,22 +43,27 @@ namespace PopditDB.Models
         [DataMember]
         public int CategoryId { get; set; }
         [DataMember]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0.000000}")]
         public double Latitude { get; set; }
-        public Nullable<double> MinLatitude { get; set; }
-        public Nullable<double> MaxLatitude { get; set; }
         [DataMember]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0.000000}")]
         public double Longitude { get; set; }
-        public Nullable<double> MaxLongitude { get; set; }
-        public Nullable<double> MinLongitude { get; set; }
         [DataMember]
+        [DataType(DataType.MultilineText)]
         public string AlertMsg { get; set; }
         [DataMember]
         public int RadiusId { get; set; }
+        [DataMember]
         public int ScheduleId { get; set; }
         [DataMember]
         public bool Active { get; set; }
         [DataMember]
         public string Address { get; set; }
+
+        public Nullable<double> MinLatitude { get; set; }
+        public Nullable<double> MaxLatitude { get; set; }
+        public Nullable<double> MaxLongitude { get; set; }
+        public Nullable<double> MinLongitude { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Event> Events { get; set; }

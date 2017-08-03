@@ -51,8 +51,7 @@ namespace PopditiOS
             content.Sound = UNNotificationSound.GetSound("bubblepop.wav");
 
             var trigger = UNTimeIntervalNotificationTrigger.CreateTrigger(1, false); // 1 second delay, do not repeat.
-
-            //var requestID = "Popdit" + " " + e.Region.Identifier;
+            
             var request = UNNotificationRequest.FromIdentifier(requestId, content, trigger);
 
             UNUserNotificationCenter.Current.AddNotificationRequest(request, (err) =>

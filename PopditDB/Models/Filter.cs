@@ -33,7 +33,7 @@ namespace PopditDB.Models
         public bool Active { get; set; }
         [DataMember]
         public string PublicKey { get; set; }
-    
+
         public virtual Category Category { get; set; }
         public virtual Profile Profile { get; set; }
         public virtual Profile Profile1 { get; set; }

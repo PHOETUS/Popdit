@@ -56,8 +56,8 @@ namespace PopditDB.Models
         public virtual ICollection<Event> Events { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Filter> Filters { get; set; }
+        public virtual Radius Radius { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Filter> Filters1 { get; set; }
-        public virtual Radius Radius { get; set; }
     }
 }
