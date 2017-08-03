@@ -10,6 +10,10 @@ namespace PopditWeb.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            // If there's a query string, redirect.
+            string f = Request.QueryString["f"];
+            if (f != null) return RedirectToAction("Index", "Filter", new { f = f });
+
             // If there's a cookie, try to go straight to the Pops page; otherwise, go to the login page.
             HttpCookie cookie = HttpContext.Request.Cookies["Popdit"];
             if (cookie != null)

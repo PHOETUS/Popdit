@@ -7,31 +7,24 @@ using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
 using PopditDB.Models;
-using System;
+using HashidsNet;
 
 namespace PopditCore.Controllers
 {
     public class FilterController : ApiController
     {
         private PopditDBEntities db = new PopditDBEntities();
-        private int PublicKeyBase = 62;
+        // Six-character hash, silly salt.
+        static Hashids hashids = new Hashids("Sing a Song of Sixpence", 6);
 
+        // Index
         // GET: api/Filter
         public System.Web.Http.Results.JsonResult<List<Filter>> GetFilters()
         {
             return Json(db.Filters.Where(m => m.ProfileId == AuthenticatedUserId).OrderBy(m => m.Name).ToList());  // Security.
         }
 
-        /*
-        // GET: api/Filter/5
-        [ResponseType(typeof(Filter))]
-        public System.Web.Http.Results.JsonResult<Filter> GetFilter(int id)
-        {
-            Filter filter = db.Filters.Find(id);  // TBD - Security.
-            return Json(filter);            
-        }
-        */
-
+        // Update
         // PUT: api/Filter/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutFilter(int id, Filter newFilter)
@@ -40,16 +33,14 @@ namespace PopditCore.Controllers
 
             if (id != newFilter.Id) { return BadRequest(); }
 
-            // Change only the changed fields in the filter.
-            // Only the fields below are changeable via the API.
             Filter oldFilter = db.Filters.Find(id);  // TBD - Security.
             oldFilter.Name = newFilter.Name ?? oldFilter.Name;
             oldFilter.ProfileId = newFilter.ProfileId;
             oldFilter.CategoryId = newFilter.CategoryId ?? oldFilter.CategoryId;
             oldFilter.ScheduleId = newFilter.ScheduleId ?? oldFilter.ScheduleId;
             oldFilter.RadiusId = newFilter.RadiusId; 
-            oldFilter.Active = newFilter.Active;
-            oldFilter.PublicKey = DecimalToArbitrarySystem(id, PublicKeyBase);
+            oldFilter.Active = newFilter.Active;        
+            oldFilter.PublicKey = hashids.Encode(new int[] { oldFilter.Id });
 
             db.Entry(oldFilter).State = EntityState.Modified;
 
@@ -63,6 +54,7 @@ namespace PopditCore.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        // Create
         // POST: api/Filter
         [ResponseType(typeof(Filter))]
         public IHttpActionResult PostFilter(Filter filter)
@@ -76,6 +68,7 @@ namespace PopditCore.Controllers
             return CreatedAtRoute("DefaultApi", new { id = filter.Id }, filter);
         }
 
+        // Delete
         // DELETE: api/Filter/5
         [ResponseType(typeof(Filter))]
         public IHttpActionResult DeleteFilter(int id)
@@ -92,6 +85,15 @@ namespace PopditCore.Controllers
             return Ok(filter);
         }
 
+        // Get
+        // GET: api/Filter/5
+        [ResponseType(typeof(Filter))]
+        public System.Web.Http.Results.JsonResult<Filter> GetFilter(int id)
+        {
+            Filter filter = db.Filters.Find(id);  // TBD - Security.
+            return Json(filter);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -104,91 +106,6 @@ namespace PopditCore.Controllers
         private bool FilterExists(int id)
         {
             return db.Filters.Count(e => e.Id == id) > 0;
-        }
-
-        /// <summary>
-        /// Converts the given number from the numeral system with the specified
-        /// radix (in the range [2, 36]) to decimal numeral system.
-        /// </summary>
-        /// <param name="number">The arbitrary numeral system number to convert.</param>
-        /// <param name="radix">The radix of the numeral system the given number
-        /// is in (in the range [2, 36]).</param>
-        /// <returns></returns>
-        public static long ArbitraryToDecimalSystem(string number, int radix)
-        {
-            const string Digits = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-            if (radix < 2 || radix > Digits.Length)
-                throw new ArgumentException("The radix must be >= 2 and <= " +
-                    Digits.Length.ToString());
-
-            if (String.IsNullOrEmpty(number))
-                return 0;
-
-            // Make sure the arbitrary numeral system number is in upper case
-            number = number.ToUpperInvariant();
-
-            long result = 0;
-            long multiplier = 1;
-            for (int i = number.Length - 1; i >= 0; i--)
-            {
-                char c = number[i];
-                if (i == 0 && c == '-')
-                {
-                    // This is the negative sign symbol
-                    result = -result;
-                    break;
-                }
-
-                int digit = Digits.IndexOf(c);
-                if (digit == -1)
-                    throw new ArgumentException(
-                        "Invalid character in the arbitrary numeral system number",
-                        "number");
-
-                result += digit * multiplier;
-                multiplier *= radix;
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Converts the given decimal number to the numeral system with the
-        /// specified radix (in the range [2, 36]).
-        /// </summary>
-        /// <param name="decimalNumber">The number to convert.</param>
-        /// <param name="radix">The radix of the destination numeral system (in the range [2, 36]).</param>
-        /// <returns></returns>
-        public static string DecimalToArbitrarySystem(long decimalNumber, int radix)
-        {
-            const int BitsInLong = 64;
-            const string Digits = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-            if (radix < 2 || radix > Digits.Length)
-                throw new ArgumentException("The radix must be >= 2 and <= " + Digits.Length.ToString());
-
-            if (decimalNumber == 0)
-                return "0";
-
-            int index = BitsInLong - 1;
-            long currentNumber = Math.Abs(decimalNumber);
-            char[] charArray = new char[BitsInLong];
-
-            while (currentNumber != 0)
-            {
-                int remainder = (int)(currentNumber % radix);
-                charArray[index--] = Digits[remainder];
-                currentNumber = currentNumber / radix;
-            }
-
-            string result = new String(charArray, index + 1, BitsInLong - index - 1);
-            if (decimalNumber < 0)
-            {
-                result = "-" + result;
-            }
-
-            return result;
         }
     }
 }

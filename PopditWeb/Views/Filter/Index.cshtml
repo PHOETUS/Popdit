@@ -1,5 +1,5 @@
-﻿@using System.Runtime
-@model List<PopdirInterop.FilterInterop>
+﻿@using PopditInterop
+@model List<PopditInterop.FilterInterop>
 @{
     ViewBag.Title = "Filters";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -14,18 +14,18 @@
             <td class="pagetitle">Filters</td>
         </tr>
         <tr class="header" id="headerSearch">
-            <td class="item" onclick="ToggleCell('Search')">&middot; Search &middot;</td>
+            <td class="item" onclick="ToggleCell('Search')">&middot; Search my filters &middot;</td>
         </tr>
         <tr class="detail" id="detailSearch">
             <td class="item">
                 @using (Html.BeginForm("Index", "Filter", FormMethod.Post))
                 {
                     <table class="content">
-                        <tr><td colspan="2">&middot; Search &middot;</td></tr>
+                        <tr><td colspan="2">&middot; Search my filters &middot;</td></tr>
                         <tr class="form"><td>Name</td><td>@Html.TextBox("Name")</td></tr>
-                        <tr class="form"><td>Category</td><td>@Html.DropDownList("CategoryId", new SelectList((List<PopdirInterop.Category>)ViewData["Categories"], "Id", "Description"), "- Select Category -")</td></tr>
-                        <tr class="form"><td>Radius</td><td>@Html.DropDownList("RadiusId", new SelectList((List<PopdirInterop.Radius>)ViewData["Radii"], "Id", "Description"), "- Select Radius -")</td></tr>
-                        <tr class="form"><td>Active</td><td class="left">Dropdown list here</td></tr>
+                        <tr class="form"><td>Category</td><td>@Html.DropDownList("CategoryId", new SelectList((List<PopditInterop.Category>)ViewData["Categories"], "Id", "Description"), "- Select Category -")</td></tr>
+                        <tr class="form"><td>Radius</td><td>@Html.DropDownList("RadiusId", new SelectList((List<PopditInterop.Radius>)ViewData["Radii"], "Id", "Description"), "- Select Radius -")</td></tr>
+                        <tr class="form"><td>Active</td><td class="left"></td></tr>
                         <tr><td></td><td><input type="submit" value="Search" /></td></tr>
                         <tr><td></td><td><input type="submit" value="Reset" /></td></tr>
                     </table>
@@ -33,19 +33,19 @@
             </td>
         </tr>
         <tr class="header" id="headerCreate">
-            <td class="item" onclick="ToggleCell('Create')">&middot; Create a new channel &middot;</td>
+            <td class="item" onclick="ToggleCell('Create')">&middot; Create a new filter &middot;</td>
         </tr>
         <tr class="detail" id="detailCreate">
             <td class="item">
                 @using (Html.BeginForm("Create", "Filter", FormMethod.Post))
                 {
                     <table class="content">
-                        <tr><td colspan="2">&middot; Create a new channel &middot;</td></tr>
+                        <tr><td colspan="2">&middot; Create a new filter &middot;</td></tr>
                         <tr class="form"><td>Name</td><td>@Html.TextBox("Name")</td></tr>
-                        <tr class="form"><td>Category</td><td>@Html.DropDownList("CategoryId", new SelectList((List<PopdirInterop.Category>)ViewData["Categories"], "Id", "Description"), "- Select Category -")</td></tr>
-                        <tr class="form"><td>Radius</td><td>@Html.DropDownList("RadiusId", new SelectList((List<PopdirInterop.Radius>)ViewData["Radii"], "Id", "Description"))</td></tr>
+                        <tr class="form"><td>Category</td><td>@Html.DropDownList("CategoryId", new SelectList((List<PopditInterop.Category>)ViewData["Categories"], "Id", "Description"), "- Select Category -")</td></tr>
+                        <tr class="form"><td>Radius</td><td>@Html.DropDownList("RadiusId", new SelectList((List<PopditInterop.Radius>)ViewData["Radii"], "Id", "Description"))</td></tr>
                         <tr class="form"><td>Active</td><td class="left">@Html.CheckBox("Active", true)</td></tr>
-                        <tr><td></td><td><input type="submit" value="Create new channel" /></td></tr>
+                        <tr><td></td><td><input type="submit" value="Create new filter" /></td></tr>
                     </table>
                 }
             </td>
@@ -64,9 +64,9 @@
                         <table class="content">
                             <tr><td colspan="2">@Model[i].Name</td></tr>
                             <tr class="form"><td>Name</td><td>@Html.EditorFor(m => m[i].Name, null, "Name")</td></tr>
-                            <tr class="form"><td>Category</td><td>@Html.DropDownListFor(m => m[i].CategoryId, new SelectList((List<PopdirInterop.Category>)ViewData["Categories"], "Id", "Description", Model[i].CategoryId), "- Select Category -")</td></tr>
-                            <tr class="form"><td>Radius</td><td>@Html.DropDownListFor(m => m[i].RadiusId, new SelectList((List<PopdirInterop.Radius>)ViewData["Radii"], "Id", "Description", Model[i].RadiusId))</td></tr>
-                            <tr class="form"><td>Share</td><td>@Html.TextBoxFor(m => m[i].PublicKey, new { disabled="disabled", @readonly = "readonly" })</td></tr>
+                            <tr class="form"><td>Category</td><td>@Html.DropDownListFor(m => m[i].CategoryId, new SelectList((List<PopditInterop.Category>)ViewData["Categories"], "Id", "Description", Model[i].CategoryId), "- Select Category -")</td></tr>
+                            <tr class="form"><td>Radius</td><td>@Html.DropDownListFor(m => m[i].RadiusId, new SelectList((List<PopditInterop.Radius>)ViewData["Radii"], "Id", "Description", Model[i].RadiusId))</td></tr>
+                            <tr class="form"><td>Share</td><td>@Html.TextBoxFor(m => m[i].PublicKey, new { disabled = "disabled", @readonly = "readonly" })</td></tr>
                             <tr class="form"><td>Active</td><td class="left">@Html.EditorFor(m => m[i].Active, null, "Active")</td></tr>
                             <tr><td>&nbsp;</td><td><input name="command" type="submit" value="Update" /></td></tr>
                             <tr><td>&nbsp;</td><td><input type="button" onclick="ToggleRow(@Model[i].Id)" value="Delete" /></td></tr>

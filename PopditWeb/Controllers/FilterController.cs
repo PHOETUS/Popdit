@@ -5,16 +5,33 @@ using System.Threading.Tasks;
 using System.Runtime.Serialization.Json;
 using System;
 using PopditInterop;
+using HashidsNet;
 
 namespace PopditWeb.Controllers
 {
     public class FilterController : Controller
     {
+        static Hashids hashids = new Hashids("Sing a Song of Sixpence", 6);
+
         // GET: Filter/Index
         public async Task<ActionResult> Index()
         {
             try
             {
+                // If this page was given a hashed filter ID, get a copy of that filter 
+                // and show it on the page so the user can decide whether he wants to keep it.
+                string f = Request.QueryString["f"];                
+                if (f != null)
+                {
+                    // Decode hashed Filter Id.
+                    f = hashids.Decode(f)[0].ToString();
+                    Stream jsonFilter = await WebApi(WebApiMethod.Get, "api/Filter/" + f);
+                    DataContractJsonSerializer serializerFilter = new DataContractJsonSerializer(typeof(FilterInterop));
+                     FilterInterop copiedFilter = (FilterInterop)serializerFilter.ReadObject(jsonFilter);
+                    copiedFilter.Id = 0;  // STERILIZE THE COPY SO IT CANNOT OVERWRITE THE ORIGINAL!
+                    ViewData["CopiedFilter"] = copiedFilter;
+                }
+
                 // Categories
                 Stream jsonCategories = await WebApi(WebApiMethod.Get, "api/Category");
                 DataContractJsonSerializer serializerCategory = new DataContractJsonSerializer(typeof(List<Category>));

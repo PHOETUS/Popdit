@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System;
 using System.Linq;
 using System.Text;
@@ -27,8 +26,11 @@ namespace HashidsNet
 
         private Regex guardsRegex;
         private Regex sepsRegex;
-        private static Regex hexValidator = new Regex("^[0-9a-fA-F]+$", RegexOptions.Compiled);
-        private static Regex hexSplitter = new Regex(@"[\w\W]{1,12}", RegexOptions.Compiled);
+        private static Regex hexValidator = new Regex("^[0-9a-fA-F]+$", RegexOptions.None);
+        private static Regex hexSplitter = new Regex(@"[\w\W]{1,12}", RegexOptions.None);
+        // ORIGINAL
+        // private static Regex hexValidator = new Regex("^[0-9a-fA-F]+$", RegexOptions.Compiled);
+        // private static Regex hexSplitter = new Regex(@"[\w\W]{1,12}", RegexOptions.Compiled);
 
         /// <summary>
         /// Instantiates a new Hashids with the default setup.
@@ -48,7 +50,9 @@ namespace HashidsNet
                 throw new ArgumentNullException("alphabet");
 
             this.salt = salt;
-            this.alphabet = string.Join(string.Empty, alphabet.Distinct());
+            this.alphabet = string.Join(string.Empty, alphabet.Cast<char>().Distinct());
+            // ORIGINAL
+            // this.alphabet = string.Join(string.Empty, alphabet.Distinct());
             this.seps = seps;
             this.minHashLength = minHashLength;
 
@@ -65,10 +69,14 @@ namespace HashidsNet
         private void SetupSeps()
         {
             // seps should contain only characters present in alphabet; 
-            seps = new String(seps.Intersect(alphabet.ToArray()).ToArray());
+            seps = new String(seps.Cast<char>().Intersect(alphabet.Cast<char>().ToArray()).Cast<char>().ToArray());
+            // ORIGINAL
+            // seps = new String(seps.Intersect(alphabet.ToArray()).ToArray());
 
             // alphabet should not contain seps.
-            alphabet = new String(alphabet.Except(seps.ToArray()).ToArray());
+            alphabet = new String(alphabet.Cast<char>().Except(seps.Cast<char>().ToArray()).Cast<char>().ToArray());
+            // ORIGINAL
+            // alphabet = new String(alphabet.Except(seps.ToArray()).ToArray());
 
             seps = ConsistentShuffle(seps, salt);
 
@@ -88,7 +96,9 @@ namespace HashidsNet
                 else seps = seps.Substring(0, sepsLength);
             }
 
-            sepsRegex = new Regex(string.Concat("[", seps, "]"), RegexOptions.Compiled);
+            sepsRegex = new Regex(string.Concat("[", seps, "]"), RegexOptions.None);
+            // ORIGINAL
+            // sepsRegex = new Regex(string.Concat("[", seps, "]"), RegexOptions.Compiled);
             alphabet = ConsistentShuffle(alphabet, salt);
         }
 
@@ -111,7 +121,9 @@ namespace HashidsNet
                 alphabet = alphabet.Substring(guardCount);
             }
 
-            guardsRegex = new Regex(string.Concat("[", guards, "]"), RegexOptions.Compiled);
+            guardsRegex = new Regex(string.Concat("[", guards, "]"), RegexOptions.None);
+            // ORIGINAL
+            // guardsRegex = new Regex(string.Concat("[", guards, "]"), RegexOptions.Compiled);
         }
 
         /// <summary>
@@ -302,7 +314,9 @@ namespace HashidsNet
             if (string.IsNullOrWhiteSpace(hash))
                 return new int[0];
 
-            var alphabet = string.Copy(this.alphabet);
+            var alphabet = this.alphabet;
+            // ORIGINAL
+            // var alphabet = String.Copy(this.alphabet);
             var ret = new List<int>();
             int i = 0;
 

@@ -1,5 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -7,46 +12,15 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Http;
 
-namespace PopditWeb.Controllers
+namespace PopditInterop
 {
-    public class Controller : System.Web.Mvc.Controller
+    class Utility
     {
-        protected List<Object> mList;
-
-        string BasicAuthString()
-        {
-            String uidPwd = "";
-            try
-            {
-                string uid = HttpContext.Request.Cookies["Popdit"].Values["Phone"];
-                string pwd = HttpContext.Request.Cookies["Popdit"].Values["Password"];
-                uidPwd = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(uid + ":" + pwd));
-            }
-            catch { } // Swallow exception - if something went wrong, just return an empty auth string.
-            return "Basic " + uidPwd;
-        }
-
-        public static int ConvertToInt(string x)
-        {
-            if (x == null) return 0;
-            if (x.Length == 0) return 0;
-            Int32.TryParse(x, out int r);
-            return r;
-        }
-
-        public static int? ConvertToNullableInt(string x)
-        {
-            if (x == null) return null;
-            if (x.Length == 0) return null;
-            Int32.TryParse(x, out int r);
-            return r;
-        }
-
         public enum WebApiMethod { Get, Post, Put, Delete }
 
         protected async Task<Stream> WebApi(WebApiMethod method, string servicePath, Object content = null)
         {
-            HttpResponseMessage response = null;
+            HttpResponseMessage response = null;      
 
             using (HttpClient client = new HttpClient())
             {
@@ -76,7 +50,7 @@ namespace PopditWeb.Controllers
                 response.StatusCode == System.Net.HttpStatusCode.NoContent)
                 return response.Content.ReadAsStreamAsync().Result;
             else
-                throw new Exception("API call failed. " + response.StatusCode + " " + response.ReasonPhrase);            
+                throw new Exception("API call failed. " + response.StatusCode + " " + response.ReasonPhrase);
         }
     }
 }
