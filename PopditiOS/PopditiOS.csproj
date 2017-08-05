@@ -98,7 +98,9 @@
       <DependentUpon>WebViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="WebViewController.cs" />
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <None Include="packages.config" />
     <None Include="Views\RazorView.cshtml">
@@ -145,16 +147,36 @@
     <Content Include="Entitlements.plist" />
     <BundleResource Include="Resources\bubblepop.wav" />
     <BundleResource Include="Resources\nameLogo.png" />
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo87.png" />
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo80.png" />
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo76.png" />
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo58.png" />
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo40.png" />
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo29.png" />
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo180.png" />
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo167.png" />
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo152.png" />
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo120.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo87.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo80.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo76.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo58.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo40.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo29.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo180.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo167.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo152.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo120.png">
+      <InProject>false</InProject>
+    </ImageAsset>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

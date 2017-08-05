@@ -9,6 +9,7 @@ using CoreLocation;
 using UserNotifications;
 using PopditMobileApi;
 using System.Diagnostics;
+using Foundation;
 
 namespace PopditiOS
 {
@@ -26,20 +27,23 @@ namespace PopditiOS
                 // Get the ID of the bubble that was popped.
                 int bubbleId = Int32.Parse(e.Region.Identifier);
                 Debug.WriteLine(">>>>> Popped bubble #" + bubbleId.ToString());
+
                 // Notify the server and get notification message.
                 EventMobile localEvent = new EventMobile();
                 localEvent.ProfileId = 8;
                 localEvent.BubbleId = bubbleId;
                 localEvent.TimestampJson = DateTime.Now.ToShortTimeString();
                 string json = await WebApiPost("api/Event", localEvent);
-              
-                //DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(EventMobile));
-                //EventMobile serverEvent = (EventMobile)serializer.ReadObject(json);
-
                 EventMobile serverEvent = (EventMobile)JsonConvert.DeserializeObject(json, typeof(EventMobile));
 
                 // Display the notification.
                 DisplayNotification(serverEvent.ProviderName, serverEvent.MsgTitle, serverEvent.Msg, "Popdit" + " " + e.Region.Identifier);
+
+                // If the app is in the foreground and the pops page is displayed, refresh it.
+                UIWebView webView = (UIWebView)UIApplication.SharedApplication.KeyWindow.RootViewController.View;
+                if (UIApplication.SharedApplication.ApplicationState == UIApplicationState.Active && webView.Request.Url.AbsoluteString.Contains("Event"))
+                    //webView.LoadRequest(new NSUrlRequest(new NSUrl("http://192.168.1.107:82/")));
+                    webView.LoadRequest(new NSUrlRequest(new NSUrl("http://stage.popdit.com/")));
             }
         }
 
@@ -76,9 +80,6 @@ namespace PopditiOS
                 // Get all the bubbles in the zone.
                 string json = await WebApiPost("api/Bubble", loc);
                
-                //DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<BubbleMobile>));
-                //BubbleCatalog = (List<BubbleMobile>)serializer.ReadObject(json);
-
                 BubbleCatalog = (List<BubbleMobile>)JsonConvert.DeserializeObject(json, typeof(List<BubbleMobile>));
 
                 // Set an event handler for each bubble in the new list.
