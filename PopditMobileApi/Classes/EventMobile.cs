@@ -1,4 +1,4 @@
-﻿namespace PopditInterop
+﻿namespace PopditMobileApi
 {
     using System;
 

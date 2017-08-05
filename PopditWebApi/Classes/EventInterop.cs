@@ -7,33 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PopditInterop
+namespace PopditWebApi
 {
     using System;
+    using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     [DataContract]
-    public partial class FilterInterop
+    public partial class EventInterop
     {
         [DataMember]
         public int Id { get; set; }
-        [DataMember]
-        public string Name { get; set; }
-        [DataMember]
+        [DataMember]        
         public int ProfileId { get; set; }
         [DataMember]
-        public Nullable<int> CategoryId { get; set; }
+        public int BubbleId { get; set; }
         [DataMember]
-        public Nullable<int> ScheduleId { get; set; }
-        [DataMember]
-        public int RadiusId { get; set; }
-        [DataMember]
-        public bool Active { get; set; }
-        [DataMember]
-        public string PublicKey { get; set; }
-    
-        public virtual Category Category { get; set; }
+        public System.DateTime Timestamp { get; set; }
+
+        public virtual BubbleInterop Bubble { get; set; }
         public virtual Profile Profile { get; set; }
-        public virtual Radius Radius { get; set; }
     }
 }

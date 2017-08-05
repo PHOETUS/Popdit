@@ -16,7 +16,6 @@ namespace PopditCore.Controllers
         {
             get
             {
-                // TBD HACK - This would be a good place to handle authentication failure.
                 string phone = "";
                 string pwd = "";
                 int id = 0;

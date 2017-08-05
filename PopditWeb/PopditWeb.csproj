@@ -173,6 +173,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\Debug Settings.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
@@ -212,9 +213,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PopditInterop\PopditInterop.csproj">
-      <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
-      <Name>PopditInterop</Name>
+    <ProjectReference Include="..\PopditWebApi\PopditWebApi.csproj">
+      <Project>{66f05e51-d0a5-430e-8206-dab9be54902e}</Project>
+      <Name>PopditWebApi</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

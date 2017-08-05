@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PopditInterop
+namespace PopditWebApi
 {
     using System;
     using System.Collections.Generic;

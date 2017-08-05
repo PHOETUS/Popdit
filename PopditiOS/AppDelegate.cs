@@ -56,7 +56,8 @@ namespace PopditiOS
             UIWebView webView = (UIWebView)UIApplication.SharedApplication.KeyWindow.RootViewController.View;
             string url = webView.Request.Url.AbsoluteString;
             // If we're on the filter page, reload it.
-            if (url.Contains("Event")) webView.LoadRequest(new NSUrlRequest(new NSUrl("http://192.168.1.107:82/")));
+            //if (url.Contains("Event")) webView.LoadRequest(new NSUrlRequest(new NSUrl("http://192.168.1.107:82/")));
+            if (url.Contains("Event")) webView.LoadRequest(new NSUrlRequest(new NSUrl("http://stage.popdit.com/")));
         }
 
 		public override void OnActivated (UIApplication application)

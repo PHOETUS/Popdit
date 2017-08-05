@@ -1,4 +1,4 @@
-﻿namespace PopditInterop
+﻿namespace PopditWebApi
 {
     public class Location
     {

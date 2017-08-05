@@ -7,39 +7,37 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PopditInterop
+namespace PopditWebApi
 {
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     [DataContract]
-    public partial class Address
+    public partial class Radius
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Address()
+        public Radius()
         {
             this.Bubbles = new HashSet<BubbleInterop>();
+            this.Filters = new HashSet<FilterInterop>();
+            this.Profiles = new HashSet<Profile>();
         }
-
+    
         [DataMember]
         public int Id { get; set; }
         [DataMember]
-        public string Street1 { get; set; }
+        public string Description { get; set; }
         [DataMember]
-        public string Street2 { get; set; }
+        public int Meters { get; set; }
         [DataMember]
-        public string City { get; set; }
-        [DataMember]
-        public Nullable<int> StateId { get; set; }
-        [DataMember]
-        public Nullable<int> CountryId { get; set; }
-        [DataMember]
-        public string Zip { get; set; }
+        public decimal Degrees { get; set; }
     
-        public virtual Country Country { get; set; }
-        public virtual State State { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BubbleInterop> Bubbles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FilterInterop> Filters { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Profile> Profiles { get; set; }
     }
 }

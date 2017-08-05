@@ -1,15 +1,13 @@
 ﻿using System;
-using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Runtime.Serialization.Json;
 using Newtonsoft.Json;
 using UIKit;
 using CoreLocation;
 using UserNotifications;
-using PopditInterop;
+using PopditMobileApi;
 using System.Diagnostics;
 
 namespace PopditiOS
@@ -33,9 +31,13 @@ namespace PopditiOS
                 localEvent.ProfileId = 8;
                 localEvent.BubbleId = bubbleId;
                 localEvent.TimestampJson = DateTime.Now.ToShortTimeString();
-                Stream json = await WebApiPost("api/Event", localEvent);
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(EventMobile));
-                EventMobile serverEvent = (EventMobile)serializer.ReadObject(json);
+                string json = await WebApiPost("api/Event", localEvent);
+              
+                //DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(EventMobile));
+                //EventMobile serverEvent = (EventMobile)serializer.ReadObject(json);
+
+                EventMobile serverEvent = (EventMobile)JsonConvert.DeserializeObject(json, typeof(EventMobile));
+
                 // Display the notification.
                 DisplayNotification(serverEvent.ProviderName, serverEvent.MsgTitle, serverEvent.Msg, "Popdit" + " " + e.Region.Identifier);
             }
@@ -72,14 +74,19 @@ namespace PopditiOS
                 Debug.WriteLine(">>>>> Refreshing at " + latitude.ToString() + ", " + longitude.ToString());
                 Location loc = new Location(latitude, longitude);
                 // Get all the bubbles in the zone.
-                Stream json = await WebApiPost("api/Bubble", loc);
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<BubbleMobile>));
-                BubbleCatalog = (List<BubbleMobile>)serializer.ReadObject(json);
+                string json = await WebApiPost("api/Bubble", loc);
+               
+                //DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<BubbleMobile>));
+                //BubbleCatalog = (List<BubbleMobile>)serializer.ReadObject(json);
+
+                BubbleCatalog = (List<BubbleMobile>)JsonConvert.DeserializeObject(json, typeof(List<BubbleMobile>));
+
                 // Set an event handler for each bubble in the new list.
                 foreach (BubbleMobile bubble in BubbleCatalog)
                 {
                     if (bubble.Id == 0) // Refresh zone bubble.
                     {
+                        Debug.WriteLine(">>>>> Refresh zone");
                         // Redefine the refresh zone and give it an event handler.
                         CLCircularRegion refreshRegion = new CLCircularRegion(new CLLocationCoordinate2D(latitude, longitude), bubble.Radius, "RefreshZone");
                         LocMgr.StartMonitoring(refreshRegion);
@@ -92,30 +99,31 @@ namespace PopditiOS
                         // Check to see if we're already inside the bubble.  This will not raise a "RegionEntered" event.
                         if (bubbleRegion.Contains(new CLLocationCoordinate2D(latitude, longitude)))
                         {
+                            Debug.WriteLine(">>>>> Inside bubble #" + bubble.Id.ToString() + " before pop");
                             Pop(null, new CLRegionEventArgs(bubbleRegion));
-                            Debug.WriteLine(">>>>> Inside bubble #" + bubble.Id.ToString());
+                            Debug.WriteLine(">>>>> Inside bubble #" + bubble.Id.ToString() + " after pop");
                         }
                     }
                 }
             }
         }
 
-        protected async Task<Stream> WebApiPost(string servicePath, Object content)
+        protected async Task<string> WebApiPost(string servicePath, Object content)
         {
             string securityToken = credentials.BasicAuthString;
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    client.BaseAddress = new Uri("http://192.168.1.107:83/"); // TBD - move to config
-                    //client.BaseAddress = new Uri("http://pop-stage.popdit.com/"); // TBD - move to config
+                    //client.BaseAddress = new Uri("http://192.168.1.107:83/"); // TBD - move to config
+                    client.BaseAddress = new Uri("https://pop-stage.popdit.com/"); // TBD - move to config
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     client.DefaultRequestHeaders.Add("Authorization", credentials.BasicAuthString);
                     string json = JsonConvert.SerializeObject(content);
                     StringContent sc = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                     HttpResponseMessage response = await client.PostAsync(servicePath, sc).ConfigureAwait(false);
-                    return response.Content.ReadAsStreamAsync().Result;
+                    return response.Content.ReadAsStringAsync().Result;
                 }
                 catch (Exception e)
                 {

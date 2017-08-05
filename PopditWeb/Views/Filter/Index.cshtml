@@ -1,5 +1,5 @@
-﻿@using PopditInterop
-@model List<PopditInterop.FilterInterop>
+﻿@using PopditWebApi
+@model List<PopditWebApi.FilterInterop>
 @{
     ViewBag.Title = "Filters";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -23,8 +23,8 @@
                     <table class="content">
                         <tr><td colspan="2">&middot; Search my filters &middot;</td></tr>
                         <tr class="form"><td>Name</td><td>@Html.TextBox("Name")</td></tr>
-                        <tr class="form"><td>Category</td><td>@Html.DropDownList("CategoryId", new SelectList((List<PopditInterop.Category>)ViewData["Categories"], "Id", "Description"), "- Select Category -")</td></tr>
-                        <tr class="form"><td>Radius</td><td>@Html.DropDownList("RadiusId", new SelectList((List<PopditInterop.Radius>)ViewData["Radii"], "Id", "Description"), "- Select Radius -")</td></tr>
+                        <tr class="form"><td>Category</td><td>@Html.DropDownList("CategoryId", new SelectList((List<PopditWebApi.Category>)ViewData["Categories"], "Id", "Description"), "- Select Category -")</td></tr>
+                        <tr class="form"><td>Radius</td><td>@Html.DropDownList("RadiusId", new SelectList((List<PopditWebApi.Radius>)ViewData["Radii"], "Id", "Description"), "- Select Radius -")</td></tr>
                         <tr class="form"><td>Active</td><td class="left"></td></tr>
                         <tr><td></td><td><input type="submit" value="Search" /></td></tr>
                         <tr><td></td><td><input type="submit" value="Reset" /></td></tr>
@@ -42,8 +42,8 @@
                     <table class="content">
                         <tr><td colspan="2">&middot; Create a new filter &middot;</td></tr>
                         <tr class="form"><td>Name</td><td>@Html.TextBox("Name")</td></tr>
-                        <tr class="form"><td>Category</td><td>@Html.DropDownList("CategoryId", new SelectList((List<PopditInterop.Category>)ViewData["Categories"], "Id", "Description"), "- Select Category -")</td></tr>
-                        <tr class="form"><td>Radius</td><td>@Html.DropDownList("RadiusId", new SelectList((List<PopditInterop.Radius>)ViewData["Radii"], "Id", "Description"))</td></tr>
+                        <tr class="form"><td>Category</td><td>@Html.DropDownList("CategoryId", new SelectList((List<PopditWebApi.Category>)ViewData["Categories"], "Id", "Description"), "- Select Category -")</td></tr>
+                        <tr class="form"><td>Radius</td><td>@Html.DropDownList("RadiusId", new SelectList((List<PopditWebApi.Radius>)ViewData["Radii"], "Id", "Description"))</td></tr>
                         <tr class="form"><td>Active</td><td class="left">@Html.CheckBox("Active", true)</td></tr>
                         <tr><td></td><td><input type="submit" value="Create new filter" /></td></tr>
                     </table>
@@ -64,8 +64,8 @@
                         <table class="content">
                             <tr><td colspan="2">@Model[i].Name</td></tr>
                             <tr class="form"><td>Name</td><td>@Html.EditorFor(m => m[i].Name, null, "Name")</td></tr>
-                            <tr class="form"><td>Category</td><td>@Html.DropDownListFor(m => m[i].CategoryId, new SelectList((List<PopditInterop.Category>)ViewData["Categories"], "Id", "Description", Model[i].CategoryId), "- Select Category -")</td></tr>
-                            <tr class="form"><td>Radius</td><td>@Html.DropDownListFor(m => m[i].RadiusId, new SelectList((List<PopditInterop.Radius>)ViewData["Radii"], "Id", "Description", Model[i].RadiusId))</td></tr>
+                            <tr class="form"><td>Category</td><td>@Html.DropDownListFor(m => m[i].CategoryId, new SelectList((List<PopditWebApi.Category>)ViewData["Categories"], "Id", "Description", Model[i].CategoryId), "- Select Category -")</td></tr>
+                            <tr class="form"><td>Radius</td><td>@Html.DropDownListFor(m => m[i].RadiusId, new SelectList((List<PopditWebApi.Radius>)ViewData["Radii"], "Id", "Description", Model[i].RadiusId))</td></tr>
                             <tr class="form"><td>Share</td><td>@Html.TextBoxFor(m => m[i].PublicKey, new { disabled = "disabled", @readonly = "readonly" })</td></tr>
                             <tr class="form"><td>Active</td><td class="left">@Html.EditorFor(m => m[i].Active, null, "Active")</td></tr>
                             <tr><td>&nbsp;</td><td><input name="command" type="submit" value="Update" /></td></tr>

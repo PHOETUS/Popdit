@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Web.Http;
 using PopditDB.Models;
-using PopditInterop;
+using PopditMobileApi;
 using PopditPop.Models;
 
 namespace PopditPop.Controllers

@@ -124,9 +124,9 @@
       <Project>{354601d9-facb-488e-9a70-2c8b3a4f70fc}</Project>
       <Name>PopditDB</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PopditInterop\PopditInterop.csproj">
-      <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
-      <Name>PopditInterop</Name>
+    <ProjectReference Include="..\PopditMobileApi\PopditMobileApi.csproj">
+      <Project>{29d7e8b3-88ff-4cb7-a0d4-21521ab7d39d}</Project>
+      <Name>PopditMobileApi</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
