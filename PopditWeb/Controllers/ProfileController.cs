@@ -16,8 +16,8 @@ namespace PopditWeb.Controllers
             try
             {
                 Stream json = await WebApi(WebApiMethod.Get, "api/Profile");
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<Profile>));
-                List<Profile> profileList = (List<Profile>)serializer.ReadObject(json);
+                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<ProfileInterop>));
+                List<ProfileInterop> profileList = (List<ProfileInterop>)serializer.ReadObject(json);
                 return View(profileList[0]); // Return the first - and presumably only - profile, so that the page can use a Profile, instead of a List, as a model.
             }
             // Authentication failure?
@@ -29,7 +29,7 @@ namespace PopditWeb.Controllers
 
         // POST: Profile/Create
         [HttpPost]
-        public async Task<ActionResult> Create(Profile pd)
+        public async Task<ActionResult> Create(ProfileInterop pd)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace PopditWeb.Controllers
 
         // POST: Profile/Update/5
         [HttpPost]
-        public async Task<ActionResult> Update(Profile pd)
+        public async Task<ActionResult> Update(ProfileInterop pd)
         {
             try
             {

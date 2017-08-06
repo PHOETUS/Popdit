@@ -16,7 +16,7 @@
         {
             get {  return String.Format("{0:h:mm tt}", Timestamp); }
         }
-        private DateTime Timestamp { get; set; }
+        public DateTime Timestamp { get; set; }
 
         // Mobile app display fields.
         public string ProviderName { get; set; }

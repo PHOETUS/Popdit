@@ -42,8 +42,8 @@
     <Compile Include="Classes\FilterInterop.cs" />
     <Compile Include="Classes\Hashids.cs" />
     <Compile Include="Classes\Location.cs" />
-    <Compile Include="Classes\Profile.cs" />
-    <Compile Include="Classes\Radius.cs" />
+    <Compile Include="Classes\ProfileInterop.cs" />
+    <Compile Include="Classes\RadiusInterop.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -30,7 +30,6 @@ namespace PopditiOS
 
                 // Notify the server and get notification message.
                 EventMobile localEvent = new EventMobile();
-                localEvent.ProfileId = 8;
                 localEvent.BubbleId = bubbleId;
                 localEvent.TimestampJson = DateTime.Now.ToShortTimeString();
                 string json = await WebApiPost("api/Event", localEvent);
@@ -39,11 +38,12 @@ namespace PopditiOS
                 // Display the notification.
                 DisplayNotification(serverEvent.ProviderName, serverEvent.MsgTitle, serverEvent.Msg, "Popdit" + " " + e.Region.Identifier);
 
-                // If the app is in the foreground and the pops page is displayed, refresh it.
+                // If the pops page is displayed, refresh it.
                 UIWebView webView = (UIWebView)UIApplication.SharedApplication.KeyWindow.RootViewController.View;
-                if (UIApplication.SharedApplication.ApplicationState == UIApplicationState.Active && webView.Request.Url.AbsoluteString.Contains("Event"))
-                    //webView.LoadRequest(new NSUrlRequest(new NSUrl("http://192.168.1.107:82/")));
-                    webView.LoadRequest(new NSUrlRequest(new NSUrl("http://stage.popdit.com/")));
+                //if (UIApplication.SharedApplication.ApplicationState == UIApplicationState.Active && webView.Request.Url.AbsoluteString.Contains("Event"))
+                if (webView.Request.Url.AbsoluteString.Contains("Event"))
+                    webView.LoadRequest(new NSUrlRequest(new NSUrl("http://192.168.1.107:82/")));
+                    //webView.LoadRequest(new NSUrlRequest(new NSUrl("http://stage.popdit.com/")));
             }
         }
 
@@ -116,8 +116,8 @@ namespace PopditiOS
             {
                 try
                 {
-                    //client.BaseAddress = new Uri("http://192.168.1.107:83/"); // TBD - move to config
-                    client.BaseAddress = new Uri("https://pop-stage.popdit.com/"); // TBD - move to config
+                    client.BaseAddress = new Uri("http://192.168.1.107:83/"); // TBD - move to config
+                    //client.BaseAddress = new Uri("https://pop-stage.popdit.com/"); // TBD - move to config
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     client.DefaultRequestHeaders.Add("Authorization", credentials.BasicAuthString);

@@ -39,8 +39,8 @@ namespace PopditWeb.Controllers
 
                 // Radii
                 Stream jsonRadii = await WebApi(WebApiMethod.Get, "api/Radius");
-                DataContractJsonSerializer serializerRadius = new DataContractJsonSerializer(typeof(List<Radius>));
-                ViewData["Radii"] = (List<Radius>)serializerRadius.ReadObject(jsonRadii);
+                DataContractJsonSerializer serializerRadius = new DataContractJsonSerializer(typeof(List<RadiusInterop>));
+                ViewData["Radii"] = (List<RadiusInterop>)serializerRadius.ReadObject(jsonRadii);
 
                 // Filters
                 Stream json = await WebApi(WebApiMethod.Get, "api/Filter");

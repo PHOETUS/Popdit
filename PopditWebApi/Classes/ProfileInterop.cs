@@ -2,7 +2,7 @@ namespace PopditWebApi
 {
     using System;
 
-    public partial class Profile
+    public partial class ProfileInterop
     {
         public int Id { get; set; }
         public string Nickname { get; set; }

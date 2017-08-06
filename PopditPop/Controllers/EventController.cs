@@ -10,6 +10,7 @@ namespace PopditPop.Controllers
     {
         private PopditDBEntities db = new PopditDBEntities();
 
+        /*
         // GET: api/Event
         public IQueryable<Event> GetEvents()
         {
@@ -28,30 +29,38 @@ namespace PopditPop.Controllers
 
             return Ok(@event);
         }
+        */
+        
+        Event FromInterop(EventMobile em)
+        {
+            Event e = new Event();
+            e.BubbleId = em.BubbleId;
+            e.Id = em.Id;
+            e.ProfileId = em.ProfileId;
+            e.Timestamp = em.Timestamp;
+            return e;
+        }
 
         // POST: api/Event
         [ResponseType(typeof(EventMobile))]
-        public IHttpActionResult PostEvent(EventMobile @event)
+        public IHttpActionResult PostEvent(EventMobile em)
         {
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
             // Set up Event fields for storage in DB.
-            Event e = new Event();
-            e.BubbleId = @event.BubbleId;
-            e.ProfileId = @event.ProfileId;
-            e.TimestampJson = @event.TimestampJson;
-
+            em.ProfileId = AuthenticatedUserId;  // Security.
+            Event e = FromInterop(em);
             db.Events.Add(e);
             db.SaveChanges();
 
             // Set EventMobileFields for return trip.
-            Bubble bubble = db.Bubbles.Find(@event.BubbleId);
+            Bubble bubble = db.Bubbles.Find(em.BubbleId);
             db.Entry(bubble).Reference(b => b.Profile).Load();  // TBD - speed this up - this is crap.
-            @event.ProviderName = bubble.Profile.Nickname;
-            @event.MsgTitle = bubble.Name;
-            @event.Msg = bubble.AlertMsg;            
+            em.ProviderName = bubble.Profile.Nickname;
+            em.MsgTitle = bubble.Name;
+            em.Msg = bubble.AlertMsg;            
             
-            return CreatedAtRoute("DefaultApi", new { id = @event.Id }, @event);
+            return CreatedAtRoute("DefaultApi", new { id = em.Id }, em);
         }
 
         protected override void Dispose(bool disposing)

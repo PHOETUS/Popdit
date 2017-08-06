@@ -1,6 +1,6 @@
 namespace PopditWebApi
 {
-    public partial class Radius
+    public partial class RadiusInterop
     {
         public int Id { get; set; }
         public string Description { get; set; }

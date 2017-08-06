@@ -23,8 +23,8 @@ namespace PopditiOS
 			base.ViewDidLoad ();
 			// Intercept URL loading to handle native calls from browser
 			WebView.ShouldStartLoad += HandleShouldStartLoad;
-            //WebView.LoadRequest(new NSUrlRequest(new NSUrl("http://192.168.1.107:82/")));
-            WebView.LoadRequest(new NSUrlRequest(new NSUrl("http://stage.popdit.com/")));            
+            WebView.LoadRequest(new NSUrlRequest(new NSUrl("http://192.168.1.107:82/")));
+            //WebView.LoadRequest(new NSUrlRequest(new NSUrl("http://stage.popdit.com/")));            
         }
 
 		public override void DidReceiveMemoryWarning ()
@@ -35,8 +35,8 @@ namespace PopditiOS
 
 		bool HandleShouldStartLoad (UIWebView webView, NSUrlRequest request, UIWebViewNavigationType navigationType)
 		{
-            if (request.Url.AbsoluteString.Contains("popdit.com")) return true;
-            //if (request.Url.AbsoluteString.Contains("192.168.1")) return true;
+            //if (request.Url.AbsoluteString.Contains("popdit.com")) return true;
+            if (request.Url.AbsoluteString.Contains("192.168.1")) return true;
             else
             {
                 UIApplication.SharedApplication.OpenUrl(request.Url);

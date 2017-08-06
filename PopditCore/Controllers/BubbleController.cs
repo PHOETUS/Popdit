@@ -46,10 +46,43 @@ namespace PopditCore.Controllers
             }
         }
 
-        // GET: api/Bubble
-        public System.Web.Http.Results.JsonResult<List<Bubble>> GetBubbles()
+        BubbleInterop ToInterop(Bubble b)
         {
-            return Json(db.Bubbles.Where(m => m.ProfileId == AuthenticatedUserId).OrderBy(m => m.Name).ToList()); // Security.
+            BubbleInterop bi = new BubbleInterop();
+            bi.Active = b.Active;
+            bi.Address = b.Address;
+            bi.AlertMsg = b.AlertMsg;
+            bi.Id = b.Id;
+            bi.Latitude = b.Latitude;
+            bi.Longitude = b.Longitude;
+            bi.Name = b.Name;
+            bi.ProfileId = b.ProfileId;
+            bi.RadiusId = b.RadiusId;
+            return bi;
+        }
+
+        Bubble FromInterop(BubbleInterop bi)
+        {
+            Bubble b = new Bubble();
+            b.Active = bi.Active;
+            b.Address = bi.Address;
+            b.AlertMsg = bi.AlertMsg;
+            b.Id = bi.Id;
+            b.Latitude = bi.Latitude;
+            b.Longitude = bi.Longitude;
+            b.Name = bi.Name;
+            b.ProfileId = bi.ProfileId;
+            b.RadiusId = bi.RadiusId;
+            return b;
+        }
+
+        // GET: api/Bubble
+        public System.Web.Http.Results.JsonResult<List<BubbleInterop>> GetBubbles()
+        {
+            List<Bubble> bubbles = db.Bubbles.Where(m => m.ProfileId == AuthenticatedUserId).OrderBy(m => m.Name).ToList(); // Security.
+            List<BubbleInterop> interops = new List<BubbleInterop>();
+            foreach (Bubble b in bubbles) interops.Add(ToInterop(b));
+            return Json(interops);
         }
 
         /*
@@ -62,9 +95,10 @@ namespace PopditCore.Controllers
         }
         */
 
+        // UPDATE
         // PUT: api/Bubble/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutBubble(int id, Bubble newBubble)
+        public IHttpActionResult PutBubble(int id, BubbleInterop newBubble)
         {
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
@@ -111,30 +145,34 @@ namespace PopditCore.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        // CREATE
         // POST: api/Bubble
         [ResponseType(typeof(Bubble))]
-        public IHttpActionResult PostBubble(Bubble bubble)
+        public IHttpActionResult PostBubble(BubbleInterop bi)
         {
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
-            bubble.ProfileId = AuthenticatedUserId; // Security
+            bi.ProfileId = AuthenticatedUserId; // Security
 
             // if there's an address, geocode it into the lat/long.
-            if (bubble.Address != null && bubble.Address.Length > 0)
+            if (bi.Address != null && bi.Address.Length > 0)
             {
-                Location loc = Geocode(bubble.Address).Result;
-                bubble.Latitude = loc.Latitude;
-                bubble.Longitude = loc.Longitude;
+                Location loc = Geocode(bi.Address).Result;
+                bi.Latitude = loc.Latitude;
+                bi.Longitude = loc.Longitude;
             }
 
-            bubble.Radius = db.Radii.Find(bubble.RadiusId);  // TBD - too expensive
-            bubble.UpdateMaxMin();
-            db.Bubbles.Add(bubble);
+            Bubble b = FromInterop(bi);
+
+            b.Radius = db.Radii.Find(bi.RadiusId);  // TBD - too expensive
+            b.UpdateMaxMin();
+            db.Bubbles.Add(b);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = bubble.Id }, bubble);
+            return CreatedAtRoute("DefaultApi", new { id = b.Id }, b);
         }
 
+        // DELETE
         // DELETE: api/Bubble/5
         [ResponseType(typeof(Bubble))]
         public IHttpActionResult DeleteBubble(int id)

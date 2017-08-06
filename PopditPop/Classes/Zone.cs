@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PopditPop.Models
+namespace PopditPop.Classes
 { 
     // A zone in which bubbles can exist.
     public class Zone

@@ -8,6 +8,7 @@ using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
 using PopditDB.Models;
+using PopditWebApi;
 
 namespace PopditCore.Controllers
 {
@@ -15,23 +16,56 @@ namespace PopditCore.Controllers
     {
         private PopditDBEntities db = new PopditDBEntities();
 
-        // GET: api/Profile
-        public System.Web.Http.Results.JsonResult<List<Profile>> GetProfiles()
+        ProfileInterop ToInterop(Profile p)
         {
-            return Json(db.Profiles.Where(m => m.Id == AuthenticatedUserId).ToList()); // Security.
+            ProfileInterop pi = new ProfileInterop();
+            pi.CallbackAddress = p.CallbackAddress;
+            pi.DOB = p.DOB;
+            pi.Email = p.Email;
+            pi.Id = p.Id;
+            pi.Male = p.Male;
+            pi.Nickname = p.Nickname;
+            pi.Password = p.Password;
+            pi.Phone = p.Phone;
+            pi.RadiusId = p.RadiusId;
+            return pi;
+        }
+
+        Profile FromInterop(ProfileInterop pi)
+        {
+            Profile p = new Profile();
+            p.CallbackAddress = pi.CallbackAddress;
+            p.DOB = pi.DOB;
+            p.Email = pi.Email;
+            p.Id = pi.Id;
+            p.Male = pi.Male;
+            p.Nickname = pi.Nickname;
+            p.Password = pi.Password;
+            p.Phone = pi.Phone;
+            p.RadiusId = pi.RadiusId;
+            return p;
+        }
+
+        // GET: api/Profile
+        public System.Web.Http.Results.JsonResult<List<ProfileInterop>> GetProfiles()
+        {
+            List<Profile> Profiles = db.Profiles.Where(m => m.Id == AuthenticatedUserId).OrderBy(m => m.Nickname).ToList(); // Security.
+            List<ProfileInterop> interops = new List<ProfileInterop>();
+            foreach (Profile b in Profiles) interops.Add(ToInterop(b));
+            return Json(interops);
         }
 
         // GET: api/Profile/5
-        [ResponseType(typeof(Profile))] 
-        public System.Web.Http.Results.JsonResult<Profile> GetProfile(int id)
+        [ResponseType(typeof(ProfileInterop))] 
+        public System.Web.Http.Results.JsonResult<ProfileInterop> GetProfile(int id)
         {
             Profile profile = db.Profiles.Find(id);  // TBD - Security.
-            return Json(profile);
+            return Json(ToInterop(profile));
         }
 
         // PUT: api/Profile/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutProfile(int id, Profile newProfile)
+        public IHttpActionResult PutProfile(int id, ProfileInterop newProfile)
         {
             if (!ModelState.IsValid)
             {
@@ -74,13 +108,14 @@ namespace PopditCore.Controllers
         }
 
         // POST: api/Profile - This method copies a profile.
-        [ResponseType(typeof(Profile))]
-        public IHttpActionResult PostProfile(Profile profile)
+        [ResponseType(typeof(ProfileInterop))]
+        public IHttpActionResult PostProfile(ProfileInterop pi)
         {
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
+            Profile profile = FromInterop(pi);
+
             DateTime now = DateTime.Now;
-            profile.LastSignIn = now;
             profile.Created = now;
 
             db.Profiles.Add(profile);

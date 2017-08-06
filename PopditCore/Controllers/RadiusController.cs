@@ -1,20 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 using PopditDB.Models;
+using PopditWebApi;
 
 namespace PopditCore.Controllers
 {
     public class RadiusController : ApiController
     {
         private PopditDBEntities db = new PopditDBEntities();
+
+        RadiusInterop ToInterop(Radius r)
+        {
+            RadiusInterop ri = new RadiusInterop();
+            ri.Degrees = r.Degrees;
+            ri.Description = r.Description;
+            ri.Id = r.Id;
+            ri.Meters = r.Meters;
+            return ri;
+        }
+
+        Radius FromInterop(RadiusInterop ri)
+        {
+            Radius r = new Radius();
+            r.Degrees = ri.Degrees;
+            r.Description = ri.Description;
+            r.Id = ri.Id;
+            r.Meters = ri.Meters;
+            return r;
+        }
 
         // GET: api/Radius
         public IQueryable<Radius> GetRadii()

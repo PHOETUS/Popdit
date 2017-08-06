@@ -69,14 +69,5 @@ namespace PopditiOS
             catch { } // No cookie, no Popdit cookie, no value string, no instance of desired key, no value for desired key - whatever ...
             return value;
         }
-
-        // Initialize token from server.
-        string GetSecurityTokenFromServer(string phone, string pwd)
-        {
-            string token = "";
-            // Get token TBD add code here ...
-            token = "8126502080";
-            return token;
-        }
     }
 }

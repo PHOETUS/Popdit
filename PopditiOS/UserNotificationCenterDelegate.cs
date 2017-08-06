@@ -21,8 +21,8 @@ namespace PopditiOS
         public override void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
         {
             UIWebView webView = (UIWebView)UIApplication.SharedApplication.KeyWindow.RootViewController.View;
-            //webView.LoadRequest(new NSUrlRequest(new NSUrl("http://192.168.1.107:82/")));
-            webView.LoadRequest(new NSUrlRequest(new NSUrl("http://stage.popdit.com/")));
+            webView.LoadRequest(new NSUrlRequest(new NSUrl("http://192.168.1.107:82/")));
+            //webView.LoadRequest(new NSUrlRequest(new NSUrl("http://stage.popdit.com/")));
         }
     }
 
