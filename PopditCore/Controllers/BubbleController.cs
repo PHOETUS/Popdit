@@ -44,16 +44,6 @@ namespace PopditCore.Controllers
                 // TBD - Handle error
                 return null;
             }
-
-            /*
-            dynamic jobject = JObject.Parse(json);
-            dynamic results = jobject["results"];
-            dynamic result = results[0];
-            dynamic geometry = result["geometry"];
-            dynamic location = geometry["location"];
-            double lat = location["lat"];
-            double lng = location["lng"];
-            */
         }
 
         // GET: api/Bubble
