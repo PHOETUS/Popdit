@@ -4,29 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5c478957fba24c30beb3261dde21d0c5" Name="Diagram1">
-        <EntityTypeShape EntityType="PopditDBModel.Address" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="PopditDBModel.Bubble" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PopditDBModel.Category" Width="1.5" PointX="3" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PopditDBModel.Country" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PopditDBModel.Event" Width="1.5" PointX="7.5" PointY="16.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="PopditDBModel.Filter" Width="1.5" PointX="8.25" PointY="11.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="PopditDBModel.Profile" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
-        <EntityTypeShape EntityType="PopditDBModel.Radius" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="PopditDBModel.State" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PopditDBModel.sysdiagram" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <AssociationConnector Association="PopditDBModel.FK_Addresses_Country" ManuallyRouted="false" />
-        <AssociationConnector Association="PopditDBModel.FK_Addresses_State" ManuallyRouted="false" />
+      <Diagram DiagramId="56c08cd0b4a94064956fe7a091cb0b1f" Name="Diagram1">
+        <EntityTypeShape EntityType="PopditDBModel.Bubble" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PopditDBModel.Event" Width="1.5" PointX="7.5" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PopditDBModel.Friendship" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PopditDBModel.Profile" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PopditDBModel.Radius" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
         <AssociationConnector Association="PopditDBModel.FK_Events_Bubbles" ManuallyRouted="false" />
-        <AssociationConnector Association="PopditDBModel.FK_Trips_Categories" ManuallyRouted="false" />
         <AssociationConnector Association="PopditDBModel.FK_Trips_Profiles" ManuallyRouted="false" />
         <AssociationConnector Association="PopditDBModel.FK_Trips_Radii" ManuallyRouted="false" />
-        <AssociationConnector Association="PopditDBModel.FK_Categories_Categories" ManuallyRouted="false" />
-        <AssociationConnector Association="PopditDBModel.FK_Filters_Categories" ManuallyRouted="false" />
         <AssociationConnector Association="PopditDBModel.FK_Events_Profiles" ManuallyRouted="false" />
-        <AssociationConnector Association="PopditDBModel.FK_Filters_Profiles" ManuallyRouted="false" />
-        <AssociationConnector Association="PopditDBModel.FK_Filters_Providers" ManuallyRouted="false" />
-        <AssociationConnector Association="PopditDBModel.FK_Filters_Radii" ManuallyRouted="false" />
+        <AssociationConnector Association="PopditDBModel.FK_Friends_Owned" ManuallyRouted="false" />
+        <AssociationConnector Association="PopditDBModel.FK_Friends_Owner" ManuallyRouted="false" />
         <AssociationConnector Association="PopditDBModel.FK_Profiles_Radii" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

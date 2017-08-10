@@ -11,10 +11,7 @@ namespace PopditDB.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.Serialization;
-    using System.Text.RegularExpressions;
-
-    [DataContract]
+    
     public partial class Profile
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,33 +19,19 @@ namespace PopditDB.Models
         {
             this.Bubbles = new HashSet<Bubble>();
             this.Events = new HashSet<Event>();
-            this.Filters = new HashSet<Filter>();
+            this.Friendships = new HashSet<Friendship>();
+            this.Friendships1 = new HashSet<Friendship>();
         }
     
-        [DataMember]
         public int Id { get; set; }
-        [DataMember]
         public string Nickname { get; set; }
-        [DataMember]
         public string Email { get; set; }
-        [DataMember]
         public string Password { get; set; }
-        [DataMember]
         public string Phone { get; set; }
-        [DataMember]
         public string CallbackAddress { get; set; }
-        [DataMember]
         public Nullable<int> RadiusId { get; set; }
-        [DataMember]
-        public string DobJson
-        {
-            get { return String.Format("{0:yyyy-MM-dd}", DOB); }
-            set { if (!string.IsNullOrWhiteSpace(value)) DOB = DateTime.Parse(value); }
-        }
         public Nullable<System.DateTime> DOB { get; set; }
-        [DataMember]
         public Nullable<bool> Male { get; set; }
-        public System.DateTime LastSignIn { get; set; }
         public System.DateTime Created { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -56,9 +39,9 @@ namespace PopditDB.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Event> Events { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Filter> Filters { get; set; }
-        public virtual Radius Radius { get; set; }
+        public virtual ICollection<Friendship> Friendships { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Filter> Filters1 { get; set; }
+        public virtual ICollection<Friendship> Friendships1 { get; set; }
+        public virtual Radius Radius { get; set; }
     }
 }

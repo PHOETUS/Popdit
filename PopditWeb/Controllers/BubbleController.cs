@@ -15,11 +15,6 @@ namespace PopditWeb.Controllers
         {
             try
             {
-                // Categories
-                Stream jsonCategories = await WebApi(WebApiMethod.Get, "api/Category");
-                DataContractJsonSerializer serializerCategory = new DataContractJsonSerializer(typeof(List<Category>));
-                ViewData["Categories"] = (List<Category>)serializerCategory.ReadObject(jsonCategories);
-
                 // Radii
                 Stream jsonRadii = await WebApi(WebApiMethod.Get, "api/Radius");
                 DataContractJsonSerializer serializerRadius = new DataContractJsonSerializer(typeof(List<RadiusInterop>));
@@ -34,15 +29,11 @@ namespace PopditWeb.Controllers
         }
 
         // POST: Bubble/Create
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         public async Task<ActionResult> Create(FormCollection collection)
         {
             try
             {
-                // Get CategoryID key.
-                int i = 0;
-                while (i < collection.Keys.Count && !collection.Keys[i].Contains("CategoryId")) i++;
-
                 // Get RadiusId key.
                 int j = 0;
                 while (j < collection.Keys.Count && !collection.Keys[j].Contains("RadiusId")) j++;
@@ -50,7 +41,6 @@ namespace PopditWeb.Controllers
                 // Create new bubble from FormCollection
                 BubbleInterop b = new BubbleInterop();
                 b.Name = collection["Name"].ToString();
-                b.CategoryId = ConvertToInt(collection[i]);
                 b.AlertMsg = collection["AlertMsg"].ToString();
                 b.RadiusId = ConvertToInt(collection[j]);
                 b.Active = collection["Active"].Contains("true");
@@ -71,7 +61,7 @@ namespace PopditWeb.Controllers
         }
 
         // POST: Bubble/Update/5
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         public async Task<ActionResult> Update(int id, FormCollection collection)
         {
             try

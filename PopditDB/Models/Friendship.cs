@@ -12,12 +12,13 @@ namespace PopditDB.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class Friendship
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int Id { get; set; }
+        public int ProfileIdOwner { get; set; }
+        public int ProfileIdOwned { get; set; }
+    
+        public virtual Profile Profile { get; set; }
+        public virtual Profile Profile1 { get; set; }
     }
 }

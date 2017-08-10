@@ -4,6 +4,7 @@
 
     public partial class EventMobile
     {
+        // Fields from the DB.
         public int Id { get; set; } // Event ID        
         public int ProfileId { get; set; } // This person ...
         public int BubbleId { get; set; } // ... popped this bubble ...
@@ -24,5 +25,6 @@
         public string Msg { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+        public bool Suppressed { get; set; }
     }
 }

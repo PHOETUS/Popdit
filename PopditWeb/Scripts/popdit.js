@@ -1,5 +1,5 @@
 ﻿function ToggleCell(id) {
-    // Hide all the delet buttons.
+    // Hide all the delete buttons.
     var deleteRows = document.getElementsByClassName('delete');
     for (var i = 0; i < deleteRows.length; i++) { deleteRows[i].style.display = "none"; }
     // Show all the headers.

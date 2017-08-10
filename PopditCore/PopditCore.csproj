@@ -93,9 +93,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\BubbleController.cs" />
-    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\EventController.cs" />
-    <Compile Include="Controllers\FilterController.cs" />
+    <Compile Include="Controllers\FriendController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RadiusController.cs" />
     <Compile Include="Global.asax.cs">

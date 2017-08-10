@@ -13,10 +13,10 @@ namespace PopditDB.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PopditDBEntities : DbContext
+    public partial class Entities : DbContext
     {
-        public PopditDBEntities()
-            : base("name=PopditDBEntities")
+        public Entities()
+            : base("name=Entities")
         {
         }
     
@@ -25,15 +25,10 @@ namespace PopditDB.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Bubble> Bubbles { get; set; }
-        public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<Event> Events { get; set; }
-        public virtual DbSet<Filter> Filters { get; set; }
+        public virtual DbSet<Friendship> Friendships { get; set; }
         public virtual DbSet<Profile> Profiles { get; set; }
         public virtual DbSet<Radius> Radii { get; set; }
-        public virtual DbSet<State> States { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

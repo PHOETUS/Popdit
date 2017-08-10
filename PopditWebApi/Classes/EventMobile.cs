@@ -1,7 +1,7 @@
-﻿namespace PopditWebApi
-{
-    using System;
+﻿using System;
 
+namespace PopditWebApi
+{    
     public partial class EventMobile
     {
         public int Id { get; set; } // Event ID        

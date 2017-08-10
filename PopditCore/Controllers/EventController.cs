@@ -10,7 +10,7 @@ namespace PopditCore.Controllers
 {
     public class EventController : ApiController
     {
-        private PopditDBEntities db = new PopditDBEntities();
+        private Entities db = new Entities();
 
         // GET: api/Event
         public IQueryable<EventMobile> GetEvents()
@@ -25,7 +25,7 @@ namespace PopditCore.Controllers
                 EventMobile em = new EventMobile();
 
                 em.Id = e.Id;
-                em.TimestampJson = e.TimestampJson;
+                em.TimestampJson = e.Timestamp.ToString();
                 em.ProviderName = e.Bubble.Profile.Nickname;
                 em.MsgTitle = e.Bubble.Name;
                 em.Msg = e.Bubble.AlertMsg;

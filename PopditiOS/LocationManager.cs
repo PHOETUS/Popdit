@@ -35,15 +35,19 @@ namespace PopditiOS
                 string json = await WebApiPost("api/Event", localEvent);
                 EventMobile serverEvent = (EventMobile)JsonConvert.DeserializeObject(json, typeof(EventMobile));
 
-                // Display the notification.
-                DisplayNotification(serverEvent.ProviderName, serverEvent.MsgTitle, serverEvent.Msg, "Popdit" + " " + e.Region.Identifier);
-
-                // If the pops page is displayed, refresh it.
-                UIWebView webView = (UIWebView)UIApplication.SharedApplication.KeyWindow.RootViewController.View;
-                //if (UIApplication.SharedApplication.ApplicationState == UIApplicationState.Active && webView.Request.Url.AbsoluteString.Contains("Event"))
-                if (webView.Request.Url.AbsoluteString.Contains("Event"))
-                    webView.LoadRequest(new NSUrlRequest(new NSUrl("http://192.168.1.107:82/")));
-                    //webView.LoadRequest(new NSUrlRequest(new NSUrl("http://stage.popdit.com/")));
+                // If the event has not been suppressed, process it.
+                if (!serverEvent.Suppressed)
+                {
+                    Debug.WriteLine(">>>>> Processing event");
+                    // Display a notification.
+                    DisplayNotification(serverEvent.ProviderName, serverEvent.MsgTitle, serverEvent.Msg, "Popdit" + " " + e.Region.Identifier);
+                    // If the pops page is displayed, refresh it.
+                    UIWebView webView = (UIWebView)UIApplication.SharedApplication.KeyWindow.RootViewController.View;
+                    if (webView.Request.Url.AbsoluteString.Contains("Event"))
+                        webView.LoadRequest(new NSUrlRequest(new NSUrl("http://192.168.1.107:82/")));
+                       //webView.LoadRequest(new NSUrlRequest(new NSUrl("http://stage.popdit.com/")));
+                }
+                else Debug.WriteLine(">>>>> Event suppressed");
             }
         }
 

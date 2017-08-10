@@ -16,7 +16,7 @@ namespace PopditWebApi
             get { return String.Format("{0:yyyy-MM-dd}", DOB); }
             set { DOB = DateTime.Parse(value); }
         }
-        public Nullable<System.DateTime> DOB { get; set; }
+        private Nullable<System.DateTime> DOB { get; set; }
         public Nullable<bool> Male { get; set; }
     }
 }

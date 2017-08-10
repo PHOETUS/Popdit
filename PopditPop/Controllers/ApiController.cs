@@ -7,7 +7,7 @@ namespace PopditPop.Controllers
 {
     public class ApiController : System.Web.Http.ApiController
     {
-        private PopditDBEntities db = new PopditDBEntities(); // TBD - Singleton?
+        private Entities db = new Entities(); // TBD - Singleton?
 
         protected int AuthenticatedUserId
         {

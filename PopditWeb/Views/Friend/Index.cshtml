@@ -1,0 +1,50 @@
+﻿@model List<PopditWebApi.Friend>
+@{
+    ViewBag.Title = "Friends";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content">
+    <table id="content" class="content">
+        <tr>
+            <td colspan="2" class="logo"><img src="~/Content/Logo.gif" width="206" height="58" /></td>
+        </tr>
+        <tr>
+            <td class="pagetitle">Friends</td>
+        </tr>
+        <tr>
+            <td class="item">
+                @using (Html.BeginForm("Create", "Friend", FormMethod.Post))
+                {
+                    <table class="content">
+                        <tr><td colspan="2">&middot; Add a friend &middot;</td></tr>
+                        <tr><td>@Html.TextBox("Nickname")</td></tr>
+                        <tr><td><input type="submit" value="Add" /></td></tr>
+                    </table>
+                }
+            </td>
+        </tr>
+        @for (var i = 0; i < Model.Count(); i++)
+        {
+            <tr class="header" id="@("header" + Model[i].Id)">
+                <td class="item" onclick="ToggleCell(@Model[i].Id)">@Model[i].Nickname</td>
+            </tr>
+            <tr class="detail" id="@("detail" + Model[i].Id)">
+                <td class="item">
+                    @using (Html.BeginForm("Update/" + Model[i].Id.ToString(), "Friend", FormMethod.Post))
+                    {
+                        @Html.Hidden("Id", Model[i].Id, new { @name = "Id" })
+                        <table class="content">
+                            <tr><td colspan="2">@Model[i].Nickname</td></tr>
+                            <tr><td><input type="button" onclick="ToggleRow(@Model[i].Id)" value="Delete" /></td></tr>
+                            <tr class="delete" id="@("delete" + Model[i].Id)"><td><input name="command" type="submit" value="Confirm deletion" class="confirm" /></td></tr>
+                        </table>
+                    }
+                </td>
+            </tr>
+        }
+        <tr>
+            <td>@Html.ActionLink("Help", "Help", "More")</td>
+        </tr>
+    </table>
+</div>

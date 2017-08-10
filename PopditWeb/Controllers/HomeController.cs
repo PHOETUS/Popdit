@@ -50,9 +50,11 @@ namespace PopditWeb.Controllers
             string cookieName = "Popdit"; // TBD - Do not hard-code.
 
             HttpCookie cookie = HttpContext.Request.Cookies[cookieName];
-            if (cookie != null) cookie.Expires = DateTime.Now.AddDays(-1);
-            Response.Cookies.Add(cookie);
-
+            if (cookie != null)
+            {
+                cookie.Expires = DateTime.Now.AddDays(-1);
+                HttpContext.Response.Cookies.Add(cookie);
+            }
             return RedirectToAction("Index", "Home");
         }
     }

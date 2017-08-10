@@ -19,7 +19,7 @@ namespace PopditCore.Controllers
 {
     public class BubbleController : ApiController
     {
-        private PopditDBEntities db = new PopditDBEntities();
+        private Entities db = new Entities();
 
         async Task<Location> Geocode(string address)
         {
@@ -113,8 +113,6 @@ namespace PopditCore.Controllers
             oldBubble.Longitude = newBubble.Longitude;
             oldBubble.AlertMsg = newBubble.AlertMsg ?? oldBubble.AlertMsg;
             oldBubble.ProfileId = newBubble.ProfileId;
-            oldBubble.CategoryId = newBubble.CategoryId;
-            oldBubble.ScheduleId = newBubble.ScheduleId;
             oldBubble.RadiusId = newBubble.RadiusId;
             oldBubble.Active = newBubble.Active;
             // oldBubble.Address = newBubble.Address ?? oldBubble.Address;
@@ -186,7 +184,7 @@ namespace PopditCore.Controllers
             db.Bubbles.Remove(bubble);
             db.SaveChanges();
 
-            return Ok(bubble);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         protected override void Dispose(bool disposing)

@@ -14,13 +14,13 @@ namespace PopditCore.Controllers
 {
     public class ProfileController : ApiController
     {
-        private PopditDBEntities db = new PopditDBEntities();
+        private Entities db = new Entities();
 
         ProfileInterop ToInterop(Profile p)
         {
             ProfileInterop pi = new ProfileInterop();
             pi.CallbackAddress = p.CallbackAddress;
-            pi.DOB = p.DOB;
+            pi.DobJson = p.DOB.ToString();
             pi.Email = p.Email;
             pi.Id = p.Id;
             pi.Male = p.Male;
@@ -35,7 +35,7 @@ namespace PopditCore.Controllers
         {
             Profile p = new Profile();
             p.CallbackAddress = pi.CallbackAddress;
-            p.DOB = pi.DOB;
+            p.DOB = DateTime.Parse(pi.DobJson);
             p.Email = pi.Email;
             p.Id = pi.Id;
             p.Male = pi.Male;
@@ -87,7 +87,7 @@ namespace PopditCore.Controllers
             oldProfile.Phone = newProfile.Phone ?? oldProfile.Phone;
             oldProfile.CallbackAddress = newProfile.CallbackAddress ?? oldProfile.CallbackAddress;
             oldProfile.RadiusId = newProfile.RadiusId ?? oldProfile.RadiusId;
-            oldProfile.DOB = newProfile.DOB ?? oldProfile.DOB;
+            oldProfile.DOB = DateTime.Parse(newProfile.DobJson);
             oldProfile.Male = newProfile.Male ?? oldProfile.Male;
 
             db.Entry(oldProfile).State = EntityState.Modified;
@@ -122,6 +122,7 @@ namespace PopditCore.Controllers
 
             // Clone the specified profile.
             Profile template = db.Profiles.Find(1);  // Hard-coded id.
+            /*
             foreach (Filter f in template.Filters)
             {
                 Filter clone = new Filter();
@@ -134,16 +135,15 @@ namespace PopditCore.Controllers
                 clone.ProfileId = profile.Id;
                 db.Filters.Add(clone);
             }
+            */
             foreach (Bubble b in template.Bubbles)
             {
                 Bubble clone = new Bubble();
                 clone.AlertMsg = b.AlertMsg;
-                clone.CategoryId = b.CategoryId;
                 clone.Latitude = b.Latitude;
                 clone.Longitude = b.Longitude;
                 clone.Name = b.Name;
                 clone.RadiusId = b.RadiusId;
-                clone.ScheduleId = b.ScheduleId;
                 clone.Active = b.Active;
                 // Let the new profile own it.
                 clone.ProfileId = profile.Id;
@@ -168,7 +168,7 @@ namespace PopditCore.Controllers
             db.Profiles.Remove(profile);
             db.SaveChanges();
 
-            return Ok(profile);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         protected override void Dispose(bool disposing)

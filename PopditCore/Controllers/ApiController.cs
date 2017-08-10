@@ -10,7 +10,7 @@ namespace PopditCore.Controllers
 {
     public class ApiController : System.Web.Http.ApiController
     {
-        private PopditDBEntities db = new PopditDBEntities(); // TBD - Singleton?
+        private Entities db = new Entities(); // TBD - Singleton?
 
         protected int AuthenticatedUserId
         {
@@ -34,7 +34,7 @@ namespace PopditCore.Controllers
                     id = db.Profiles.Single(p => p.Phone == phone && p.Password == pwd).Id;
                     return id;
                 }
-                catch
+                catch (Exception e)
                 {
                     var msg = new HttpResponseMessage(HttpStatusCode.Unauthorized) { ReasonPhrase = "Authentication failed.  Please sign in." };
                     throw new HttpResponseException(msg);

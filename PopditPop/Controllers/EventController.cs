@@ -8,7 +8,7 @@ namespace PopditPop.Controllers
 {
     public class EventController : ApiController
     {
-        private PopditDBEntities db = new PopditDBEntities();
+        private Entities db = new Entities();
 
         /*
         // GET: api/Event
@@ -47,19 +47,35 @@ namespace PopditPop.Controllers
         {
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
-            // Set up Event fields for storage in DB.
-            em.ProfileId = AuthenticatedUserId;  // Security.
-            Event e = FromInterop(em);
-            db.Events.Add(e);
-            db.SaveChanges();
-
-            // Set EventMobileFields for return trip.
+            // Get bubble and its creator.
             Bubble bubble = db.Bubbles.Find(em.BubbleId);
             db.Entry(bubble).Reference(b => b.Profile).Load();  // TBD - speed this up - this is crap.
-            em.ProviderName = bubble.Profile.Nickname;
-            em.MsgTitle = bubble.Name;
-            em.Msg = bubble.AlertMsg;            
-            
+
+            // Get user.
+            int userId = AuthenticatedUserId;
+            Profile user = db.Profiles.Find(userId);
+            bool friendlyBubble = false;
+
+            // Check to see if the bubble belongs to a friend.
+            foreach (Friendship f in user.Friendships1)
+                if (f.ProfileIdOwned == bubble.ProfileId) friendlyBubble = true;
+
+            if (friendlyBubble)
+            {
+                // Save the event in the DB.
+                em.ProfileId = userId;  // Security.
+                Event e = FromInterop(em);
+                db.Events.Add(e);
+                db.SaveChanges();
+
+                // Set EventMobileFields for return trip.
+                em.ProviderName = bubble.Profile.Nickname;
+                em.MsgTitle = bubble.Name;
+                em.Msg = bubble.AlertMsg;
+                em.Suppress = false; // TBD - enable suppression.                
+            }
+            else em.Suppress = true;
+
             return CreatedAtRoute("DefaultApi", new { id = em.Id }, em);
         }
 

@@ -14,12 +14,11 @@
     <div class=main>
         <div class=menubar>
             <div class=menuitem>@Html.ActionLink("Pops", "Index", "Event")</div>
-            <div class=menuitem>@Html.ActionLink("Filters", "Index", "Filter")</div>
+            <div class=menuitem>@Html.ActionLink("Friends", "Index", "Friend")</div>
             <div class=menuitem>@Html.ActionLink("Bubbles", "Index", "Bubble")</div>
             <div class=menuitem>@Html.ActionLink("More", "Index", "More")</div>
         </div>
         @RenderBody()
     </div>
-    @Scripts.Render("~/bundles/jquery")
 </body>
 </html>

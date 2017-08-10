@@ -11,14 +11,14 @@ namespace PopditPop.Controllers
 {
     public class BubbleController : ApiController
     {
-        private PopditDBEntities db = new PopditDBEntities();
+        private Entities db = new Entities();
 
         // POST: api/Bubble - Gets the bubbles that lie partially or fully within a zone.
         [HttpPost]
         public System.Web.Http.Results.JsonResult<List<BubbleMobile>> GetBubbles(Location loc)
         {
-            // TBD - limit bubble set by user's filters.
-
+            // TBD - limit bubble set by user's filters - or handle this at pop time?
+            
             // TBD - Set catalog and refresh radii using algorithm.
             int catalogRadius = 8000;  // Area in which to get bubbles.
             int refreshRadius = 6000;  // Area outside of which to refresh bubble catalog.

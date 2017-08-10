@@ -11,63 +11,31 @@ namespace PopditDB.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.Serialization;
-    using System.ComponentModel.DataAnnotations;
-
-    [DataContract]
+    
     public partial class Bubble
     {
-        public void UpdateMaxMin()
-        {
-            const double metersPerDegree = 111195;
-            double LatRadius = Radius.Meters / metersPerDegree;
-            MaxLatitude = Latitude + LatRadius;
-            MinLatitude = Latitude - LatRadius;
-            double LongRadius = Radius.Meters / metersPerDegree * Math.Abs(Math.Cos(Latitude));
-            MaxLongitude = Longitude + LongRadius;
-            MinLongitude = Longitude - LongRadius;
-        }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Bubble()
         {
             this.Events = new HashSet<Event>();
         }
-
-        [DataMember]
+    
         public int Id { get; set; }
-        [DataMember]
         public int ProfileId { get; set; }
-        [DataMember]
         public string Name { get; set; }
-        [DataMember]
-        public int CategoryId { get; set; }
-        [DataMember]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0.000000}")]
         public double Latitude { get; set; }
-        [DataMember]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0.000000}")]
-        public double Longitude { get; set; }
-        [DataMember]
-        [DataType(DataType.MultilineText)]
-        public string AlertMsg { get; set; }
-        [DataMember]
-        public int RadiusId { get; set; }
-        [DataMember]
-        public int ScheduleId { get; set; }
-        [DataMember]
-        public bool Active { get; set; }
-        [DataMember]
-        public string Address { get; set; }
-
         public Nullable<double> MinLatitude { get; set; }
         public Nullable<double> MaxLatitude { get; set; }
+        public double Longitude { get; set; }
         public Nullable<double> MaxLongitude { get; set; }
         public Nullable<double> MinLongitude { get; set; }
+        public string AlertMsg { get; set; }
+        public int RadiusId { get; set; }
+        public bool Active { get; set; }
+        public string Address { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Event> Events { get; set; }
-        public virtual Category Category { get; set; }
         public virtual Profile Profile { get; set; }
         public virtual Radius Radius { get; set; }
     }

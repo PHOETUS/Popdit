@@ -1,7 +1,7 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace PopditWebApi
 {
-    using System.ComponentModel.DataAnnotations;
-
     public partial class BubbleInterop
     {
         public int Id { get; set; }

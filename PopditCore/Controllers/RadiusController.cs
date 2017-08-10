@@ -3,12 +3,13 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using PopditDB.Models;
 using PopditWebApi;
+using System.Collections.Generic;
 
 namespace PopditCore.Controllers
 {
     public class RadiusController : ApiController
     {
-        private PopditDBEntities db = new PopditDBEntities();
+        private Entities db = new Entities();
 
         RadiusInterop ToInterop(Radius r)
         {
@@ -31,13 +32,16 @@ namespace PopditCore.Controllers
         }
 
         // GET: api/Radius
-        public IQueryable<Radius> GetRadii()
+        public IQueryable<RadiusInterop> GetRadii()
         {
-            return db.Radii;
+            List<RadiusInterop> listRi = new List<RadiusInterop>();
+            var listR = db.Radii;
+            foreach (Radius r in listR) listRi.Add(ToInterop(r));
+            return listRi.AsQueryable<RadiusInterop>();
         }
 
         // GET: api/Radius/5
-        [ResponseType(typeof(Radius))]
+        [ResponseType(typeof(RadiusInterop))]
         public IHttpActionResult GetRadius(int id)
         {
             Radius radius = db.Radii.Find(id);
@@ -46,7 +50,7 @@ namespace PopditCore.Controllers
                 return NotFound();
             }
 
-            return Ok(radius);
+            return Ok(ToInterop(radius));
         }
 
         /*
