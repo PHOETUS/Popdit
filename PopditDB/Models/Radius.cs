@@ -14,21 +14,9 @@ namespace PopditDB.Models
     
     public partial class Radius
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Radius()
-        {
-            this.Bubbles = new HashSet<Bubble>();
-            this.Profiles = new HashSet<Profile>();
-        }
-    
         public int Id { get; set; }
         public string Description { get; set; }
         public int Meters { get; set; }
         public decimal Degrees { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bubble> Bubbles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Profile> Profiles { get; set; }
     }
 }

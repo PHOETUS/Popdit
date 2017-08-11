@@ -29,7 +29,6 @@ namespace PopditDB.Models
         public string Password { get; set; }
         public string Phone { get; set; }
         public string CallbackAddress { get; set; }
-        public Nullable<int> RadiusId { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
         public Nullable<bool> Male { get; set; }
         public System.DateTime Created { get; set; }
@@ -42,6 +41,5 @@ namespace PopditDB.Models
         public virtual ICollection<Friendship> Friendships { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Friendship> Friendships1 { get; set; }
-        public virtual Radius Radius { get; set; }
     }
 }

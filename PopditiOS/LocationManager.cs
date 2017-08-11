@@ -38,16 +38,17 @@ namespace PopditiOS
                 // If the event has not been suppressed, process it.
                 if (!serverEvent.Suppressed)
                 {
-                    Debug.WriteLine(">>>>> Processing event");
+                    Debug.WriteLine(">>>>> Processing event: Bubble #" + bubbleId.ToString());
                     // Display a notification.
                     DisplayNotification(serverEvent.ProviderName, serverEvent.MsgTitle, serverEvent.Msg, "Popdit" + " " + e.Region.Identifier);
                     // If the pops page is displayed, refresh it.
                     UIWebView webView = (UIWebView)UIApplication.SharedApplication.KeyWindow.RootViewController.View;
                     if (webView.Request.Url.AbsoluteString.Contains("Event"))
-                        webView.LoadRequest(new NSUrlRequest(new NSUrl("http://192.168.1.107:82/")));
-                       //webView.LoadRequest(new NSUrlRequest(new NSUrl("http://stage.popdit.com/")));
+                        webView.LoadRequest(new NSUrlRequest(PopditServer.WebRoot));
+                    //webView.LoadRequest(new NSUrlRequest(new NSUrl("http://192.168.1.116:82/")));
+                    //webView.LoadRequest(new NSUrlRequest(new NSUrl("http://stage.popdit.com/")));
                 }
-                else Debug.WriteLine(">>>>> Event suppressed");
+                else Debug.WriteLine(">>>>> Event suppressed: Bubble #" + bubbleId.ToString());
             }
         }
 
@@ -86,12 +87,15 @@ namespace PopditiOS
                
                 BubbleCatalog = (List<BubbleMobile>)JsonConvert.DeserializeObject(json, typeof(List<BubbleMobile>));
 
+                // At the last possible moment, delete all the existing bubbles.
+                foreach (CLCircularRegion r in LocMgr.MonitoredRegions) LocMgr.StopMonitoring(r);
+
                 // Set an event handler for each bubble in the new list.
                 foreach (BubbleMobile bubble in BubbleCatalog)
                 {
                     if (bubble.Id == 0) // Refresh zone bubble.
                     {
-                        Debug.WriteLine(">>>>> Refresh zone");
+                        Debug.WriteLine(">>>>> Adding refresh zone");
                         // Redefine the refresh zone and give it an event handler.
                         CLCircularRegion refreshRegion = new CLCircularRegion(new CLLocationCoordinate2D(latitude, longitude), bubble.Radius, "RefreshZone");
                         LocMgr.StartMonitoring(refreshRegion);
@@ -120,7 +124,8 @@ namespace PopditiOS
             {
                 try
                 {
-                    client.BaseAddress = new Uri("http://192.168.1.107:83/"); // TBD - move to config
+                    client.BaseAddress = new Uri(PopditServer.PopRoot.AbsoluteString);
+                    //client.BaseAddress = new Uri("http://192.168.1.116:83/"); // TBD - move to config
                     //client.BaseAddress = new Uri("https://pop-stage.popdit.com/"); // TBD - move to config
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

@@ -93,6 +93,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PopditServer.cs" />
     <Compile Include="UserNotificationCenterDelegate.cs" />
     <Compile Include="WebViewController.designer.cs">
       <DependentUpon>WebViewController.cs</DependentUpon>

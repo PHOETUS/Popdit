@@ -72,9 +72,9 @@ namespace PopditPop.Controllers
                 em.ProviderName = bubble.Profile.Nickname;
                 em.MsgTitle = bubble.Name;
                 em.Msg = bubble.AlertMsg;
-                em.Suppress = false; // TBD - enable suppression.                
+                em.Suppressed = false; // TBD - enable suppression.                
             }
-            else em.Suppress = true;
+            else em.Suppressed = true;
 
             return CreatedAtRoute("DefaultApi", new { id = em.Id }, em);
         }

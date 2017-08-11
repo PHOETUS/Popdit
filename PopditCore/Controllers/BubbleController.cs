@@ -115,7 +115,7 @@ namespace PopditCore.Controllers
             oldBubble.ProfileId = newBubble.ProfileId;
             oldBubble.RadiusId = newBubble.RadiusId;
             oldBubble.Active = newBubble.Active;
-            // oldBubble.Address = newBubble.Address ?? oldBubble.Address;
+            oldBubble.Address = newBubble.Address ?? oldBubble.Address;
 
             // if the address changed, and it's not null or zero-length, geocode it into the lat/long.
             if (newBubble.Address != oldBubble.Address && newBubble.Address != null && newBubble.Address.Length > 0)

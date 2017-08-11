@@ -27,7 +27,6 @@ namespace PopditCore.Controllers
             pi.Nickname = p.Nickname;
             pi.Password = p.Password;
             pi.Phone = p.Phone;
-            pi.RadiusId = p.RadiusId;
             return pi;
         }
 
@@ -42,7 +41,6 @@ namespace PopditCore.Controllers
             p.Nickname = pi.Nickname;
             p.Password = pi.Password;
             p.Phone = pi.Phone;
-            p.RadiusId = pi.RadiusId;
             return p;
         }
 
@@ -86,7 +84,6 @@ namespace PopditCore.Controllers
             oldProfile.Password = newProfile.Password ?? oldProfile.Password;
             oldProfile.Phone = newProfile.Phone ?? oldProfile.Phone;
             oldProfile.CallbackAddress = newProfile.CallbackAddress ?? oldProfile.CallbackAddress;
-            oldProfile.RadiusId = newProfile.RadiusId ?? oldProfile.RadiusId;
             oldProfile.DOB = DateTime.Parse(newProfile.DobJson);
             oldProfile.Male = newProfile.Male ?? oldProfile.Male;
 

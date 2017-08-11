@@ -53,7 +53,7 @@ namespace PopditWeb.Controllers
                 if (lng.Length == 0) lng = "0";
                 b.Longitude = double.Parse(lng);
 
-                Stream json = await WebApi(WebApiMethod.Post, "api/bubble", b);
+                Stream json = await WebApi(WebApiMethod.Post, "api/Bubble", b);
                 return RedirectToAction("Index", "Bubble");
             }
             // Authentication failure?

@@ -50,7 +50,6 @@
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CallbackAddress" Type="varchar" MaxLength="250" />
-          <Property Name="RadiusId" Type="int" />
           <Property Name="DOB" Type="date" />
           <Property Name="Male" Type="bool" />
           <Property Name="Created" Type="datetime" Precision="6" Nullable="false" />
@@ -112,18 +111,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Profiles_Radii">
-          <End Role="Radii" Type="Self.Radii" Multiplicity="0..1" />
-          <End Role="Profiles" Type="Self.Profiles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Radii">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Profiles">
-              <PropertyRef Name="RadiusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Trips_Profiles">
           <End Role="Profiles" Type="Self.Profiles" Multiplicity="1" />
           <End Role="Bubbles" Type="Self.Bubbles" Multiplicity="*" />
@@ -169,10 +156,6 @@
           <AssociationSet Name="FK_Friends_Owner" Association="Self.FK_Friends_Owner">
             <End Role="Profiles" EntitySet="Profiles" />
             <End Role="Friendships" EntitySet="Friendships" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Profiles_Radii" Association="Self.FK_Profiles_Radii">
-            <End Role="Radii" EntitySet="Radii" />
-            <End Role="Profiles" EntitySet="Profiles" />
           </AssociationSet>
           <AssociationSet Name="FK_Trips_Profiles" Association="Self.FK_Trips_Profiles">
             <End Role="Profiles" EntitySet="Profiles" />
@@ -240,7 +223,6 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CallbackAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="RadiusId" Type="Int32" />
           <Property Name="DOB" Type="DateTime" />
           <Property Name="Male" Type="Boolean" />
           <Property Name="Created" Type="DateTime" Nullable="false" />
@@ -248,7 +230,6 @@
           <NavigationProperty Name="Events" Relationship="Self.FK_Events_Profiles" FromRole="Profiles" ToRole="Events" />
           <NavigationProperty Name="Friendships" Relationship="Self.FK_Friends_Owned" FromRole="Profiles" ToRole="Friendships" />
           <NavigationProperty Name="Friendships1" Relationship="Self.FK_Friends_Owner" FromRole="Profiles" ToRole="Friendships" />
-          <NavigationProperty Name="Radius" Relationship="Self.FK_Profiles_Radii" FromRole="Profiles" ToRole="Radii" />
         </EntityType>
         <EntityType Name="Radius">
           <Key>
@@ -258,8 +239,6 @@
           <Property Name="Description" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Meters" Type="Int32" Nullable="false" />
           <Property Name="Degrees" Type="Decimal" Nullable="false" />
-          <NavigationProperty Name="Bubbles" Relationship="Self.FK_Trips_Radii" FromRole="Radii" ToRole="Bubbles" />
-          <NavigationProperty Name="Profiles" Relationship="Self.FK_Profiles_Radii" FromRole="Radii" ToRole="Profiles" />
         </EntityType>
         <Association Name="FK_Events_Bubbles">
           <End Role="Bubbles" Type="Self.Bubble" Multiplicity="1" />
@@ -333,18 +312,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Profiles_Radii">
-          <End Role="Radii" Type="Self.Radius" Multiplicity="0..1" />
-          <End Role="Profiles" Type="Self.Profile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Radii">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Profiles">
-              <PropertyRef Name="RadiusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Bubbles" EntityType="Self.Bubble" />
           <EntitySet Name="Events" EntityType="Self.Event" />
@@ -374,10 +341,6 @@
           <AssociationSet Name="FK_Friends_Owner" Association="Self.FK_Friends_Owner">
             <End Role="Profiles" EntitySet="Profiles" />
             <End Role="Friendships" EntitySet="Friendships" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Profiles_Radii" Association="Self.FK_Profiles_Radii">
-            <End Role="Radii" EntitySet="Radii" />
-            <End Role="Profiles" EntitySet="Profiles" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -433,7 +396,6 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="CallbackAddress" ColumnName="CallbackAddress" />
-                <ScalarProperty Name="RadiusId" ColumnName="RadiusId" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />
                 <ScalarProperty Name="Male" ColumnName="Male" />
                 <ScalarProperty Name="Created" ColumnName="Created" />

@@ -25,11 +25,11 @@ namespace PopditPop.Controllers
 
             Zone z = new Zone(loc.Latitude, loc.Longitude, catalogRadius);
 
-            // A bubble overlaps a zone if 
+            // A bubble overlaps a zone if
             // 1) its min or max lat is between the zone's min and min lat; and
             // 2) its min or max long is between the zone's min and max long.
 
-            // NOTE - This algorithm can fail if the zone is entirely contained within the bubble; 
+            // NOTE - This algorithm can fail if the zone is entirely contained within the bubble;
             // Therefore, it is reliable only if the zone is **bigger** than the biggest allowable bubble.
             // The biggest allowable bubble radius is currently 2 miles or 3219 meters.
 
