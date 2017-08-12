@@ -45,13 +45,17 @@ namespace PopditWeb.Controllers
                 b.RadiusId = ConvertToInt(collection[j]);
                 b.Active = collection["Active"].Contains("true");
                 b.Address = collection["Address"].ToString();
+                b.Phone = collection["Phone"];
+                b.Url = collection["Url"];
 
+                /*
                 string lat = collection["Latitude"].ToString();
                 if (lat.Length == 0) lat = "0";
                 b.Latitude = double.Parse(lat);
                 string lng = collection["Latitude"].ToString();
                 if (lng.Length == 0) lng = "0";
                 b.Longitude = double.Parse(lng);
+                */
 
                 Stream json = await WebApi(WebApiMethod.Post, "api/Bubble", b);
                 return RedirectToAction("Index", "Bubble");
@@ -82,19 +86,21 @@ namespace PopditWeb.Controllers
                     b.Id = id;
                     b.ProfileId = ConvertToInt(collection["ProfileId"]);
                     b.Name = collection["Name"].ToString();
-                    b.CategoryId = ConvertToInt(collection[i]);
                     b.AlertMsg = collection["AlertMsg"].ToString();
-                    b.ScheduleId = 99; // TBD - hack
                     b.RadiusId = ConvertToInt(collection[j]);
                     b.Active = collection["Active"].Contains("true");
                     b.Address = collection["Address"].ToString();
+                    b.Phone = collection["Phone"];
+                    b.Url = collection["Url"];
 
+                    /*
                     string lat = collection["Latitude"].ToString();
                     if (lat.Length == 0) lat = "0";
                     b.Latitude = double.Parse(lat);
                     string lng = collection["Latitude"].ToString();
                     if (lng.Length == 0) lng = "0";
                     b.Longitude = double.Parse(lng);
+                    */
 
                     Stream json = await WebApi(WebApiMethod.Put, "api/Bubble/" + id.ToString(), b);
                 }

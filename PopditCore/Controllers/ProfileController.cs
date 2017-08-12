@@ -119,20 +119,16 @@ namespace PopditCore.Controllers
 
             // Clone the specified profile.
             Profile template = db.Profiles.Find(1);  // Hard-coded id.
-            /*
-            foreach (Filter f in template.Filters)
+
+            foreach (Friendship f in template.Friendshipz)
             {
-                Filter clone = new Filter();
-                clone.Name = f.Name;
-                clone.CategoryId = f.CategoryId;
-                clone.RadiusId = f.RadiusId;
-                clone.ScheduleId = f.ScheduleId;
-                clone.Active = f.Active;
+                Friendship clone = new Friendship();                
+                clone.ProfileIdOwned = f.ProfileIdOwned;
                 // Let the new profile own it.
-                clone.ProfileId = profile.Id;
-                db.Filters.Add(clone);
+                clone.ProfileIdOwner = profile.Id;
+                db.Friendships.Add(clone);
             }
-            */
+
             foreach (Bubble b in template.Bubbles)
             {
                 Bubble clone = new Bubble();

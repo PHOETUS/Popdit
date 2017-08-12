@@ -157,7 +157,9 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popdit.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -179,11 +181,13 @@
     <Content Include="Views\More\Metrics.cshtml" />
     <Content Include="Views\Profile\Create.cshtml" />
     <Content Include="Views\More\Account.cshtml" />
-    <Content Include="Views\More\CompanyLoggedOut.cshtml" />
+    <Content Include="Views\More\CompanySignedOut.cshtml" />
     <Content Include="Views\More\Help.cshtml" />
     <Content Include="Views\More\Welcome.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Friend\Index.cshtml" />
+    <Content Include="Views\More\Terms.cshtml" />
+    <Content Include="Views\More\TermsSignedOut.cshtml" />
     <None Include="Web.Stage.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

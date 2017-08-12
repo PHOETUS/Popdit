@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PopditDBModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PopditDBModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Bubbles">
           <Key>
             <PropertyRef Name="Id" />
@@ -20,8 +20,10 @@
           <Property Name="MinLongitude" Type="double" />
           <Property Name="AlertMsg" Type="varchar" MaxLength="1000" />
           <Property Name="RadiusId" Type="int" Nullable="false" />
-          <Property Name="Active" Type="bool" Nullable="false" />
           <Property Name="Address" Type="varchar" MaxLength="200" />
+          <Property Name="Phone" Type="varchar" MaxLength="12" />
+          <Property Name="Url" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="Events">
           <Key>
@@ -166,8 +168,7 @@
             <End Role="Bubbles" EntitySet="Bubbles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PopditDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -191,6 +192,8 @@
           <NavigationProperty Name="Events" Relationship="Self.FK_Events_Bubbles" FromRole="Bubbles" ToRole="Events" />
           <NavigationProperty Name="Profile" Relationship="Self.FK_Trips_Profiles" FromRole="Bubbles" ToRole="Profiles" />
           <NavigationProperty Name="Radius" Relationship="Self.FK_Trips_Radii" FromRole="Bubbles" ToRole="Radii" />
+          <Property Name="Phone" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="Url" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -352,6 +355,8 @@
           <EntitySetMapping Name="Bubbles">
             <EntityTypeMapping TypeName="PopditDBModel.Bubble">
               <MappingFragment StoreEntitySet="Bubbles">
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

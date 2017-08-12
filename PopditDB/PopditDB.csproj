@@ -98,6 +98,7 @@
     <Compile Include="Models\Profile.cs">
       <DependentUpon>PopditDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProfilePartial.cs" />
     <Compile Include="Models\Radius.cs">
       <DependentUpon>PopditDB.tt</DependentUpon>
     </Compile>

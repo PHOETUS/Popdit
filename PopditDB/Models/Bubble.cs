@@ -33,6 +33,8 @@ namespace PopditDB.Models
         public int RadiusId { get; set; }
         public bool Active { get; set; }
         public string Address { get; set; }
+        public string Phone { get; set; }
+        public string Url { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Event> Events { get; set; }

@@ -100,6 +100,7 @@ tr.form td {
 
 tr.form td:first-child {
     text-align: right;
+    white-space: nowrap;
 }
 
 tr.header td {
@@ -208,6 +209,7 @@ textarea {
     box-sizing: border-box;
     margin: 0px;
     padding-left: 2px;
+    vertical-align: top;
 }
 /* LINKS */
 a {

@@ -18,5 +18,7 @@ namespace PopditWebApi
         public int RadiusId { get; set; }
         public int ScheduleId { get; set; }
         public bool Active { get; set; }
+        public string Phone { get; set; }
+        public string Url { get; set; }
     }
 }

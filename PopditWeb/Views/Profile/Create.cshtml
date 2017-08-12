@@ -60,12 +60,16 @@
                     }, "- Not set -")
                 </td>
             </tr>
+            <tr class="form">
+                <td>&nbsp;</td>
+                <td>By creating an account,<br /> you agree to our @Html.ActionLink("Terms", "TermsSignedOut", "More").</td>
+            </tr>
             <tr>
                 <td>@Html.HiddenFor(m => m.Id)</td>
                 <td><input type="submit" value="Create new account" /></td>
             </tr>
             <tr>
-                <td colspan="2"><p class="center">@Html.ActionLink("Sign In", "Index", "Home")</p></td>
+                <td colspan="2"><p class="center">@Html.ActionLink("Sign Up / Sign In", "Index", "Home")</p></td>
             </tr>
         </table>
     }

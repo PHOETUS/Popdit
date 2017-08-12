@@ -58,6 +58,8 @@ namespace PopditCore.Controllers
             bi.Name = b.Name;
             bi.ProfileId = b.ProfileId;
             bi.RadiusId = b.RadiusId;
+            bi.Phone = b.Phone;
+            bi.Url = b.Url;
             return bi;
         }
 
@@ -73,9 +75,12 @@ namespace PopditCore.Controllers
             b.Name = bi.Name;
             b.ProfileId = bi.ProfileId;
             b.RadiusId = bi.RadiusId;
+            b.Phone = bi.Phone;
+            b.Url = bi.Url;
             return b;
         }
 
+        // INDEX
         // GET: api/Bubble
         public System.Web.Http.Results.JsonResult<List<BubbleInterop>> GetBubbles()
         {
@@ -115,7 +120,8 @@ namespace PopditCore.Controllers
             oldBubble.ProfileId = newBubble.ProfileId;
             oldBubble.RadiusId = newBubble.RadiusId;
             oldBubble.Active = newBubble.Active;
-            oldBubble.Address = newBubble.Address ?? oldBubble.Address;
+            oldBubble.Phone = newBubble.Phone ?? oldBubble.Phone;
+            oldBubble.Url = newBubble.Url ?? oldBubble.Url;
 
             // if the address changed, and it's not null or zero-length, geocode it into the lat/long.
             if (newBubble.Address != oldBubble.Address && newBubble.Address != null && newBubble.Address.Length > 0)

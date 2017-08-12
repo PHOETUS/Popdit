@@ -57,5 +57,10 @@ namespace PopditWeb.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult Terms()
+        {
+            return RedirectToAction("TermsSignedOut", "More");
+        }
     }
 }

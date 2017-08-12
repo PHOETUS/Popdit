@@ -54,10 +54,14 @@
     <OutputPath>bin\iPhone\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <CodesignEntitlements>
+    </CodesignEntitlements>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchEnableSGenConc>false</MtouchEnableSGenConc>
+    <CodesignProvision>
+    </CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
@@ -104,14 +108,6 @@
     </ImageAsset>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <None Include="packages.config" />
-    <None Include="Views\RazorView.cshtml">
-      <Generator>RazorTemplatePreprocessor</Generator>
-      <LastGenOutput>RazorView.cs</LastGenOutput>
-    </None>
-    <Compile Include="Models\Model1.cs" />
-    <Compile Include="Views\RazorView.cs">
-      <DependentUpon>RazorView.cshtml</DependentUpon>
-    </Compile>
     <BundleResource Include="Resources\style.css" />
   </ItemGroup>
   <ItemGroup>
@@ -145,7 +141,6 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Entitlements.plist" />
     <BundleResource Include="Resources\bubblepop.wav" />
     <BundleResource Include="Resources\nameLogo.png" />
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo87.png">
