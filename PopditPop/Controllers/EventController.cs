@@ -41,6 +41,17 @@ namespace PopditPop.Controllers
             return e;
         }
 
+        EventMobile ToInterop(Event e, Bubble b, Profile p)
+        {
+            EventMobile em = new EventMobile();
+            em.Id = e.Id;
+            em.ProviderName = p.Nickname;
+            em.MsgTitle = b.Name;
+            em.Msg = b.AlertMsg;
+            em.Timestamp = e.Timestamp;
+            return em;
+        }
+
         // POST: api/Event
         [ResponseType(typeof(EventMobile))]
         public IHttpActionResult PostEvent(EventMobile em)
@@ -64,14 +75,12 @@ namespace PopditPop.Controllers
             {
                 // Save the event in the DB.
                 em.ProfileId = userId;  // Security.
-                Event e = FromInterop(em);
-                db.Events.Add(e);
+                Event evnt = FromInterop(em);
+                db.Events.Add(evnt);
                 db.SaveChanges();
 
                 // Set EventMobileFields for return trip.
-                em.ProviderName = bubble.Profile.Nickname;
-                em.MsgTitle = bubble.Name;
-                em.Msg = bubble.AlertMsg;
+                em = ToInterop(evnt, bubble, user);
                 em.Suppressed = false; // TBD - enable suppression.                
             }
             else em.Suppressed = true;

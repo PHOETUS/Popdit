@@ -16,10 +16,10 @@ namespace PopditPop.Classes
         public void UpdateMaxMin()
         {
             const double metersPerDegree = 111195;
-            double LatRadius = metersPerDegree / Radius;
+            double LatRadius =  (double)Radius / metersPerDegree;
             MaxLatitude = Latitude + LatRadius;
             MinLatitude = Latitude - LatRadius;
-            double LongRadius = metersPerDegree / Radius * (double)Math.Cos((double)Latitude);
+            double LongRadius = (double)Radius / metersPerDegree * Math.Cos(Latitude);
             MaxLongitude = Longitude + LongRadius;
             MinLongitude = Longitude - LongRadius;
         }

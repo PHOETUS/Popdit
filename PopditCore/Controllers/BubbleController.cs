@@ -127,7 +127,7 @@ namespace PopditCore.Controllers
             if (newBubble.InternalId != 0) oldBubble.InternalId = newBubble.InternalId;
 
             // if the address changed, and it's not null or zero-length, geocode it into the lat/long.
-            if (newBubble.Address != oldBubble.Address && newBubble.Address != null && newBubble.Address.Length > 0)
+            if (newBubble.Address != null && newBubble.Address != oldBubble.Address && newBubble.Address.Length > 0)
             {
                 Location loc = Geocode(newBubble.Address).Result;
                 oldBubble.Latitude = loc.Latitude;

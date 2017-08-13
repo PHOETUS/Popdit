@@ -31,7 +31,7 @@ namespace PopditiOS
                 // Notify the server and get notification message.
                 EventMobile localEvent = new EventMobile();
                 localEvent.BubbleId = bubbleId;
-                localEvent.TimestampJson = DateTime.Now.ToShortTimeString();
+                localEvent.TimestampJson = DateTime.Now.ToLongTimeString();
                 string json = await WebApiPost("api/Event", localEvent);
                 EventMobile serverEvent = (EventMobile)JsonConvert.DeserializeObject(json, typeof(EventMobile));
 
@@ -53,6 +53,7 @@ namespace PopditiOS
         void DisplayNotification(string title, string subtitle, string body, string requestId)
         {
             var content = new UNMutableNotificationContent();
+
             if (title != null && title.Length > 0) content.Title = title;
             else content.Title = "-";
             if (subtitle != null && subtitle.Length > 0) content.Subtitle = subtitle;
