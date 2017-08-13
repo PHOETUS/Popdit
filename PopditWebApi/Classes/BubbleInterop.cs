@@ -5,9 +5,9 @@ namespace PopditWebApi
     public partial class BubbleInterop
     {
         public int Id { get; set; }
+        public int InternalId { get; set; }
         public int ProfileId { get; set; }
         public string Name { get; set; }
-        public int CategoryId { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0.000000}")]
         public double Latitude { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0.000000}")]

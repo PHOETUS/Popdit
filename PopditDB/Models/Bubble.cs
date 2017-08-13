@@ -21,6 +21,7 @@ namespace PopditDB.Models
         }
     
         public int Id { get; set; }
+        public Nullable<int> InternalId { get; set; }
         public int ProfileId { get; set; }
         public string Name { get; set; }
         public double Latitude { get; set; }
@@ -31,10 +32,10 @@ namespace PopditDB.Models
         public Nullable<double> MinLongitude { get; set; }
         public string AlertMsg { get; set; }
         public int RadiusId { get; set; }
-        public bool Active { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
         public string Url { get; set; }
+        public bool Active { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Event> Events { get; set; }

@@ -37,7 +37,6 @@
   <ItemGroup>
     <Compile Include="Classes\BubbleInterop.cs" />
     <Compile Include="Classes\EventInterop.cs" />
-    <Compile Include="Classes\EventMobile.cs" />
     <Compile Include="Classes\Friend.cs" />
     <Compile Include="Classes\Hashids.cs" />
     <Compile Include="Classes\Location.cs" />

@@ -16,8 +16,8 @@ namespace PopditWeb.Controllers
             try
             {
                 Stream json = await WebApi(WebApiMethod.Get, "api/Event");
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<EventMobile>));
-                return View((List<EventMobile>)serializer.ReadObject(json));
+                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<EventInterop>));
+                return View((List<EventInterop>)serializer.ReadObject(json));
             }
             // Authentication failure?
             catch (Exception e) { return RedirectToAction("SignOut", "Home"); }

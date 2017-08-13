@@ -12,10 +12,6 @@ namespace PopditiOS
 	{
         public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
-            // Set background fetch interval.
-            // UIApplication.SharedApplication.SetMinimumBackgroundFetchInterval(UIApplication.BackgroundFetchIntervalMinimum);
-
-            // TBD - use a sound.
             // Get permission for notifications.
             UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert | UNAuthorizationOptions.Sound, (approved, err) => {
                 // Handle approval

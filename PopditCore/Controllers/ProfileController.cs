@@ -27,6 +27,7 @@ namespace PopditCore.Controllers
             pi.Nickname = p.Nickname;
             pi.Password = p.Password;
             pi.Phone = p.Phone;
+            pi.Flags = p.Flags;
             return pi;
         }
 
@@ -41,6 +42,7 @@ namespace PopditCore.Controllers
             p.Nickname = pi.Nickname;
             p.Password = pi.Password;
             p.Phone = pi.Phone;
+            p.Flags = pi.Flags;
             return p;
         }
 

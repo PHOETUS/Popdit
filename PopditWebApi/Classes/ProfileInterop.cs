@@ -18,5 +18,6 @@ namespace PopditWebApi
         }
         private Nullable<System.DateTime> DOB { get; set; }
         public Nullable<bool> Male { get; set; }
+        public string Flags { get; set; }
     }
 }

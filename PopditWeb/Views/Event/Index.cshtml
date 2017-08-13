@@ -1,4 +1,4 @@
-﻿@model List<PopditWebApi.EventMobile>
+﻿@model List<PopditWebApi.EventInterop>
 @{
     ViewBag.Title = "Pops";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -22,18 +22,37 @@
         }
         @for (var i = 0; i < Model.Count; i++)
         {
-            <tr>
-                <td>&nbsp;</td>
-                <td class="hist">@Model[i].ProviderName</td>
-            </tr>
-            <tr>
-                <td class="hTime">@Model[i].TimestampToday</td>
-                <td class="hist"><a href="http://maps.apple.com/maps?daddr=@Model[i].Latitude,@Model[i].Longitude" target="_blank">@Model[i].MsgTitle</a></td>
-            </tr>
-            <tr>
-                <td class="underline">&nbsp;</td>
-                <td class="underline">@Model[i].Msg</td>                
-            </tr>
+            <tbody class="underline">
+                <tr>
+                    <td>&nbsp;</td>
+                    <td class="hist">@Model[i].ProviderName</td>
+                </tr>
+                <tr>
+                    <td class="hTime">@Model[i].TimestampToday</td>
+                    <td class="hist"><a href="http://maps.apple.com/maps?daddr=@Model[i].Latitude,@Model[i].Longitude" target="_blank">@Model[i].MsgTitle</a></td>
+                </tr>
+                @if (Model[i].Msg != null && Model[i].Msg.Length > 0)
+                {
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td class="hist">@Model[i].Msg</td>
+                    </tr>
+                }
+                @if (Model[i].Phone != null && Model[i].Phone.Length > 0)
+                {
+                <tr>
+                    <td>&nbsp;</td>
+                    <td class="hist"><a href="tel:@Model[i].Phone">@Model[i].Phone</a></td>
+                </tr>
+                }
+                @if (Model[i].Url != null && Model[i].Url.Length > 0)
+                {
+                <tr>
+                    <td>&nbsp;</td>
+                    <td class="hist"><a href="http://@Model[i].Url" target="_blank">@Model[i].Url</a></td>
+                </tr>
+                }
+            </tbody>
         }
         <tr>
             <td colspan="2">@Html.ActionLink("Help", "Help", "More")</td>

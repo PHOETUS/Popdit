@@ -45,8 +45,6 @@ namespace PopditiOS
                     UIWebView webView = (UIWebView)UIApplication.SharedApplication.KeyWindow.RootViewController.View;
                     if (webView.Request.Url.AbsoluteString.Contains("Event"))
                         webView.LoadRequest(new NSUrlRequest(PopditServer.WebRoot));
-                    //webView.LoadRequest(new NSUrlRequest(new NSUrl("http://192.168.1.116:82/")));
-                    //webView.LoadRequest(new NSUrlRequest(new NSUrl("http://stage.popdit.com/")));
                 }
                 else Debug.WriteLine(">>>>> Event suppressed: Bubble #" + bubbleId.ToString());
             }
@@ -55,10 +53,11 @@ namespace PopditiOS
         void DisplayNotification(string title, string subtitle, string body, string requestId)
         {
             var content = new UNMutableNotificationContent();
-            if (title != null) content.Title = title;
-            if (subtitle != null) content.Subtitle = subtitle;
-            if (body != null) content.Body = body;
-            //content.Badge = 1; // Not implemented.
+            if (title != null && title.Length > 0) content.Title = title;
+            else content.Title = "-";
+            if (subtitle != null && subtitle.Length > 0) content.Subtitle = subtitle;
+            if (body != null && body.Length > 0) content.Body = body;
+            else content.Body = "-";
             content.Sound = UNNotificationSound.GetSound("bubblepop.wav");
 
             var trigger = UNTimeIntervalNotificationTrigger.CreateTrigger(1, false); // 1 second delay, do not repeat.
@@ -125,8 +124,6 @@ namespace PopditiOS
                 try
                 {
                     client.BaseAddress = new Uri(PopditServer.PopRoot.AbsoluteString);
-                    //client.BaseAddress = new Uri("http://192.168.1.116:83/"); // TBD - move to config
-                    //client.BaseAddress = new Uri("https://pop-stage.popdit.com/"); // TBD - move to config
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     client.DefaultRequestHeaders.Add("Authorization", credentials.BasicAuthString);

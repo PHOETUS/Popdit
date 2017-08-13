@@ -53,6 +53,7 @@ namespace PopditCore.Controllers
             bi.Address = b.Address;
             bi.AlertMsg = b.AlertMsg;
             bi.Id = b.Id;
+            bi.InternalId = b.InternalId ?? 0;
             bi.Latitude = b.Latitude;
             bi.Longitude = b.Longitude;
             bi.Name = b.Name;
@@ -70,6 +71,7 @@ namespace PopditCore.Controllers
             b.Address = bi.Address;
             b.AlertMsg = bi.AlertMsg;
             b.Id = bi.Id;
+            b.InternalId = bi.InternalId;
             b.Latitude = bi.Latitude;
             b.Longitude = bi.Longitude;
             b.Name = bi.Name;
@@ -122,6 +124,7 @@ namespace PopditCore.Controllers
             oldBubble.Active = newBubble.Active;
             oldBubble.Phone = newBubble.Phone ?? oldBubble.Phone;
             oldBubble.Url = newBubble.Url ?? oldBubble.Url;
+            if (newBubble.InternalId != 0) oldBubble.InternalId = newBubble.InternalId;
 
             // if the address changed, and it's not null or zero-length, geocode it into the lat/long.
             if (newBubble.Address != oldBubble.Address && newBubble.Address != null && newBubble.Address.Length > 0)

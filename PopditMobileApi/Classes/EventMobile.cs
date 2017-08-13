@@ -18,8 +18,6 @@
             get {  return String.Format("{0:h:mm tt}", Timestamp); }
         }
         public DateTime Timestamp { get; set; }
-        public string Phone { get; set; }
-        public string Url { get; set; }
 
         // Mobile app display fields.
         public string ProviderName { get; set; }

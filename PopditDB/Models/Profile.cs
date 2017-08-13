@@ -31,6 +31,7 @@ namespace PopditDB.Models
         public string CallbackAddress { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
         public Nullable<bool> Male { get; set; }
+        public string Flags { get; set; }
         public System.DateTime Created { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

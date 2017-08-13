@@ -10,6 +10,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InternalId" Type="int" />
           <Property Name="ProfileId" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Latitude" Type="double" Nullable="false" />
@@ -21,7 +22,7 @@
           <Property Name="AlertMsg" Type="varchar" MaxLength="1000" />
           <Property Name="RadiusId" Type="int" Nullable="false" />
           <Property Name="Address" Type="varchar" MaxLength="200" />
-          <Property Name="Phone" Type="varchar" MaxLength="12" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" />
           <Property Name="Url" Type="varchar" MaxLength="50" />
           <Property Name="Active" Type="bool" Nullable="false" />
         </EntityType>
@@ -54,6 +55,7 @@
           <Property Name="CallbackAddress" Type="varchar" MaxLength="250" />
           <Property Name="DOB" Type="date" />
           <Property Name="Male" Type="bool" />
+          <Property Name="Flags" Type="varchar" MaxLength="50" />
           <Property Name="Created" Type="datetime" Precision="6" Nullable="false" />
         </EntityType>
         <EntityType Name="Radii">
@@ -177,6 +179,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InternalId" Type="Int32" />
           <Property Name="ProfileId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Latitude" Type="Double" Nullable="false" />
@@ -187,13 +190,13 @@
           <Property Name="MinLongitude" Type="Double" />
           <Property Name="AlertMsg" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="RadiusId" Type="Int32" Nullable="false" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Url" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Events" Relationship="Self.FK_Events_Bubbles" FromRole="Bubbles" ToRole="Events" />
           <NavigationProperty Name="Profile" Relationship="Self.FK_Trips_Profiles" FromRole="Bubbles" ToRole="Profiles" />
           <NavigationProperty Name="Radius" Relationship="Self.FK_Trips_Radii" FromRole="Bubbles" ToRole="Radii" />
-          <Property Name="Phone" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="Url" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -228,6 +231,7 @@
           <Property Name="CallbackAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="DOB" Type="DateTime" />
           <Property Name="Male" Type="Boolean" />
+          <Property Name="Flags" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Created" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="Bubbles" Relationship="Self.FK_Trips_Profiles" FromRole="Profiles" ToRole="Bubbles" />
           <NavigationProperty Name="Events" Relationship="Self.FK_Events_Profiles" FromRole="Profiles" ToRole="Events" />
@@ -355,9 +359,8 @@
           <EntitySetMapping Name="Bubbles">
             <EntityTypeMapping TypeName="PopditDBModel.Bubble">
               <MappingFragment StoreEntitySet="Bubbles">
-                <ScalarProperty Name="Url" ColumnName="Url" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InternalId" ColumnName="InternalId" />
                 <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
@@ -368,8 +371,10 @@
                 <ScalarProperty Name="MinLongitude" ColumnName="MinLongitude" />
                 <ScalarProperty Name="AlertMsg" ColumnName="AlertMsg" />
                 <ScalarProperty Name="RadiusId" ColumnName="RadiusId" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -403,6 +408,7 @@
                 <ScalarProperty Name="CallbackAddress" ColumnName="CallbackAddress" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />
                 <ScalarProperty Name="Male" ColumnName="Male" />
+                <ScalarProperty Name="Flags" ColumnName="Flags" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
               </MappingFragment>
             </EntityTypeMapping>

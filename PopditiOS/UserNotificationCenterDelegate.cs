@@ -22,8 +22,6 @@ namespace PopditiOS
         {
             UIWebView webView = (UIWebView)UIApplication.SharedApplication.KeyWindow.RootViewController.View;
             webView.LoadRequest(new NSUrlRequest(PopditServer.WebRoot));
-            //webView.LoadRequest(new NSUrlRequest(new NSUrl("http://192.168.1.116:82/")));
-            //webView.LoadRequest(new NSUrlRequest(new NSUrl("http://stage.popdit.com/")));
         }
     }
 

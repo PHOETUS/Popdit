@@ -46,7 +46,7 @@ div.content {
 }
 
 div.select {
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     height: 24px;
     width: 100%;
     padding-top: 2px;
@@ -94,6 +94,10 @@ table.content td {
     padding: 2px;
 }
 
+tbody.underline tr:last-child {
+    border-bottom: thin solid #aaaaaa;
+}
+
 tr.form td {
     letter-spacing: normal;
 }
@@ -132,7 +136,7 @@ td.underline {
     text-align: left;
     vertical-align: top;
     letter-spacing: normal;
-    border-bottom: solid thin #AAAAAA;
+    border-bottom: solid thin #aaaaaa;
 }
 
 td {
@@ -140,7 +144,7 @@ td {
 }
 
 td.item {
-    border: solid thin #AAAAAA;
+    border: solid thin #aaaaaa;
 }
 
 td.left {
@@ -149,7 +153,7 @@ td.left {
 
 td.pagetitle {
     font-size: 1.2em;
-    border-bottom: solid #AAAAAA thin;
+    border-bottom: solid #aaaaaa thin;
 }
 
 td.text {
@@ -200,6 +204,10 @@ input.confirm {
 
 input[type=checkbox] {
     width: 13px;
+}
+
+input[type=file] {
+    padding-left: 0px;
 }
 
 textarea {

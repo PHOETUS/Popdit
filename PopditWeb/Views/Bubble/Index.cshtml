@@ -62,6 +62,27 @@
                 }
             </td>
         </tr>
+        @if ((bool)ViewData["UpDown"])
+        {
+            <tr class="header" id="headerUpDown">
+                <td class="item" onclick="ToggleCell('UpDown')">&middot; Upload / Download &middot;</td>
+            </tr>
+            <tr class="detail" id="detailUpDown">
+                <td class="item">
+                    @using (Html.BeginForm("UpDown", "Bubble", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                        <table class="content">
+                            <tr><td colspan="2">&middot; Upload / Download &middot;</td></tr>
+                            <tr>
+                                <td><input id="File1" type="file" name="file" /></td>
+                                <td><button name="submit" value="upload">Upload</button></td>
+                            </tr>
+                            <tr><td colspan="2"><button name="submit" value="download">Download</button></td></tr>
+                        </table>
+                    }
+                </td>
+            </tr>
+        }
         @for (var i = 0; i < Model.Count(); i++)
         {
             <tr class="header" id="@("header" + Model[i].Id)">
