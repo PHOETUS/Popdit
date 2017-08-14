@@ -71,10 +71,11 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
-    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <CodesignEntitlements>
+    </CodesignEntitlements>
     <BuildIpa>True</BuildIpa>
-    <CodesignProvision>Automatic:AdHoc</CodesignProvision>
-    <CodesignKey>iPhone Distribution</CodesignKey>
+    <CodesignProvision>453d732e-eead-4925-b98a-3265a460a443</CodesignProvision>
+    <CodesignKey>iPhone Distribution: Popdit LLC (ER55M4U3Z5)</CodesignKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
     <DebugType>none</DebugType>
@@ -85,8 +86,8 @@
     <ConsolePause>False</ConsolePause>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignProvision>Automatic:AppStore</CodesignProvision>
-    <CodesignKey>iPhone Distribution</CodesignKey>
+    <CodesignProvision>645ba60f-8d80-47b1-87ce-585e4b081ae4</CodesignProvision>
+    <CodesignKey>iPhone Developer: Justin Stimson (XPCY6C6M97)</CodesignKey>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CredentialManager.cs" />

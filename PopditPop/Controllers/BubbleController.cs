@@ -20,8 +20,8 @@ namespace PopditPop.Controllers
             // TBD - limit bubble set by user's filters - or handle this at pop time?
             
             // TBD - Set catalog and refresh radii using algorithm.
-            int catalogRadius = 8000;  // Area in which to get bubbles.
-            int refreshRadius = 6000;  // Area outside of which to refresh bubble catalog.
+            double catalogRadius = 8000;  // Area in which to get bubbles.
+            double refreshRadius = 6000;  // Area outside of which to refresh bubble catalog.
 
             Zone z = new Zone(loc.Latitude, loc.Longitude, catalogRadius);
 
@@ -64,7 +64,7 @@ namespace PopditPop.Controllers
             // Build a bubble to represent the new refresh radius.
             BubbleMobile refreshBubble = new BubbleMobile();
             refreshBubble.Id = 0; // Marker for refresh bubble.
-            refreshBubble.Radius = refreshRadius;
+            refreshBubble.Radius = (int)refreshRadius;
             bubblesMobile.Add(refreshBubble);
 
             return Json(bubblesMobile);
