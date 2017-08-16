@@ -33,10 +33,6 @@ namespace PopditPop.Controllers
             // Therefore, it is reliable only if the zone is **bigger** than the biggest allowable bubble.
             // The biggest allowable bubble radius is currently 2 miles or 3219 meters.
 
-            // Get a list of bubbles popped by this user in the last 24 hours.
-            DateTime dayAgo = DateTime.Now.AddDays(-1);
-            List<Bubble> popped = db.Events.Where(e => e.ProfileId == AuthenticatedUserId && e.Timestamp > dayAgo).Select(e => e.Bubble).ToList();
-
             // Get a list of bubbles in the user's area.
             List<Bubble> bubbles = db.Bubbles.Where(b =>
             ((z.MinLatitude < b.MaxLatitude && b.MaxLatitude < z.MaxLatitude) ||
@@ -44,14 +40,9 @@ namespace PopditPop.Controllers
             ((z.MinLongitude < b.MaxLongitude && b.MaxLongitude < z.MaxLongitude) ||
              (z.MinLongitude < b.MinLongitude && b.MinLongitude < z.MaxLongitude))).ToList();
 
-            // Find the complement.
-            List<Bubble> poppable = new List<Bubble>();
-            foreach (Bubble b in bubbles)
-                if (!popped.Contains(b)) poppable.Add(b);
-
-            // Convert Bubble to lightweight BubbleMobile for use by mobile app.
+            // Convert bubbles to lightweight BubbleMobile for use by mobile app.
             List<BubbleMobile> bubblesMobile = new List<BubbleMobile>();
-            foreach (Bubble b in poppable)
+            foreach (Bubble b in bubbles)
             {
                 BubbleMobile bm = new BubbleMobile();
                 bm.Id = b.Id;

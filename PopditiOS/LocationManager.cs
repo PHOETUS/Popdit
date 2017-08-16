@@ -58,7 +58,7 @@ namespace PopditiOS
             else content.Title = "-";
             if (subtitle != null && subtitle.Length > 0) content.Subtitle = subtitle;
             if (body != null && body.Length > 0) content.Body = body;
-            else content.Body = "-";
+            else content.Body = "See the Pops page for details";
             content.Sound = UNNotificationSound.GetSound("bubblepop.wav");
 
             var trigger = UNTimeIntervalNotificationTrigger.CreateTrigger(1, false); // 1 second delay, do not repeat.

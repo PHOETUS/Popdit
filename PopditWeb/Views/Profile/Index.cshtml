@@ -1,40 +1,53 @@
-﻿@using System.Runtime
-@model PopditWebApi.ProfileInterop
-<!-- Newtonsoft.Json.Linq.JObject -->
+﻿@model PopditWebApi.ProfileInterop
 @{
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div class="content">
+<div class="content">
     @using (Html.BeginForm("Update/" + Model.Id.ToString(), "Profile", FormMethod.Post, new { @class = "content" }))
     {
         <table id="content" class="content">
             <tr>
-                <td colspan="2" class="logo"><img src="~/Content/Logo.gif" width="206" height="58"/></td>
+                <td colspan="2" class="logo"><img src="~/Content/Logo.gif" width="206" height="58" /></td>
             </tr>
             <tr>
                 <td class="pagetitle" colspan="2">Profile</td>
             </tr>
             <tr class="form">
                 <td>Phone</td>
-                <td>@Html.TextBoxFor(m => m.Phone)</td>
+                <td>
+                    @Html.EditorFor(m => m.Phone)
+                    @Html.ValidationMessageFor(model => model.Phone)
+                </td>
             </tr>
             <tr class="form">
                 <td>Password</td>
-                <td>@Html.TextBoxFor(m => m.Password)</td>
+                <td>
+                    @Html.EditorFor(m => m.Password)
+                    @Html.ValidationMessageFor(model => model.Password)
+                </td>
             </tr>
             <tr class="form">
                 <td>Nickname</td>
-                <td>@Html.TextBoxFor(m => m.Nickname)</td>
+                <td>
+                    @Html.EditorFor(m => m.Nickname)
+                    @Html.ValidationMessageFor(model => model.Nickname)
+                </td>
             </tr>
             <tr class="form">
                 <td>Email</td>
-                <td>@Html.TextBoxFor(m => m.Email)</td>
+                <td>
+                    @Html.EditorFor(m => m.Email)
+                    @Html.ValidationMessageFor(model => model.Email)
+                </td>
             </tr>
             <tr class="form">
                 <td>Date of birth</td>
-                <td>@Html.TextBoxFor(m => m.DobJson)</td>
+                <td>
+                    @Html.EditorFor(m => m.DOB)
+                    @Html.ValidationMessageFor(model => model.DOB)
+                </td>
             </tr>
             <tr class="form">
                 <td>Gender</td>
@@ -52,4 +65,4 @@
             </tr>
         </table>
     }
-    </div>
+</div>

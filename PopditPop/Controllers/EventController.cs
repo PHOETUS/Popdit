@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 using PopditDB.Models;
@@ -9,28 +11,7 @@ namespace PopditPop.Controllers
     public class EventController : ApiController
     {
         private Entities db = new Entities();
-
-        /*
-        // GET: api/Event
-        public IQueryable<Event> GetEvents()
-        {
-            return db.Events;
-        }
-       
-        // GET: api/Event/5
-        [ResponseType(typeof(Event))]
-        public IHttpActionResult GetEvent(int id)
-        {
-            Event @event = db.Events.Find(id);
-            if (@event == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(@event);
-        }
-        */
-        
+                
         Event FromInterop(EventMobile em)
         {
             Event e = new Event();
@@ -58,20 +39,18 @@ namespace PopditPop.Controllers
         {
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
-            // Get bubble and its creator.
-            Bubble bubble = db.Bubbles.Find(em.BubbleId);
-            db.Entry(bubble).Reference(b => b.Profile).Load();  // TBD - speed this up - this is crap.
-
             // Get user.
             int userId = AuthenticatedUserId;
             Profile user = db.Profiles.Find(userId);
-            bool friendlyBubble = false;
 
-            // Check to see if the bubble belongs to a friend.
-            foreach (Friendship f in user.Friendships1)
-                if (f.ProfileIdOwned == bubble.ProfileId) friendlyBubble = true;
+            // Get bubble and its creator.
+            Bubble bubble = db.Bubbles.Find(em.BubbleId);
+            //db.Entry(bubble).Reference(b => b.Profile).Load();  // TBD - speed this up - this is crap.
 
-            if (friendlyBubble)
+            // Don't pop anything that's been popped in the last 24 hours.
+            DateTime dayAgo = DateTime.Now.AddDays(-1);
+
+            if (bubble.IsFriendly(user) && bubble.IsFresh(user, dayAgo))
             {
                 // Save the event in the DB.
                 em.ProfileId = userId;  // Security.
@@ -101,5 +80,26 @@ namespace PopditPop.Controllers
         {
             return db.Events.Count(e => e.Id == id) > 0;
         }
+
+        /*
+        // GET: api/Event
+        public IQueryable<Event> GetEvents()
+        {
+            return db.Events;
+        }
+
+        // GET: api/Event/5
+        [ResponseType(typeof(Event))]
+        public IHttpActionResult GetEvent(int id)
+        {
+            Event @event = db.Events.Find(id);
+            if (@event == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(@event);
+        }
+        */
     }
 }

@@ -9,6 +9,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using PopditDB.Models;
 using PopditWebApi;
+using Newtonsoft.Json;
 
 namespace PopditCore.Controllers
 {
@@ -20,7 +21,8 @@ namespace PopditCore.Controllers
         {
             ProfileInterop pi = new ProfileInterop();
             pi.CallbackAddress = p.CallbackAddress;
-            pi.DobJson = p.DOB.ToString();
+            pi.DOB = p.DOB ?? DateTime.MinValue;
+            //pi.DobJson = p.DOB.ToString();
             pi.Email = p.Email;
             pi.Id = p.Id;
             pi.Male = p.Male;
@@ -35,7 +37,7 @@ namespace PopditCore.Controllers
         {
             Profile p = new Profile();
             p.CallbackAddress = pi.CallbackAddress;
-            p.DOB = DateTime.Parse(pi.DobJson);
+            p.DOB = pi.DOB;
             p.Email = pi.Email;
             p.Id = pi.Id;
             p.Male = pi.Male;
@@ -52,6 +54,9 @@ namespace PopditCore.Controllers
             List<Profile> Profiles = db.Profiles.Where(m => m.Id == AuthenticatedUserId).OrderBy(m => m.Nickname).ToList(); // Security.
             List<ProfileInterop> interops = new List<ProfileInterop>();
             foreach (Profile b in Profiles) interops.Add(ToInterop(b));
+            //JsonSerializerSettings settings = new JsonSerializerSettings();
+            //settings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+            //return Json(interops, settings);
             return Json(interops);
         }
 
@@ -86,7 +91,8 @@ namespace PopditCore.Controllers
             oldProfile.Password = newProfile.Password ?? oldProfile.Password;
             oldProfile.Phone = newProfile.Phone ?? oldProfile.Phone;
             oldProfile.CallbackAddress = newProfile.CallbackAddress ?? oldProfile.CallbackAddress;
-            oldProfile.DOB = DateTime.Parse(newProfile.DobJson);
+            oldProfile.DOB = newProfile.DOB;
+            //oldProfile.DOB = DateTime.Parse(newProfile.DobJson);
             oldProfile.Male = newProfile.Male ?? oldProfile.Male;
 
             db.Entry(oldProfile).State = EntityState.Modified;

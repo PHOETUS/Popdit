@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.IO;
-using System.Runtime.Serialization.Json;
+using Newtonsoft.Json;
 using PopditWebApi;
 using System.Threading.Tasks;
 
@@ -16,9 +16,9 @@ namespace PopditWeb.Controllers
         {
             try
             {
-                Stream json = await WebApi(WebApiMethod.Get, "api/Friend");
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<Friend>));
-                return View((List<Friend>)serializer.ReadObject(json));
+                string json = await WebApi(WebApiMethod.Get, "api/Friend");
+                List<Friend> friendList = JsonConvert.DeserializeObject<List<Friend>>(json);
+                return View(friendList);
             }
             // Authentication failure?
             catch (Exception e) { return RedirectToAction("Index", "Home"); }
@@ -33,7 +33,7 @@ namespace PopditWeb.Controllers
             {
                 Friend f = new Friend();
                 f.Nickname = collection["Nickname"];
-                Stream json = await WebApi(WebApiMethod.Post, "api/Friend", f);
+                await WebApi(WebApiMethod.Post, "api/Friend", f);
                 return RedirectToAction("Index", "Friend");
             }
             // Authentication failure?
@@ -49,60 +49,11 @@ namespace PopditWeb.Controllers
             {
                 // DELETE
                 if (collection["command"].Equals("Confirm deletion"))
-                {
-                    Stream json = await WebApi(WebApiMethod.Delete, "api/Friend/" + id.ToString());
-                }
+                    await WebApi(WebApiMethod.Delete, "api/Friend/" + id.ToString());
                 return RedirectToAction("Index", "Friend");
             }
             // Authentication failure?
             catch (Exception e) { return RedirectToAction("Index", "Home"); }
         }
-
-        /*
-        // DETAILS
-        // GET: Friend/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // CREATE - blank
-        // GET: Friend/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // EDIT - blank
-        // GET: Friend/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // DELETE - blank
-        // GET: Friend/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // DELETE - filled
-        // POST: Friend/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        */
     }
 }

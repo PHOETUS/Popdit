@@ -51,8 +51,6 @@
                         <tr class="form"><td>Name</td><td>@Html.TextBox("Name")</td></tr>
                         <tr class="form"><td>Notification</td><td>@Html.TextArea("AlertMsg")</td></tr>
                         <tr class="form"><td>Address</td><td>@Html.TextBox("Address", null)</td></tr>
-                        <!--<tr class="form"><td>Latitude</td><td class="latlong">@Html.TextBox("Latitude", null)</td></tr>
-                        <tr class="form"><td>Longitude</td><td class="latlong">@Html.TextBox("Longitude", null)</td></tr>-->
                         <tr class="form"><td>Phone</td><td>@Html.TextBox("Phone")</td></tr>
                         <tr class="form"><td>http://</td><td>@Html.TextBox("Url")</td></tr>
                         <tr class="form"><td>Radius</td><td>@Html.DropDownList("RadiusId", new SelectList((List<PopditWebApi.RadiusInterop>)ViewData["Radii"], "Id", "Description"))</td></tr>
@@ -99,8 +97,6 @@
                             <tr class="form"><td>Name</td><td>@Html.EditorFor(m => m[i].Name, null, "Name")</td></tr>
                             <tr class="form"><td>Notification</td><td>@Html.EditorFor(m => m[i].AlertMsg, null, "AlertMsg")</td></tr>
                             <tr class="form"><td>Address</td><td class="latlong">@Html.EditorFor(m => m[i].Address, null, "Address")</td></tr>
-                            <!--<tr class="form"><td>Latitude</td><td class="latlong">@Html.EditorFor(m => m[i].Latitude, null, "Latitude")</td></tr>
-                            <tr class="form"><td>Longitude</td><td class="latlong">@Html.EditorFor(m => m[i].Longitude, null, "Longitude")</td></tr>-->
                             <tr class="form"><td>Phone</td><td>@Html.EditorFor(m => m[i].Phone, null, "Phone")</td></tr>
                             <tr class="form"><td>http://</td><td>@Html.EditorFor(m => m[i].Url, null, "Url")</td></tr>
                             <tr class="form"><td>Radius</td><td>@Html.DropDownListFor(m => m[i].RadiusId, new SelectList((List<PopditWebApi.RadiusInterop>)ViewData["Radii"], "Id", "Description", Model[i].RadiusId))</td></tr>

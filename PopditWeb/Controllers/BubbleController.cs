@@ -4,9 +4,9 @@ using System.Web.Mvc;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using System.Runtime.Serialization.Json;
 using PopditWebApi;
 using System.Web;
+using Newtonsoft.Json;
 
 namespace PopditWeb.Controllers
 {
@@ -19,9 +19,10 @@ namespace PopditWeb.Controllers
             string download = "";
             if (submit == "download")
             {
-                Stream json = await WebApi(WebApiMethod.Get, "api/Bubble");
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<BubbleInterop>));
-                List<BubbleInterop> bubbles = (List<BubbleInterop>)serializer.ReadObject(json);
+                string json = await WebApi(WebApiMethod.Get, "api/Bubble");
+                List<BubbleInterop> bubbles = JsonConvert.DeserializeObject<List<BubbleInterop>>(json);
+                //DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<BubbleInterop>));
+                //List<BubbleInterop> bubbles = (List<BubbleInterop>)serializer.ReadObject(json);
 
                 // Set up the first row.
                 download = "Change\tResult\tID\tInternalID\tName\tMessage\tPhone\tUrl\tAddress\tRadiusID\tActive\n";
@@ -49,9 +50,10 @@ namespace PopditWeb.Controllers
                 if (file != null && file.ContentLength > 0)
                 {
                     // Profile - flags
-                    Stream jsonProfile = await WebApi(WebApiMethod.Get, "api/Profile");
-                    DataContractJsonSerializer serializerProfile = new DataContractJsonSerializer(typeof(List<ProfileInterop>));
-                    List<ProfileInterop> profiles = (List<ProfileInterop>)serializerProfile.ReadObject(jsonProfile);
+                    string jsonProfile = await WebApi(WebApiMethod.Get, "api/Profile");
+                    List<ProfileInterop> profiles = JsonConvert.DeserializeObject<List<ProfileInterop>>(jsonProfile);
+                    //DataContractJsonSerializer serializerProfile = new DataContractJsonSerializer(typeof(List<ProfileInterop>));
+                    //List<ProfileInterop> profiles = (List<ProfileInterop>)serializerProfile.ReadObject(jsonProfile);
                     int userId = profiles[0].Id;
 
                     StreamReader reader = new StreamReader(file.InputStream, Encoding.UTF8);
@@ -83,19 +85,18 @@ namespace PopditWeb.Controllers
                             b.Active = Convert.ToBoolean(fields[10]);
                             b.ProfileId = userId;
 
-                            Stream json;
                             try
                             {
                                 switch (fields[0])
                                 {
                                     case "CREATE":
-                                        json = await WebApi(WebApiMethod.Post, "api/Bubble", b);
+                                        await WebApi(WebApiMethod.Post, "api/Bubble", b);
                                         break;
                                     case "UPDATE":
-                                        json = await WebApi(WebApiMethod.Put, "api/Bubble/" + b.Id.ToString(), b);
+                                        await WebApi(WebApiMethod.Put, "api/Bubble/" + b.Id.ToString(), b);
                                         break;
                                     case "DELETE":
-                                        json = await WebApi(WebApiMethod.Delete, "api/Bubble/" + b.Id.ToString());
+                                        await WebApi(WebApiMethod.Delete, "api/Bubble/" + b.Id.ToString());
                                         break;
                                 }
                                 fields[1] = "DONE";
@@ -123,21 +124,20 @@ namespace PopditWeb.Controllers
             try
             {
                 // Profile - flags
-                Stream jsonProfile = await WebApi(WebApiMethod.Get, "api/Profile");
-                DataContractJsonSerializer serializerProfile = new DataContractJsonSerializer(typeof(List<ProfileInterop>));
-                List<ProfileInterop> profiles = (List<ProfileInterop>)serializerProfile.ReadObject(jsonProfile);
+                string jsonProfile = await WebApi(WebApiMethod.Get, "api/Profile");
+                List<ProfileInterop> profiles = JsonConvert.DeserializeObject<List<ProfileInterop>>(jsonProfile);
                 string flags = profiles[0].Flags;
                 ViewData["UpDown"] = false;
                 if (flags != null) ViewData["UpDown"] = (flags.Contains("UD")); // Upload/Download flag.
 
                 // Radii
-                Stream jsonRadii = await WebApi(WebApiMethod.Get, "api/Radius");
-                DataContractJsonSerializer serializerRadius = new DataContractJsonSerializer(typeof(List<RadiusInterop>));
-                ViewData["Radii"] = (List<RadiusInterop>)serializerRadius.ReadObject(jsonRadii);
+                string jsonRadii = await WebApi(WebApiMethod.Get, "api/Radius");
+                List<RadiusInterop> radii = JsonConvert.DeserializeObject<List<RadiusInterop>>(jsonRadii);
+                ViewData["Radii"] = radii;
 
-                Stream json = await WebApi(WebApiMethod.Get, "api/Bubble");
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<BubbleInterop>));
-                return View((List<BubbleInterop>)serializer.ReadObject(json));
+                string json = await WebApi(WebApiMethod.Get, "api/Bubble");
+                List<BubbleInterop> bubbles = JsonConvert.DeserializeObject<List<BubbleInterop>>(json);
+                return View(bubbles);
             }
             // Authentication failure?
             catch (Exception e) { return RedirectToAction("Index", "Home"); }
@@ -172,7 +172,7 @@ namespace PopditWeb.Controllers
                 b.Longitude = double.Parse(lng);
                 */
 
-                Stream json = await WebApi(WebApiMethod.Post, "api/Bubble", b);
+                await WebApi(WebApiMethod.Post, "api/Bubble", b);
                 return RedirectToAction("Index", "Bubble");
             }
             // Authentication failure?
@@ -213,13 +213,12 @@ namespace PopditWeb.Controllers
                     b.Longitude = double.Parse(lng);
                     */
 
-                    Stream json = await WebApi(WebApiMethod.Put, "api/Bubble/" + id.ToString(), b);
+                    await WebApi(WebApiMethod.Put, "api/Bubble/" + id.ToString(), b);
                 }
                 // DELETE
                 if (collection["command"].Equals("Confirm deletion"))
-                {
-                    Stream json = await WebApi(WebApiMethod.Delete, "api/Bubble/" + id.ToString());
-                }
+                    await WebApi(WebApiMethod.Delete, "api/Bubble/" + id.ToString());
+
                 return RedirectToAction("Index");
             }
             // Authentication failure?

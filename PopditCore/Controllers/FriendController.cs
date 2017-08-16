@@ -43,16 +43,20 @@ namespace PopditCore.Controllers
         {
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
-            // Make friend.
+            // Get friend.
             Profile friend = db.Profiles.Single(p => p.Nickname == f.Nickname);
             // Get user.
             Profile user = db.Profiles.Find(AuthenticatedUserId);
-            // Add friendship.
-            Friendship friendship = new Friendship();
-            friendship.ProfileIdOwner = user.Id;
-            friendship.ProfileIdOwned = friend.Id;
-            user.Friendships1.Add(friendship);
-            db.SaveChanges();
+
+            if (!FriendshipExists(user.Id, friend.Id))
+            {
+                // Add friendship.
+                Friendship friendship = new Friendship();
+                friendship.ProfileIdOwner = user.Id;
+                friendship.ProfileIdOwned = friend.Id;
+                user.Friendships1.Add(friendship);
+                db.SaveChanges();
+            }
 
             return StatusCode(HttpStatusCode.NoContent);
         }
@@ -82,6 +86,11 @@ namespace PopditCore.Controllers
         private bool ProfileExists(int id)
         {
             return db.Profiles.Count(e => e.Id == id) > 0;
+        }
+
+        private bool FriendshipExists(int ownerId, int friendId)
+        {
+            return db.Friendships.Count(f => f.ProfileIdOwner == ownerId && f.ProfileIdOwned == friendId) > 0;
         }
 
         /*

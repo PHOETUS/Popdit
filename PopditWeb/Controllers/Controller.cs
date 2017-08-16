@@ -44,7 +44,7 @@ namespace PopditWeb.Controllers
 
         public enum WebApiMethod { Get, Post, Put, Delete }
 
-        protected async Task<Stream> WebApi(WebApiMethod method, string servicePath, Object content = null)
+        protected async Task<string> WebApi(WebApiMethod method, string servicePath, Object content = null)
         {
             HttpResponseMessage response = null;
 
@@ -74,10 +74,10 @@ namespace PopditWeb.Controllers
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK ||
                 response.StatusCode == System.Net.HttpStatusCode.NoContent ||
-                response.StatusCode == System.Net.HttpStatusCode.Created)                
-                return response.Content.ReadAsStreamAsync().Result;
+                response.StatusCode == System.Net.HttpStatusCode.Created)
+                return response.Content.ReadAsStringAsync().Result;
             else
-                throw new Exception("API call failed. " + response.StatusCode + " " + response.ReasonPhrase);            
+                throw new Exception("API call failed. " + response.StatusCode + " " + response.ReasonPhrase);
         }
     }
 }

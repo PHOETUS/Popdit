@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Runtime.Serialization.Json;
 using System;
 using PopditWebApi;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace PopditWeb.Controllers
 {
@@ -15,9 +17,8 @@ namespace PopditWeb.Controllers
         {
             try
             {
-                Stream json = await WebApi(WebApiMethod.Get, "api/Profile");
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<ProfileInterop>));
-                List<ProfileInterop> profileList = (List<ProfileInterop>)serializer.ReadObject(json);
+                string json = await WebApi(WebApiMethod.Get, "api/Profile");
+                List<ProfileInterop> profileList = JsonConvert.DeserializeObject<List<ProfileInterop>>(json);
                 return View(profileList[0]); // Return the first - and presumably only - profile, so that the page can use a Profile, instead of a List, as a model.
             }
             // Authentication failure?
@@ -33,7 +34,7 @@ namespace PopditWeb.Controllers
         {
             try
             {
-                Stream json = await WebApi(WebApiMethod.Post, "api/Profile/1", pd);
+                await WebApi(WebApiMethod.Post, "api/Profile/1", pd);
                 return RedirectToAction("Index", "Home");
             }
             // Authentication failure?
@@ -46,7 +47,7 @@ namespace PopditWeb.Controllers
         {
             try
             {
-                Stream json = await WebApi(WebApiMethod.Put, "api/Profile/" + pd.Id.ToString(), pd);
+                await WebApi(WebApiMethod.Put, "api/Profile/" + pd.Id.ToString(), pd);
                 return RedirectToAction("Index");
             }
             // Authentication failure?

@@ -125,7 +125,7 @@
       <Name>PopditDB</Name>
     </ProjectReference>
     <ProjectReference Include="..\PopditWebApi\PopditWebApi.csproj">
-      <Project>{66f05e51-d0a5-430e-8206-dab9be54902e}</Project>
+      <Project>{52bbcfef-6414-49a7-a9c7-0ff412165f2d}</Project>
       <Name>PopditWebApi</Name>
     </ProjectReference>
   </ItemGroup>

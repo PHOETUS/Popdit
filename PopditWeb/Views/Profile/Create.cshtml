@@ -18,36 +18,35 @@
                 <td>Phone</td>
                 <td>
                     @Html.EditorFor(model => model.Phone)
+                    @Html.ValidationMessageFor(model => model.Phone)
                 </td>
             </tr>
             <tr class="form">
                 <td>Password</td>
                 <td>
                     @Html.EditorFor(model => model.Password)
-                </td>
-            </tr>
-            <tr class="form">
-                <td>Password</td>
-                <td>
-                    <input type="text" id="PwdCompare"/>
+                    @Html.ValidationMessageFor(model => model.Password)
                 </td>
             </tr>
             <tr class="form">
                 <td>Nickname</td>
                 <td>
                     @Html.EditorFor(model => model.Nickname)
+                    @Html.ValidationMessageFor(model => model.Nickname)
                 </td>
             </tr>
             <tr class="form">
                 <td>Email</td>
                 <td>
                     @Html.EditorFor(model => model.Email)
+                    @Html.ValidationMessageFor(model => model.Email)
                 </td>
             </tr>
             <tr class="form">
                 <td>Date of birth</td>
                 <td>
-                    @Html.EditorFor(model => model.DobJson)
+                    @Html.EditorFor(model => model.DOB)
+                    @Html.ValidationMessageFor(model => model.DOB)
                 </td>
             </tr>
             <tr class="form">
@@ -58,6 +57,7 @@
                        new SelectListItem { Value = "false" , Text = "Female" },
                        new SelectListItem { Value = "true" , Text = "Male" }
                     }, "- Not set -")
+                    @Html.ValidationMessageFor(model => model.Male)
                 </td>
             </tr>
             <tr class="form">

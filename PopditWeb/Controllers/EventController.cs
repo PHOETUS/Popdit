@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using System.IO;
-using System.Runtime.Serialization.Json;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 using PopditWebApi;
 
@@ -15,9 +14,9 @@ namespace PopditWeb.Controllers
         {
             try
             {
-                Stream json = await WebApi(WebApiMethod.Get, "api/Event");
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<EventInterop>));
-                return View((List<EventInterop>)serializer.ReadObject(json));
+                string json = await WebApi(WebApiMethod.Get, "api/Event");
+                List<EventInterop> eventList = JsonConvert.DeserializeObject<List<EventInterop>>(json);
+                return View(eventList);
             }
             // Authentication failure?
             catch (Exception e) { return RedirectToAction("SignOut", "Home"); }
