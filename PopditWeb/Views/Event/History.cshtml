@@ -1,0 +1,62 @@
+﻿@model List<PopditWebApi.EventInterop>
+@{
+    ViewBag.Title = "History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content">
+    <table id="content" class="content">
+        <tr>
+            <td colspan="4" class="logo"><img src="~/Content/Logo.gif" width="206" height="58" /></td>
+        </tr>
+        <tr>
+            <td colspan="4" class="pagetitle">@ViewBag.Title</td>
+        </tr>
+        @if (Model.Count == 0)
+        {
+            <tr>
+                <td class="text" colspan="4">
+                    You haven't popped any bubbles.  Add some @Html.ActionLink("friends", "Index", "Friend") so you will pop their bubbles when you travel.
+                </td>
+            </tr>
+        }
+        @for (var i = 0; i < Model.Count; i++)
+        {
+            if (ViewData["YEARMONTH"] == null || (string)(ViewData["YEARMONTH"]) != Model[i].Timestamp.Year.ToString() + Model[i].Timestamp.Month.ToString())
+            {
+                <tbody class="underline">
+                    <tr>
+                        <td colspan="4">@Model[i].Timestamp.ToString("yyyy MMMM")</td>
+                    </tr>
+                </tbody>
+                ViewData["YEARMONTH"] = Model[i].Timestamp.Year.ToString() + Model[i].Timestamp.Month.ToString();
+            }
+            <tbody class="underline">
+                <tr>
+                    <td class="lTime">@Model[i].Timestamp.ToString("dd HH:mm")</td>
+                    <td class="hist" title="@Model[i].ProviderName"><a href="http://maps.apple.com/maps?daddr=@Model[i].Latitude,@Model[i].Longitude" target="_blank">@Model[i].MsgTitle</a></td>
+                    @if (Model[i].Url != null && Model[i].Url.Length > 0)
+                    {
+                        <td title="@Model[i].Url"><a href="@Model[i].Url"><img class="icon" src="~/Content/link.png" /></a></td>
+                    }
+                    else
+                    {
+                        <td>&nbsp;</td>
+                    }
+                    @if (Model[i].Phone != null && Model[i].Phone.Length > 0)
+                    {
+                        <td title="@Model[i].Phone"><a href="tel:@Model[i].Phone"><img class="icon" src="~/Content/phone.png" /></a></td>
+                    }
+                    else
+                    {
+                        <td>&nbsp;</td>
+                    }
+                </tr>
+            </tbody>
+        }
+        <tr>
+            <td colspan="2">@Html.ActionLink("Help", "Help", "More")</td>
+        </tr>
+    </table>
+</div>
+

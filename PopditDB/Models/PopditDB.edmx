@@ -13,17 +13,17 @@
           <Property Name="InternalId" Type="int" />
           <Property Name="ProfileId" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="AlertMsg" Type="varchar" MaxLength="1000" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" />
+          <Property Name="Url" Type="varchar" MaxLength="250" />
+          <Property Name="Address" Type="varchar" MaxLength="200" />
           <Property Name="Latitude" Type="double" Nullable="false" />
           <Property Name="MinLatitude" Type="double" />
           <Property Name="MaxLatitude" Type="double" />
           <Property Name="Longitude" Type="double" Nullable="false" />
           <Property Name="MaxLongitude" Type="double" />
           <Property Name="MinLongitude" Type="double" />
-          <Property Name="AlertMsg" Type="varchar" MaxLength="1000" />
           <Property Name="RadiusId" Type="int" Nullable="false" />
-          <Property Name="Address" Type="varchar" MaxLength="200" />
-          <Property Name="Phone" Type="varchar" MaxLength="20" />
-          <Property Name="Url" Type="varchar" MaxLength="50" />
           <Property Name="Active" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="Events">
@@ -34,6 +34,7 @@
           <Property Name="ProfileId" Type="int" Nullable="false" />
           <Property Name="BubbleId" Type="int" Nullable="false" />
           <Property Name="Timestamp" Type="datetime" Precision="6" Nullable="false" />
+          <Property Name="ServerStamp" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="Friendships">
           <Key>
@@ -208,6 +209,7 @@
           <Property Name="Timestamp" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="Bubble" Relationship="Self.FK_Events_Bubbles" FromRole="Events" ToRole="Bubbles" />
           <NavigationProperty Name="Profile" Relationship="Self.FK_Events_Profiles" FromRole="Events" ToRole="Profiles" />
+          <Property Name="ServerStamp" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="Friendship">
           <Key>
@@ -381,6 +383,7 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="PopditDBModel.Event">
               <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="ServerStamp" ColumnName="ServerStamp" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
                 <ScalarProperty Name="BubbleId" ColumnName="BubbleId" />

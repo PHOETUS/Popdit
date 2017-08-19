@@ -132,6 +132,13 @@ td.hTime {
     letter-spacing: normal;
 }
 
+td.lTime {
+    text-align: left;
+    white-space: nowrap;
+    vertical-align: top;
+    letter-spacing: normal;
+}
+
 td.underline {
     text-align: left;
     vertical-align: top;
@@ -163,6 +170,12 @@ td.text {
 td.latlong input:first-child {
     text-align: right;
 }
+
+img.icon {
+    height: 16px;
+    width: 16px;
+}
+
 /* FORM */
 form.content {
     margin: auto;

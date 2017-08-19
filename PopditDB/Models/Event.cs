@@ -18,6 +18,7 @@ namespace PopditDB.Models
         public int ProfileId { get; set; }
         public int BubbleId { get; set; }
         public System.DateTime Timestamp { get; set; }
+        public Nullable<System.DateTime> ServerStamp { get; set; }
     
         public virtual Bubble Bubble { get; set; }
         public virtual Profile Profile { get; set; }

@@ -13,11 +13,14 @@ namespace PopditCore.Controllers
         private Entities db = new Entities();
 
         // GET: api/Event
-        public IQueryable<EventInterop> GetEvents()
+        public IQueryable<EventInterop> GetEvents(string history = "")
         {
             // Get all of the events for this profile in the last 24 hours in reverse chrono order and include their bubbles.
-            DateTime dayAgo = DateTime.Now.AddDays(-1);
-            var events = db.Events.Where(e => e.ProfileId == AuthenticatedUserId && e.Timestamp > dayAgo).OrderByDescending(e => e.Timestamp).Include(e => e.Bubble.Profile);  // Security.
+            DateTime time;
+            if (history.Length > 0) time = DateTime.MinValue;
+            else time = DateTime.Now.AddDays(-1);
+
+            var events = db.Events.Where(e => e.ProfileId == AuthenticatedUserId && e.ServerStamp > time).OrderByDescending(e => e.Timestamp).Include(e => e.Bubble.Profile);  // Security.
 
             List<EventInterop> eventList = new List<EventInterop>();
             foreach (PopditDB.Models.Event e in events)
@@ -31,13 +34,12 @@ namespace PopditCore.Controllers
                 em.Msg = e.Bubble.AlertMsg;
                 em.Phone = e.Bubble.Phone;
                 em.Url = e.Bubble.Url;
-                //em.ProfileId = e.ProfileId;
-                //em.BubbleId = e.BubbleId;
                 em.Latitude = e.Bubble.Latitude;
                 em.Longitude = e.Bubble.Longitude;
                 
                 eventList.Add(em);
             }
+
             return eventList.AsQueryable<EventInterop>();
         }
     }

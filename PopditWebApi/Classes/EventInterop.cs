@@ -5,8 +5,6 @@ namespace PopditWebApi
     public partial class EventInterop
     {
         public int Id { get; set; }
-        //public int ProfileId { get; set; }
-        //public int BubbleId { get; set; }
         public string ProviderName { get; set; }
         public string MsgTitle { get; set; }
         public string Msg { get; set; }
@@ -23,6 +21,6 @@ namespace PopditWebApi
         {
             get { return String.Format("{0:h:mm tt}", Timestamp); }
         }
-        private System.DateTime Timestamp { get; set; }
+        public DateTime Timestamp { get; set; }
     }
 }

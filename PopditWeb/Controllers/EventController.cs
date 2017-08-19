@@ -21,5 +21,18 @@ namespace PopditWeb.Controllers
             // Authentication failure?
             catch (Exception e) { return RedirectToAction("SignOut", "Home"); }
         }
+
+        // GET: Event
+        public async Task<ActionResult> History()
+        {
+            try
+            {
+                string json = await WebApi(WebApiMethod.Get, "api/Event?history=true");
+                List<EventInterop> eventList = JsonConvert.DeserializeObject<List<EventInterop>>(json);
+                return View(eventList);
+            }
+            // Authentication failure?
+            catch (Exception e) { return RedirectToAction("SignOut", "Home"); }
+        }
     }
 }
