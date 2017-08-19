@@ -49,7 +49,7 @@
                 {
                 <tr>
                     <td>&nbsp;</td>
-                    <td class="hist"><a href="http://@Model[i].Url" target="_blank">@Model[i].Url</a></td>
+                    <td class="hist"><a href="@Model[i].Url" target="_blank">@Model[i].Url.Replace("http://", "").Split('/')[0]</a></td>
                 </tr>
                 }
             </tbody>

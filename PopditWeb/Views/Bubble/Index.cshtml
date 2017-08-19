@@ -48,13 +48,13 @@
                 {
                     <table class="content">
                         <tr><td colspan="2">&middot; Create a new bubble &middot;</td></tr>
-                        <tr class="form"><td>Name</td><td>@Html.TextBox("Name")</td></tr>
-                        <tr class="form"><td>Notification</td><td>@Html.TextArea("AlertMsg")</td></tr>
-                        <tr class="form"><td>Address</td><td>@Html.TextBox("Address", null)</td></tr>
-                        <tr class="form"><td>Phone</td><td>@Html.TextBox("Phone")</td></tr>
-                        <tr class="form"><td>http://</td><td>@Html.TextBox("Url")</td></tr>
-                        <tr class="form"><td>Radius</td><td>@Html.DropDownList("RadiusId", new SelectList((List<PopditWebApi.RadiusInterop>)ViewData["Radii"], "Id", "Description"))</td></tr>
-                        <tr class="form"><td>Active</td><td class="left">@Html.CheckBox("Active", true)</td></tr>
+                        <tr class="form"><td>Name</td><td>@Html.EditorFor(m => m[0].Name, null, "Name")</td></tr>
+                        <tr class="form"><td>Notification</td><td>@Html.EditorFor(m => m[0].AlertMsg, null, "AlertMsg")</td></tr>
+                        <tr class="form"><td>Address</td><td>@Html.EditorFor(m => m[0].Address, null, "Address")</td></tr>
+                        <tr class="form"><td>Phone</td><td>@Html.EditorFor(m => m[0].Phone, null, "Phone")</td></tr>
+                        <tr class="form"><td>URL</td><td>@Html.EditorFor(m => m[0].Url, null, "Url")</td></tr>
+                        <tr class="form"><td>Radius</td><td>@Html.DropDownListFor(m => m[0].RadiusId, new SelectList((List<PopditWebApi.RadiusInterop>)ViewData["Radii"], "Id", "Description", Model[0].RadiusId))</td></tr>
+                        <tr class="form"><td>Active</td><td class="left">@Html.EditorFor(m => m[0].Active, null, "Active")</td></tr>
                         <tr><td></td><td><input type="submit" value="Create new bubble" /></td></tr>
                     </table>
                 }
@@ -81,7 +81,7 @@
                 </td>
             </tr>
         }
-        @for (var i = 0; i < Model.Count(); i++)
+        @for (var i = 1; i < Model.Count(); i++) // Note that we start at 1 because of blank bubble.
         {
             <tr class="header" id="@("header" + Model[i].Id)">
                 <td class="item" onclick="ToggleCell(@Model[i].Id)">@Model[i].Name</td>
@@ -98,7 +98,7 @@
                             <tr class="form"><td>Notification</td><td>@Html.EditorFor(m => m[i].AlertMsg, null, "AlertMsg")</td></tr>
                             <tr class="form"><td>Address</td><td class="latlong">@Html.EditorFor(m => m[i].Address, null, "Address")</td></tr>
                             <tr class="form"><td>Phone</td><td>@Html.EditorFor(m => m[i].Phone, null, "Phone")</td></tr>
-                            <tr class="form"><td>http://</td><td>@Html.EditorFor(m => m[i].Url, null, "Url")</td></tr>
+                            <tr class="form"><td>URL</td><td>@Html.EditorFor(m => m[i].Url, null, "Url")</td></tr>
                             <tr class="form"><td>Radius</td><td>@Html.DropDownListFor(m => m[i].RadiusId, new SelectList((List<PopditWebApi.RadiusInterop>)ViewData["Radii"], "Id", "Description", Model[i].RadiusId))</td></tr>
                             <tr class="form"><td>Active</td><td class="left">@Html.EditorFor(m => m[i].Active, null, "Active")</td></tr>
                             <tr><td>&nbsp;</td><td><input name="command" type="submit" value="Update" /></td></tr>

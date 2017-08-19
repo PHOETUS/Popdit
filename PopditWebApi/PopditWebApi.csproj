@@ -43,12 +43,9 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Classes\BubbleInterop.cs" />
-    <Compile Include="Classes\Category.cs" />
     <Compile Include="Classes\EventInterop.cs" />
-    <Compile Include="Classes\EventMobile.cs" />
     <Compile Include="Classes\FilterInterop.cs" />
     <Compile Include="Classes\Friend.cs" />
-    <Compile Include="Classes\Hashids.cs" />
     <Compile Include="Classes\Location.cs" />
     <Compile Include="Classes\ProfileInterop.cs" />
     <Compile Include="Classes\RadiusInterop.cs" />

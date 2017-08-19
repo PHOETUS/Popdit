@@ -135,8 +135,15 @@ namespace PopditWeb.Controllers
                 List<RadiusInterop> radii = JsonConvert.DeserializeObject<List<RadiusInterop>>(jsonRadii);
                 ViewData["Radii"] = radii;
 
+                // Bubbles
                 string json = await WebApi(WebApiMethod.Get, "api/Bubble");
                 List<BubbleInterop> bubbles = JsonConvert.DeserializeObject<List<BubbleInterop>>(json);
+
+                // Blank bubble for CREATE
+                BubbleInterop blank = new BubbleInterop();
+                blank.Active = true;
+                bubbles.Insert(0, blank);
+
                 return View(bubbles);
             }
             // Authentication failure?
