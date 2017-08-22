@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Classes\BubbleInterop.cs" />
     <Compile Include="Classes\EventInterop.cs" />
     <Compile Include="Classes\FilterInterop.cs" />

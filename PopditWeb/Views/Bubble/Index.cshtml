@@ -84,7 +84,14 @@
         @for (var i = 1; i < Model.Count(); i++) // Note that we start at 1 because of blank bubble.
         {
             <tr class="header" id="@("header" + Model[i].Id)">
-                <td class="item" onclick="ToggleCell(@Model[i].Id)">@Model[i].Name</td>
+                @if (Model[i].Pops > 0)
+                {
+                <td class="item" onclick="ToggleCell(@Model[i].Id)">@Model[i].Name<span class="count" title="Pops">@Model[i].Pops.ToString()</span></td>
+                }
+                else
+                {
+                <td class="item" onclick="ToggleCell(@Model[i].Id)">@Model[i].Name</td>                
+                }
             </tr>
             <tr class="detail" id="@("detail" + Model[i].Id)">
                 <td class="item">
@@ -93,7 +100,14 @@
                         @Html.Hidden("Id", Model[i].Id, new { @name = "Id" })
                         @Html.Hidden("ProfileId", Model[i].ProfileId, new { @name = "ProfileId" })
                         <table class="content">
+                            @if (Model[i].Pops > 0)
+                            {
+                            <tr><td colspan="2">@Model[i].Name<span class="count" title="Pops">@Model[i].Pops.ToString()</span></td></tr>
+                            }
+                            else
+                            {
                             <tr><td colspan="2">@Model[i].Name</td></tr>
+                            }
                             <tr class="form"><td>Name</td><td>@Html.EditorFor(m => m[i].Name, null, "Name")</td></tr>
                             <tr class="form"><td>Notification</td><td>@Html.EditorFor(m => m[i].AlertMsg, null, "AlertMsg")</td></tr>
                             <tr class="form"><td>Address</td><td class="latlong">@Html.EditorFor(m => m[i].Address, null, "Address")</td></tr>

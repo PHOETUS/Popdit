@@ -23,5 +23,6 @@ namespace PopditWebApi
         public string Phone { get; set; }
         [DataType(DataType.Url, ErrorMessage = "Invalid URL"), MaxLength(250, ErrorMessage = "Maximum length 250 characters")]
         public string Url { get; set; }
+        public int Pops { get; set; }
     }
 }

@@ -61,6 +61,7 @@ namespace PopditCore.Controllers
             bi.RadiusId = b.RadiusId;
             bi.Phone = b.Phone;
             bi.Url = b.Url;
+            bi.Pops = b.Events.Count;
             return bi;
         }
 
