@@ -90,7 +90,7 @@
     <CodesignKey>iPhone Developer: Justin Stimson (XPCY6C6M97)</CodesignKey>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CredentialManager.cs" />
+    <Compile Include="CredentialsManager.cs" />
     <Compile Include="LocationManager.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
@@ -128,6 +128,9 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Mono.Android">
+      <HintPath>..\..\..\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v6.0\Mono.Android.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
     </Reference>

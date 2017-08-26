@@ -9,14 +9,15 @@ using CoreLocation;
 using UserNotifications;
 using PopditMobileApi;
 using System.Diagnostics;
-using Foundation;
+using Android.Gms;
+using Android.Gms.Common.Apis;
 
-namespace PopditiOS
+namespace PopditAndroid
 {
     public class LocationManager : IDisposable
     {
-        protected static CLLocationManager LocMgr;
-        //List<BubbleMobile> BubbleCatalog;
+        protected CLLocationManager LocMgr;
+        List<BubbleMobile> BubbleCatalog;
         CredentialsManager credentials = new CredentialsManager();
 
         // A location bubble was popped.  Notify the server and display the notification string to the user.
@@ -84,14 +85,14 @@ namespace PopditiOS
                 Location loc = new Location(latitude, longitude);
                 // Get all the bubbles in the zone.
                 string json = await WebApiPost("api/Bubble", loc);
-
-                List<BubbleMobile> bubbleCatalog = (List<BubbleMobile>)JsonConvert.DeserializeObject(json, typeof(List<BubbleMobile>));
+               
+                BubbleCatalog = (List<BubbleMobile>)JsonConvert.DeserializeObject(json, typeof(List<BubbleMobile>));
 
                 // At the last possible moment, delete all the existing bubbles.
                 foreach (CLCircularRegion r in LocMgr.MonitoredRegions) LocMgr.StopMonitoring(r);
 
                 // Set an event handler for each bubble in the new list.
-                foreach (BubbleMobile bubble in bubbleCatalog)
+                foreach (BubbleMobile bubble in BubbleCatalog)
                 {
                     if (bubble.Id == 0) // Refresh zone bubble.
                     {
@@ -116,7 +117,7 @@ namespace PopditiOS
                 }
             }
         }
- 
+
         protected async Task<string> WebApiPost(string servicePath, Object content)
         {
             string securityToken = credentials.BasicAuthString;
@@ -167,9 +168,9 @@ namespace PopditiOS
         
         public LocationManager()
         {
-            LocMgr = new CLLocationManager();
-            LocMgr.PausesLocationUpdatesAutomatically = false;
-            LocMgr.DesiredAccuracy = CLLocation.AccuracyNearestTenMeters;  // TBD - Move to config?
+            this.LocMgr = new CLLocationManager();
+            this.LocMgr.PausesLocationUpdatesAutomatically = false;
+            this.LocMgr.DesiredAccuracy = CLLocation.AccuracyNearestTenMeters;  // TBD - Move to config?
 
             // iOS 8 has additional permissions requirements
             if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))

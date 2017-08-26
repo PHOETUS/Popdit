@@ -22,11 +22,11 @@ namespace PopditPop.Controllers
             return e;
         }
 
-        EventMobile ToInterop(Event e, Bubble b, Profile p)
+        EventMobile ToInterop(Event e, Bubble b)
         {
             EventMobile em = new EventMobile();
             em.Id = e.Id;
-            em.ProviderName = p.Nickname;
+            em.ProviderName = b.Profile.Nickname;
             em.MsgTitle = b.Name;
             em.Msg = b.AlertMsg;
             em.Timestamp = e.Timestamp;
@@ -59,7 +59,7 @@ namespace PopditPop.Controllers
                 db.SaveChanges();
 
                 // Set EventMobileFields for return trip.
-                em = ToInterop(evnt, bubble, user);
+                em = ToInterop(evnt, bubble);
                 em.Suppressed = false; // TBD - enable suppression.                
             }
             else em.Suppressed = true;

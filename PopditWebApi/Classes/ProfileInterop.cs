@@ -7,8 +7,10 @@ namespace PopditWebApi
     public partial class ProfileInterop
     {
         public int Id { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Nickname required")]
+        [Required, StringLength(50)]
         public string Nickname { get; set; }
+        [Required, StringLength(250)]
+        public string Tagline { get; set; }
         [EmailAddress(ErrorMessage = "Invalid email address")]
         public string Email { get; set; }
         [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Only letters and digits allowed")]
@@ -17,19 +19,7 @@ namespace PopditWebApi
         public string Phone { get; set; }
         [Url(ErrorMessage = "Invalid URL")]
         public string CallbackAddress { get; set; }
-        /*
-        [DataType(DataType.DateTime, ErrorMessage = "Invalid date")]
-        public string DobJson
-        {
-            get { return String.Format("{0:yyyy-MM-dd}", DOB); }
-            set
-            {
-                try { DOB = DateTime.Parse(value); }
-                catch { DOB = null; }
-            }
-        }*/
         public DateTime DOB { get; set; }
-        //private Nullable<System.DateTime> DOB { get; set; }
         public Nullable<bool> Male { get; set; }
         public string Flags { get; set; }
     }

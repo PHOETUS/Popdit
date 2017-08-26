@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Android.Webkit;
+//using Java.Net;
+using System;
 using System.Text;
-using Foundation;
+using Android.Net;
 
-namespace PopditiOS
+
+namespace PopditAndroid
 {
     class CredentialsManager
     {
@@ -28,18 +31,12 @@ namespace PopditiOS
             }
         }
 
-        NSHttpCookie GetPopditCookie()
+        string GetPopditCookie()
         {
             // Get the cookies.
-            NSHttpCookie[] cookies = NSHttpCookieStorage.SharedStorage.Cookies;
-            // Find the Popdit cookie.
-            NSHttpCookie cookie = null;
-            foreach (NSHttpCookie c in cookies)
-            {
-                if (c.Name == "Popdit") cookie = c;
-                break;
-            }
-            return cookie;
+            CookieManager cookieMgr = CookieManager.Instance;
+            var cookie = cookieMgr.GetCookie("http://prod.popdit.com")[0];
+            return cookie.ToString();
         }
 
         void SetValueForPopditCookie(string key, string value)

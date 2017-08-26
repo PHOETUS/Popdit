@@ -7,13 +7,13 @@ namespace PopditWebApi
         public int Id { get; set; }
         public int InternalId { get; set; }
         public int ProfileId { get; set; }     
-        [MaxLength(50, ErrorMessage = "Maximum length 50 characters")]
+        [StringLength(50)]
         public string Name { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0.000000}")]
         public double Latitude { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0.000000}")]
         public double Longitude { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Valid address required"), MaxLength(200, ErrorMessage = "Maximum length 200 characters")]
+        [Required, StringLength(200)]
         public string Address;
         [DataType(DataType.MultilineText), MaxLength(1000, ErrorMessage = "Maximum length 1000 characters")]
         public string AlertMsg { get; set; }

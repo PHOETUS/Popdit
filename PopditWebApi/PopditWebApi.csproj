@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="Classes\BubbleInterop.cs" />
     <Compile Include="Classes\EventInterop.cs" />
-    <Compile Include="Classes\FilterInterop.cs" />
     <Compile Include="Classes\Friend.cs" />
     <Compile Include="Classes\Location.cs" />
     <Compile Include="Classes\ProfileInterop.cs" />
