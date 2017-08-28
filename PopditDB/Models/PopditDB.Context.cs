@@ -30,5 +30,6 @@ namespace PopditDB.Models
         public virtual DbSet<Friendship> Friendships { get; set; }
         public virtual DbSet<Profile> Profiles { get; set; }
         public virtual DbSet<Radius> Radii { get; set; }
+        public virtual DbSet<LogEvent> LogEvents { get; set; }
     }
 }

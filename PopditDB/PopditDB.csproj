@@ -80,6 +80,9 @@
     <Compile Include="Models\Friendship.cs">
       <DependentUpon>PopditDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LogEvent.cs">
+      <DependentUpon>PopditDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PopditDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -1,13 +1,23 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Error</title>
-</head>
-<body>
-    <hgroup>
-        <h1>Error.</h1>
-        <h2>An error occurred while processing your request.</h2>
-    </hgroup>
-</body>
-</html>
+﻿@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_LayoutSignedOut.cshtml";
+}
+
+<div class="content">
+    <table id="content" class="content">
+        <tr>
+            <td colspan="2" class="logo"><img src="~/Content/Logo.gif" width="206" height="58" /></td>
+        </tr>
+        <tr>
+            <td class="pagetitle">Error</td>
+        </tr>
+        <tr>
+            <td class="subtitle">
+                <p class="center">
+                    An error occurred.  Please try again.
+                </p>
+                <p class="center">@Html.ActionLink("Home", "Index", "Home")</p>
+            </td>
+        </tr>
+    </table>
+</div>

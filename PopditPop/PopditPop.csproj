@@ -105,7 +105,6 @@
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\BubbleController.cs" />
     <Compile Include="Controllers\EventController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

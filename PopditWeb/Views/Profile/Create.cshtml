@@ -36,6 +36,13 @@
                 </td>
             </tr>
             <tr class="form">
+                <td>Tagline</td>
+                <td>
+                    @Html.EditorFor(model => model.Tagline)
+                    @Html.ValidationMessageFor(model => model.Tagline)
+                </td>
+            </tr>
+            <tr class="form">
                 <td>Email</td>
                 <td>
                     @Html.EditorFor(model => model.Email)

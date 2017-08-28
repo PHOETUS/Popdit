@@ -12,7 +12,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="InternalId" Type="int" />
           <Property Name="ProfileId" Type="int" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="60" />
           <Property Name="AlertMsg" Type="varchar" MaxLength="1000" />
           <Property Name="Phone" Type="varchar" MaxLength="20" />
           <Property Name="Url" Type="varchar" MaxLength="250" />
@@ -25,6 +25,8 @@
           <Property Name="MinLongitude" Type="double" />
           <Property Name="RadiusId" Type="int" Nullable="false" />
           <Property Name="Active" Type="bool" Nullable="false" />
+          <Property Name="Create" Type="datetime" Precision="0" />
+          <Property Name="Created" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="Events">
           <Key>
@@ -34,7 +36,7 @@
           <Property Name="ProfileId" Type="int" Nullable="false" />
           <Property Name="BubbleId" Type="int" Nullable="false" />
           <Property Name="Timestamp" Type="datetime" Precision="6" Nullable="false" />
-          <Property Name="ServerStamp" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="ServerStamp" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Friendships">
           <Key>
@@ -44,12 +46,24 @@
           <Property Name="ProfileIdOwner" Type="int" Nullable="false" />
           <Property Name="ProfileIdOwned" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="LogEvent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="100" />
+          <Property Name="Message" Type="text" />
+          <Property Name="InnerException" Type="text" />
+          <Property Name="StackTrace" Type="text" />
+          <Property Name="Timestamp" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+        </EntityType>
         <EntityType Name="Profiles">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nickname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tagline" Type="varchar" MaxLength="120" />
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
@@ -144,6 +158,7 @@
           <EntitySet Name="Bubbles" EntityType="Self.Bubbles" Schema="PopditDB" store:Type="Tables" />
           <EntitySet Name="Events" EntityType="Self.Events" Schema="PopditDB" store:Type="Tables" />
           <EntitySet Name="Friendships" EntityType="Self.Friendships" Schema="PopditDB" store:Type="Tables" />
+          <EntitySet Name="LogEvent" EntityType="Self.LogEvent" Schema="PopditDB" store:Type="Tables" />
           <EntitySet Name="Profiles" EntityType="Self.Profiles" Schema="PopditDB" store:Type="Tables" />
           <EntitySet Name="Radii" EntityType="Self.Radii" Schema="PopditDB" store:Type="Tables" />
           <AssociationSet Name="FK_Events_Bubbles" Association="Self.FK_Events_Bubbles">
@@ -182,7 +197,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="InternalId" Type="Int32" />
           <Property Name="ProfileId" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="Latitude" Type="Double" Nullable="false" />
           <Property Name="MinLatitude" Type="Double" />
           <Property Name="MaxLatitude" Type="Double" />
@@ -193,11 +208,13 @@
           <Property Name="RadiusId" Type="Int32" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Url" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Url" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Events" Relationship="Self.FK_Events_Bubbles" FromRole="Bubbles" ToRole="Events" />
           <NavigationProperty Name="Profile" Relationship="Self.FK_Trips_Profiles" FromRole="Bubbles" ToRole="Profiles" />
           <NavigationProperty Name="Radius" Relationship="Self.FK_Trips_Radii" FromRole="Bubbles" ToRole="Radii" />
+          <Property Name="Created" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Create" Type="DateTime" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -209,7 +226,7 @@
           <Property Name="Timestamp" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="Bubble" Relationship="Self.FK_Events_Bubbles" FromRole="Events" ToRole="Bubbles" />
           <NavigationProperty Name="Profile" Relationship="Self.FK_Events_Profiles" FromRole="Events" ToRole="Profiles" />
-          <Property Name="ServerStamp" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServerStamp" Type="DateTime" annotation:StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Friendship">
           <Key>
@@ -239,6 +256,7 @@
           <NavigationProperty Name="Events" Relationship="Self.FK_Events_Profiles" FromRole="Profiles" ToRole="Events" />
           <NavigationProperty Name="Friendships" Relationship="Self.FK_Friends_Owned" FromRole="Profiles" ToRole="Friendships" />
           <NavigationProperty Name="Friendships1" Relationship="Self.FK_Friends_Owner" FromRole="Profiles" ToRole="Friendships" />
+          <Property Name="Tagline" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Radius">
           <Key>
@@ -351,7 +369,19 @@
             <End Role="Profiles" EntitySet="Profiles" />
             <End Role="Friendships" EntitySet="Friendships" />
           </AssociationSet>
+          <EntitySet Name="LogEvents" EntityType="PopditDBModel.LogEvent" />
         </EntityContainer>
+        <EntityType Name="LogEvent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Message" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="InnerException" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Timestamp" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StackTrace" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -361,6 +391,8 @@
           <EntitySetMapping Name="Bubbles">
             <EntityTypeMapping TypeName="PopditDBModel.Bubble">
               <MappingFragment StoreEntitySet="Bubbles">
+                <ScalarProperty Name="Create" ColumnName="Create" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="InternalId" ColumnName="InternalId" />
                 <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
@@ -403,6 +435,7 @@
           <EntitySetMapping Name="Profiles">
             <EntityTypeMapping TypeName="PopditDBModel.Profile">
               <MappingFragment StoreEntitySet="Profiles">
+                <ScalarProperty Name="Tagline" ColumnName="Tagline" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Nickname" ColumnName="Nickname" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -423,6 +456,18 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Meters" ColumnName="Meters" />
                 <ScalarProperty Name="Degrees" ColumnName="Degrees" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogEvents">
+            <EntityTypeMapping TypeName="PopditDBModel.LogEvent">
+              <MappingFragment StoreEntitySet="LogEvent">
+                <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="InnerException" ColumnName="InnerException" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

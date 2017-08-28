@@ -33,6 +33,7 @@ namespace PopditDB.Models
         public Nullable<bool> Male { get; set; }
         public string Flags { get; set; }
         public System.DateTime Created { get; set; }
+        public string Tagline { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bubble> Bubbles { get; set; }

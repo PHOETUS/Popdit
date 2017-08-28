@@ -12,15 +12,13 @@ namespace PopditDB.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Event
+    public partial class LogEvent
     {
         public int Id { get; set; }
-        public int ProfileId { get; set; }
-        public int BubbleId { get; set; }
-        public System.DateTime Timestamp { get; set; }
-        public System.DateTime ServerStamp { get; set; }
-    
-        public virtual Bubble Bubble { get; set; }
-        public virtual Profile Profile { get; set; }
+        public string Message { get; set; }
+        public string InnerException { get; set; }
+        public Nullable<System.DateTime> Timestamp { get; set; }
+        public string Title { get; set; }
+        public string StackTrace { get; set; }
     }
 }

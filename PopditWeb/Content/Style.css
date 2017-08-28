@@ -175,6 +175,11 @@ td.text {
     text-align: justify;
 }
 
+td.subtitle {
+    white-space:normal;
+    letter-spacing:normal;
+}
+
 td.latlong input:first-child {
     text-align: right;
 }

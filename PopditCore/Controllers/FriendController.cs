@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -23,6 +18,7 @@ namespace PopditCore.Controllers
             Friend f = new Friend();
             f.Id = p.Id;
             f.Nickname = p.Nickname;
+            f.Tagline = p.Tagline;
             return f;
         }
 
@@ -31,7 +27,7 @@ namespace PopditCore.Controllers
         public IQueryable<Friend> GetFriends()
         {
             List<Friend> interops = new List<Friend>();
-            foreach (Friendship friendship in db.Profiles.Find(AuthenticatedUserId).Friendships1)
+            foreach (Friendship friendship in db.Profiles.Find(AuthenticatedUserId).Friendshipz)
                 interops.Add(ToInterop(friendship.Profile));           
             return interops.AsQueryable<Friend>();
         }
@@ -54,7 +50,7 @@ namespace PopditCore.Controllers
                 Friendship friendship = new Friendship();
                 friendship.ProfileIdOwner = user.Id;
                 friendship.ProfileIdOwned = friend.Id;
-                user.Friendships1.Add(friendship);
+                user.Friendshipz.Add(friendship);
                 db.SaveChanges();
             }
 

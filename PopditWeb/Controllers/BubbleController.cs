@@ -211,7 +211,7 @@ namespace PopditWeb.Controllers
                     b.Phone = collection["Phone"];
                     b.Url = collection["Url"];
 
-                    /*
+                    /* // No more lat-long fields
                     string lat = collection["Latitude"].ToString();
                     if (lat.Length == 0) lat = "0";
                     b.Latitude = double.Parse(lat);

@@ -9,7 +9,6 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using PopditDB.Models;
 using PopditWebApi;
-using Newtonsoft.Json;
 
 namespace PopditCore.Controllers
 {
@@ -22,13 +21,13 @@ namespace PopditCore.Controllers
             ProfileInterop pi = new ProfileInterop();
             pi.CallbackAddress = p.CallbackAddress;
             pi.DOB = p.DOB ?? DateTime.MinValue;
-            //pi.DobJson = p.DOB.ToString();
             pi.Email = p.Email;
             pi.Id = p.Id;
             pi.Male = p.Male;
             pi.Nickname = p.Nickname;
             pi.Password = p.Password;
             pi.Phone = p.Phone;
+            pi.Tagline = p.Tagline;
             pi.Flags = p.Flags;
             return pi;
         }
@@ -44,6 +43,7 @@ namespace PopditCore.Controllers
             p.Nickname = pi.Nickname;
             p.Password = pi.Password;
             p.Phone = pi.Phone;
+            p.Tagline = pi.Tagline;
             p.Flags = pi.Flags;
             return p;
         }
@@ -54,9 +54,6 @@ namespace PopditCore.Controllers
             List<Profile> Profiles = db.Profiles.Where(m => m.Id == AuthenticatedUserId).OrderBy(m => m.Nickname).ToList(); // Security.
             List<ProfileInterop> interops = new List<ProfileInterop>();
             foreach (Profile b in Profiles) interops.Add(ToInterop(b));
-            //JsonSerializerSettings settings = new JsonSerializerSettings();
-            //settings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
-            //return Json(interops, settings);
             return Json(interops);
         }
 

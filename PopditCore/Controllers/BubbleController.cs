@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -155,7 +154,7 @@ namespace PopditCore.Controllers
 
         // CREATE
         // POST: api/Bubble
-        [ResponseType(typeof(Bubble))]
+        [ResponseType(typeof(BubbleInterop))]
         public IHttpActionResult PostBubble(BubbleInterop bi)
         {
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
@@ -177,7 +176,7 @@ namespace PopditCore.Controllers
             db.Bubbles.Add(b);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = b.Id }, b);
+            return CreatedAtRoute("DefaultApi", new { id = b.Id }, bi);
         }
 
         // DELETE

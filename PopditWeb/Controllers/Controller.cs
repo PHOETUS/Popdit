@@ -42,7 +42,7 @@ namespace PopditWeb.Controllers
             return r;
         }
 
-        public enum WebApiMethod { Get, Post, Put, Delete }
+        protected enum WebApiMethod { Get, Post, Put, Delete }
 
         protected async Task<string> WebApi(WebApiMethod method, string servicePath, Object content = null)
         {

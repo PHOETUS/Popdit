@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using System.IO;
 using Newtonsoft.Json;
 using PopditWebApi;
 using System.Threading.Tasks;
@@ -33,6 +32,7 @@ namespace PopditWeb.Controllers
             {
                 Friend f = new Friend();
                 f.Nickname = collection["Nickname"];
+                f.Tagline = collection["Tagline"];
                 await WebApi(WebApiMethod.Post, "api/Friend", f);
                 return RedirectToAction("Index", "Friend");
             }

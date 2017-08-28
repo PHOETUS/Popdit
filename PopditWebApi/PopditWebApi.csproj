@@ -45,6 +45,7 @@
     <Compile Include="Classes\EventInterop.cs" />
     <Compile Include="Classes\Friend.cs" />
     <Compile Include="Classes\Location.cs" />
+    <Compile Include="Classes\LogEventInterop.cs" />
     <Compile Include="Classes\ProfileInterop.cs" />
     <Compile Include="Classes\RadiusInterop.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -36,6 +36,7 @@
                         @Html.Hidden("Id", Model[i].Id, new { @name = "Id" })
                         <table class="content">
                             <tr><td colspan="2">@Model[i].Nickname</td></tr>
+                            <tr><td colspan="2" class="subtitle">@Model[i].Tagline</td></tr>
                             <tr><td><input type="button" onclick="ToggleRow(@Model[i].Id)" value="Delete" /></td></tr>
                             <tr class="delete" id="@("delete" + Model[i].Id)"><td><input name="command" type="submit" value="Confirm deletion" class="confirm" /></td></tr>
                         </table>

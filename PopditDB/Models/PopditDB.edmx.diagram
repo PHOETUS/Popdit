@@ -16,6 +16,7 @@
         <AssociationConnector Association="PopditDBModel.FK_Events_Profiles" ManuallyRouted="false" />
         <AssociationConnector Association="PopditDBModel.FK_Friends_Owned" ManuallyRouted="false" />
         <AssociationConnector Association="PopditDBModel.FK_Friends_Owner" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PopditDBModel.LogEvent" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

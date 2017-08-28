@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -80,26 +79,5 @@ namespace PopditPop.Controllers
         {
             return db.Events.Count(e => e.Id == id) > 0;
         }
-
-        /*
-        // GET: api/Event
-        public IQueryable<Event> GetEvents()
-        {
-            return db.Events;
-        }
-
-        // GET: api/Event/5
-        [ResponseType(typeof(Event))]
-        public IHttpActionResult GetEvent(int id)
-        {
-            Event @event = db.Events.Find(id);
-            if (@event == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(@event);
-        }
-        */
     }
 }
