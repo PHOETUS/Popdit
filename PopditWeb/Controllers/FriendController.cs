@@ -36,8 +36,8 @@ namespace PopditWeb.Controllers
                 await WebApi(WebApiMethod.Post, "api/Friend", f);
                 return RedirectToAction("Index", "Friend");
             }
-            // Authentication failure?
-            catch (Exception e) { return RedirectToAction("Index", "Home"); }
+            // Authentication failure?  No such friend?
+            catch (Exception e) { return RedirectToAction("Index", "Friend"); }
         }
 
         // EDIT - filled (This method follows the pattern of the one in the bubble controller - that's why it's an update, not a delete.)

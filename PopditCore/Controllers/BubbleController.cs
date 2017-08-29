@@ -86,7 +86,7 @@ namespace PopditCore.Controllers
         // GET: api/Bubble
         public System.Web.Http.Results.JsonResult<List<BubbleInterop>> GetBubbles()
         {
-            List<Bubble> bubbles = db.Bubbles.Where(m => m.ProfileId == AuthenticatedUserId).OrderBy(m => m.Name).ToList(); // Security.
+            List<Bubble> bubbles = db.Bubbles.Where(m => m.ProfileId == AuthenticatedUserId && m.Deleted == false).OrderBy(m => m.Name).ToList(); // Security.
             List<BubbleInterop> interops = new List<BubbleInterop>();
             foreach (Bubble b in bubbles) interops.Add(ToInterop(b));
             return Json(interops);
@@ -173,6 +173,7 @@ namespace PopditCore.Controllers
 
             b.Radius = db.Radii.Find(bi.RadiusId);  // TBD - too expensive
             b.UpdateMaxMin();
+            b.Deleted = false;
             db.Bubbles.Add(b);
             db.SaveChanges();
 
@@ -185,12 +186,12 @@ namespace PopditCore.Controllers
         public IHttpActionResult DeleteBubble(int id)
         {
             Bubble bubble = db.Bubbles.Find(id); // TBD - Security.
-            if (bubble == null)
-            {
-                return NotFound();
-            }
+            if (bubble == null) { return NotFound(); }
 
-            db.Bubbles.Remove(bubble);
+            // If the bubble already has events, soft delete it; otherwise, hard delete it.
+            if (bubble.Events != null && bubble.Events.Count > 0) bubble.Deleted = true;
+            else db.Bubbles.Remove(bubble);
+
             db.SaveChanges();
 
             return StatusCode(HttpStatusCode.NoContent);

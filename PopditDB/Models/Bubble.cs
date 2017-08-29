@@ -37,7 +37,7 @@ namespace PopditDB.Models
         public string Url { get; set; }
         public bool Active { get; set; }
         public Nullable<System.DateTime> Created { get; set; }
-        public Nullable<System.DateTime> Create { get; set; }
+        public Nullable<bool> Deleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Event> Events { get; set; }

@@ -1,13 +1,11 @@
 ﻿<!DOCTYPE html>
 <html>
-<!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">-->
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--<meta name="apple-mobile-web-app-status-bar-style" content="black">-->
     <meta property="og:image" content="https://stage.popdit.com/Content/Logo.gif" />
     <title>@ViewBag.Title - Popdit</title>
-    @Styles.Render("~/Content/css?nocache=" + DateTime.Now.Second.ToString()) <!-- TBD remove seconds for production -->
+    @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/popdit")
 </head>
 <body>

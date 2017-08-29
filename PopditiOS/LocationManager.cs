@@ -16,7 +16,6 @@ namespace PopditiOS
     public class LocationManager : IDisposable
     {
         protected static CLLocationManager LocMgr;
-        //List<BubbleMobile> BubbleCatalog;
         CredentialsManager credentials = new CredentialsManager();
 
         // A location bubble was popped.  Notify the server and display the notification string to the user.
@@ -35,8 +34,8 @@ namespace PopditiOS
                 string json = await WebApiPost("api/Event", localEvent);
                 EventMobile serverEvent = (EventMobile)JsonConvert.DeserializeObject(json, typeof(EventMobile));
 
-                // If the event has not been suppressed, process it.
-                if (!serverEvent.Suppressed)
+                // If the event has not been suppressed and the server hit didn't fail, process it.
+                if (!serverEvent.Suppressed && json != null)
                 {
                     Debug.WriteLine(">>>>> Processing event: Bubble #" + bubbleId.ToString());
                     // Display a notification.
@@ -78,13 +77,12 @@ namespace PopditiOS
             {
                 // Get the user's location and code it as the bubble zone.
                 CLLocation location = LocMgr.Location;
-                double latitude = location.Coordinate.Latitude; // TBD double
-                double longitude = location.Coordinate.Longitude; // TBD double
+                double latitude = location.Coordinate.Latitude;
+                double longitude = location.Coordinate.Longitude;
                 Debug.WriteLine(">>>>> Refreshing at " + latitude.ToString() + ", " + longitude.ToString());
                 Location loc = new Location(latitude, longitude);
                 // Get all the bubbles in the zone.
                 string json = await WebApiPost("api/Bubble", loc);
-
                 List<BubbleMobile> bubbleCatalog = (List<BubbleMobile>)JsonConvert.DeserializeObject(json, typeof(List<BubbleMobile>));
 
                 // At the last possible moment, delete all the existing bubbles.
@@ -138,7 +136,7 @@ namespace PopditiOS
                     // TBD - Handle error
                     Debug.WriteLine(">>>>> Error in WebApiPost: " + e.Message);
                     return null;
-                }
+                }                
             }
         }
 
