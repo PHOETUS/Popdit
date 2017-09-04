@@ -29,6 +29,7 @@ namespace PopditiOS
             set;
         }
 
+        /*
         public override void OnResignActivation (UIApplication application)
 		{
 			// Invoked when the application is about to move from active to inactive state.
@@ -59,5 +60,6 @@ namespace PopditiOS
 		{
 			// Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
 		}
+        */
 	}
 }

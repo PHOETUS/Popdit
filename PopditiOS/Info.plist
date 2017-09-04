@@ -7,7 +7,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>com.Popdit.Popdit</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.2</string>
+	<string>1.0.3</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIDeviceFamily</key>
